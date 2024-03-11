@@ -1,0 +1,45 @@
+Các chức Trang chính và mô tả  
+
+	1. Main
+gồm 3 thành phần chính : 
+1.1 header: gồm có Cart(giỏ hàng); User(chỗ nãy sẽ hiện Login/Register nếu chưa đăng nhập, nếu đã đăng nhập thì hiện tên User)
+1.2 content : hiện grid các cuốn sách hiện có (gồm 3 hàng và 4 cột), dưới grid là control chuyển sang các trang sản phẩm khác
+
+	2. Login
+gồm 2 phần:
+2.1 gồm text Login to đặt giữa trên cùng của trang 
+2.2 gồm form đăng nhập. trong form gồm có 3 dòng
+	dòng 1 : label "Username" và text input 
+	dòng 2 : label "Password" và text input (input "**")
+	dòng 3 : nút "Log"
+
+	3. Register
+gồm 2 phần 
+3.1 gồm text Register to đặt giữa trên cùng của trang 
+3.2 gồm form đăng kí. trong form gồm 4 dòng 
+	dòng 1 : label "Username" và text input 
+	dòng 2 : label "Password" và text input (input "**")
+	dòng 3 : label "valid Pass" và text input (input "**")
+	dòng 3 : nút "Regis"
+
+	4. Cart 
+gồm 2 phần 
+4.1 header : 
+	- Username
+	- Mã đơn hàng 
+	- Nút Thanh Toán
+4.2 form(các sản phẩm đã thêm vào giỏ hàng) 
+thể hiện trong form như sau:
+'tên sản phẩm' -(trừ) |số lượng sản phẩm| +(cộng)   'tiền của sản phẩm'
+- - -  (các sản phẩm)
+'tổng tiền'                       'tổng tiền'(tổng tiền sản phẩm trong giỏ hàng)
+
+
+	5. Thanh Toán
+gồm 3 hàng chính
+5.1 mã đơn hàng
+5.2 phương thức thanh toán (để 1 ratio  'COD' )
+5.3 nút xác nhận đặt hàng
+
+	6. Trang dành riêng cho admin (sau khi đã đăng nhập)
+tạm thời chỉ hiện 1 vùng xuất ra các đơn hàng đã được đặt
