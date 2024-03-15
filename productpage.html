@@ -1,0 +1,202 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>productPage1</title>
+<link rel="stylesheet" href="productpage1.css">
+<script src="productpage1.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Baloo 2">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+</head>
+
+<body>
+<!-- NavBar -->
+     <header>
+        <div class="logo">NXB XYZ</div>
+        <input type="checkbox" id="nav_check" hidden>
+        <nav>
+            <ul>
+                <li>
+                    <a href="" class="active">Trang chủ</a>
+                </li>
+                <li>
+                    <a href="">Sản phẩm</a>
+                </li>
+                <li>
+                    <a href="">Tìm kiếm</a>
+                </li>
+                <li>
+                    <a href="">Giỏ hàng</a>
+                </li>
+                <li>
+                    <a href="">Người dùng</a>
+                </li>
+            </ul>
+        </nav>
+        <label for="nav_check" class="smallScale">
+            <div></div>
+            <div></div>
+            <div></div>
+        </label>
+    </header>	
+
+<!-- Container1 -->
+<main class="container1">
+	
+  <!-- Left Column / Books Image -->
+  <div class="left-column1">
+	 <img data-image="thuong" class="active" src="https://product.hstatic.net/200000287623/product/khe_hat_loi_yeu_-_bia_1_99d254ed75184a80b9cfd1ccc262e855_master.png" alt="thuong">
+    <img data-image="dacbiet" src="https://product.hstatic.net/200000287623/product/skipandloafer_4_dacbiet_16de609fe5194cbd9dceb9be1f3a3462_master.jpg" alt="dacbiet">
+    <img data-image="gioihan" src="https://scontent.fsgn2-7.fna.fbcdn.net/v/t39.30808-6/429585368_819622810210965_3314963073881244178_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=5f2048&_nc_ohc=wh6z7RjETtUAX88UaXE&_nc_ht=scontent.fsgn2-7.fna&oh=00_AfAVvV2PCahofA6sx1-XH1kPqbM4Z2LpEMFU_waKwqucRA&oe=65F98597" alt="gioihan">
+  </div>
+ 
+ 
+  <!-- Right Column -->
+  <div class="right-column1">
+ 
+    <!-- Product Description -->
+    <div class="product-description">
+      <span>Danh mục / Manga / Khẽ hát lời yêu</span>
+      <h1>Khẽ hát lời yêu 3</h1>
+	  <h3 class="author">Eku Takeshima</h3>
+      <p>Dù đã tạm hoãn lại câu trả lời cho lời tỏ tình của Yori, mối quan hệ giữa Himari và Yori không thể quay lại như trước kia. Aki tỏ ra không bằng lòng trước tình hình này và buộc phải thúc đẩy Himari. Liệu sự can thiệp của Aki có thể tạo ra bước ngoặt không? Mời các bạn đón đọc câu chuyện về tình yêu nảy sinh từ hiểu lầm của hai cô gái trong Khẽ hát lời yêu – Whispering you a love song tập 3!</p>
+    </div>
+ 
+    <!-- Product Configuration -->
+    <div class="product-configuration">
+ 
+      <!-- Cable Configuration -->
+      <div class="edition-config">
+        <span>Chọn phiên bản</span>
+ 
+        <div class="edition-choose">
+          <button onclick="changeImage('thuong')">Thường</button>
+  		  <button onclick="changeImage('dacbiet')">Đặc biệt</button>
+  		  <button onclick="changeImage('gioihan')">Giới hạn</button>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- Product Pricing -->
+    <div class="product-price">
+      <span>65.000đ</span>
+      <a href="#" class="cart-btn">Thêm vào giỏ hàng</a>
+    </div>
+  </div>
+</main>
+
+<div class="webTitle">
+	<h1>Thông tin Series</h1>	
+</div>
+
+<div class="grid-container">
+        <div class="grid-item header">Trạng thái</div>
+        <div class="grid-item content">Đang phát hành</div>
+	    <div class="grid-item header">Năm xuất bản</div>
+        <div class="grid-item content">2024</div>
+	    <div class="grid-item header">Kích thước</div>
+        <div class="grid-item content">13 x 18 cm</div>
+		<div class="grid-item header">Đối tượng</div>
+        <div class="grid-item content">13+</div>
+		<div class="grid-item header">Tags</div>
+        <div class="grid-item content">Lãng mạn, Girls Love</div>
+    </div>
+<!-- Grid san pham -->	
+	<div class="webTitle">
+		<h1>Sách cùng Series</h1>
+	</div>
+<div class = "wrapper">
+    <div class = "container">
+		<div class = "sanPham">
+		<div class = "containerSP">
+		<div class = "itemSP">
+			<div class = "imgSP">
+            	<img src = "https://product.hstatic.net/200000287623/product/khe_hat_loi_yeu_-_bia_1_6bbd3bcb1cb942c191ae0b31446b3ffa_master.png" alt = "imageSP">
+            <div>
+                <button type = "button" class = "add-btn">Thêm vào giỏ hàng</button>
+            </div>
+         </div>
+         <div class = "contentSP">
+         	<a href = "#" class = "book-title">KHẼ HÁT LỜI YÊU - TẬP 1</a>
+            <p class = "author">Tác giả: <span>Eku Takeshima</span></p>
+		 <div><span class="giaTien">65.000đ</span></div>
+         </div>
+         </div>
+		
+		<div class = "itemSP">
+			<div class = "imgSP">
+            	<img src = "https://product.hstatic.net/200000287623/product/khe_hat_loi_yeu_tap_2_-_bia_1_e9335c5bc01d49238b9646e19be30bba_master.png" alt = "imageSP">
+            <div>
+                <button type = "button" class = "add-btn">Thêm vào giỏ hàng</button>
+            </div>
+         </div>
+         <div class = "contentSP">
+         	<a href = "#" class = "book-title">KHẼ HÁT LỜI YÊU - TẬP 2</a>
+            <p class = "author">Tác giả: <span>Eku Takeshima</span></p>
+		 <div><span class="giaTien">65.000đ</span></div>
+         </div>
+         </div>
+		
+		<div class = "itemSP">
+			<div class = "imgSP">
+            	<img src = "https://product.hstatic.net/200000287623/product/khe_hat_loi_yeu_-_bia_1_99d254ed75184a80b9cfd1ccc262e855_master.png" alt = "imageSP">
+            <div>
+                <button type = "button" class = "add-btn">Thêm vào giỏ hàng</button>
+            </div>
+         </div>
+         <div class = "contentSP">
+         	<a href = "#" class = "book-title">KHẼ HÁT LỜI YÊU - TẬP 3</a>
+            <p class = "author">Tác giả: <span>Eku Takeshima</span></p>
+		 <div><span class="giaTien">65.000đ</span></div>
+         </div>
+         </div>
+    </div>
+</div>
+	</div>
+	</div>
+	
+<!-- Footer -->
+<footer class="footer">
+  	 <div class="container">
+  	 	<div class="row">
+  	 		<div class="footer-col">
+  	 			<h4>NXB XYZ</h4>
+  	 			<ul>
+  	 				<li><a href="#">Về chúng tôi</a></li>
+  	 				<li><a href="#">Dịch vụ của chúng tôi</a></li>
+  	 				<li><a href="#">Chính sách bảo mật</a></li>
+  	 				<li><a href="#">Chương trình liên kết</a></li>
+  	 			</ul>
+  	 		</div>
+  	 		<div class="footer-col">
+  	 			<h4>Bạn cần trợ giúp?</h4>
+  	 			<ul>
+  	 				<li><a href="#">FAQ</a></li>
+  	 				<li><a href="#">Giao hàng</a></li>
+  	 				<li><a href="#">Đổi trả</a></li>
+  	 				<li><a href="#">Trạng thái đơn hàng</a></li>
+  	 			</ul>
+  	 		</div>
+  	 		<div class="footer-col">
+  	 			<h4>online shop</h4>
+  	 			<ul>
+  	 				<li><a href="#">Manga</a></li>
+  	 				<li><a href="#">Light Novel</a></li>
+  	 				<li><a href="#">Comics</a></li>
+  	 				<li><a href="#">Kỹ năng sống</a></li>
+  	 			</ul>
+  	 		</div>
+  	 		<div class="footer-col">
+  	 			<h4>Theo dõi chúng tôi</h4>
+  	 			<div class="social-links">
+  	 				<a href="#"><i class="fab fa-facebook-f"></i></a>
+  	 				<a href="#"><i class="fab fa-twitter"></i></a>
+  	 				<a href="#"><i class="fab fa-instagram"></i></a>
+  	 				<a href="#"><i class="fab fa-linkedin-in"></i></a>
+  	 			</div>
+  	 		</div>
+  	 	</div>
+  	 </div>
+  </footer>
+</body>
+</html>
