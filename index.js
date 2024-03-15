@@ -17,11 +17,11 @@ app.use(express.static("public"))
 
 
 app.get("/", (req,res)=>{
-    res.sendFile(path.join(__dirname, './views/login.html'));
+    res.redirect('/Web_KTPM/');
 })
 
 app.get("/signup",(req,res)=>{
-    res.sendFile(path.join(__dirname, './views/signup.html'));
+    res.redirect('/Web_KTPM/signup');
 })
 
 app.post("/signup",async (req,res)=>{
