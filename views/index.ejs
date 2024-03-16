@@ -22,215 +22,63 @@
 	</div>
 </div>	
 <!-- NavBar -->
-     <header>
-        <div class="logo">NXB XYZ</div>
-        <input type="checkbox" id="nav_check" hidden>
-        <nav>
-            <ul>
-                <li>
-                    <a href="" class="active">Trang chủ</a>
-                </li>
-                <li>
-                    <a href="">Sản phẩm</a>
-                </li>
-                <li>
-                    <a href="">Tìm kiếm</a>
-                </li>
-                <li>
-                    <a href="">Giỏ hàng</a>
-                </li>
-                <li>
-                    <a href="">Người dùng</a>
-                </li>
-            </ul>
-        </nav>
-        <label for="nav_check" class="smallScale">
-            <div></div>
-            <div></div>
-            <div></div>
-        </label>
-    </header>
+<header>
+<div class="logo">NXB XYZ</div>
+<input type="checkbox" id="nav_check" hidden>
+<nav>
+    <ul>
+        <li>
+            <a href="" class="active">Trang chủ</a>
+        </li>
+        <li>
+            <a href="">Sản phẩm</a>
+        </li>
+        <li>
+            <a href="">Tìm kiếm</a>
+        </li>
+        <li>
+            <a href="">Giỏ hàng</a>
+        </li>
+        <li>
+            <a href="">Người dùng</a>
+        </li>
+    </ul>
+</nav>
+<label for="nav_check" class="smallScale">
+    <div></div>
+    <div></div>
+    <div></div>
+</label>
+</header>
 	
 <!-- Grid san pham -->	
-	<div class="homepageTitle">Ấn phẩm mới phát hành</div>
+<div class="homepageTitle">Ấn phẩm mới phát hành</div>
 <div class = "wrapper">
     <div class = "container">
 		<div class = "sanPham">
-		<div class = "containerSP">
-		<div class = "itemSP">
-			<div class = "imgSP">
-            	<img src = "http://product.hstatic.net/200000343865/product/1_f1f8407f02ea479cbc019681daea6f72_grande.jpg" alt = "imageSP">
-            <div>
-                <button type = "button" class = "add-btn">Thêm vào giỏ hàng</button>
+		    <div class = "containerSP">         
+                <% Object.keys(pros).forEach(key => { %>
+                    <div class="itemSP">
+                        <div class="imgSP">
+                            <img src="<%= pros[key].picURL %>" alt="imageSP">
+                        
+                        <div>
+                            <button type="button" class="add-btn">Thêm vào giỏ </button>
+                        </div>
+                    </div>
+                    <div class="contentSP">
+                        <a href="#" class="book-title"><%= pros[key].name %></a>
+                        <p class="author">Tác giả: <span><%= pros[key].author %></span></p>
+                        <div><span class="giaTien"><%= pros[key].price %></span></div>
+                    </div>
+                    </div>
+                <% }); %>
+               
+              
             </div>
-         </div>
-         <div class = "contentSP">
-         	<a href = "#" class = "book-title">BOCCHI THE ROCK - TẬP 1</a>
-            <p class = "author">Tác giả: <span>Aki Hamazi</span></p>
-		 <div><span class="giaTien">40.000đ</span></div>
-         </div>
-         </div>
-		
-		<div class = "itemSP">
-			<div class = "imgSP">
-            	<img src = "http://product.hstatic.net/200000343865/product/3_5a6b44f2bad04752b624ed4efb14fbf5_grande.jpg" alt = "imageSP">
-            <div>
-                <button type = "button" class = "add-btn">Thêm vào giỏ hàng</button>
-            </div>
-         </div>
-         <div class = "contentSP">
-         	<a href = "#" class = "book-title">FRIEREN - PHÁP SƯ TIỄN TÁNG - TẬP 3</a>
-            <p class = "author">Tác giả: <span>Kanehito Yamada, Tsukasa Abe</span></p>
-		 <div><span class="giaTien">45.000đ</span></div>
-         </div>
-         </div>
-		
-		<div class = "itemSP">
-			<div class = "imgSP">
-            	<img src = "https://product.hstatic.net/200000287623/product/oshi_no_ko_7_-_bia_1_6cbe4e44396d4ae39defd93970e664a0_master.jpg" alt = "imageSP">
-            <div>
-                <button type = "button" class = "add-btn">Thêm vào giỏ hàng</button>
-            </div>
-         </div>
-         <div class = "contentSP">
-         	<a href = "#" class = "book-title">Oshi no Ko - Dưới Ánh Hào Quang - 7</a>
-            <p class = "author">Tác giả: <span>Aka Akasaka</span></p>
-		 <div><span class="giaTien">88.000đ</span></div>
-         </div>
-         </div>
-		
-		<div class = "itemSP">
-			<div class = "imgSP">
-            	<img src = "https://product.hstatic.net/200000287623/product/evangelion_5_bia_1_674f4f388f324964834a83b4848e4d2a_master.jpg" alt = "imageSP">
-            <div>
-                <button type = "button" class = "add-btn">Thêm vào giỏ hàng</button>
-            </div>
-         </div>
-         <div class = "contentSP">
-         	<a href = "#" class = "book-title">Neon Genesis Evangelion (Collector's Edition) - 5</a>
-            <p class = "author">Tác giả: <span> khara</span></p>
-		 <div><span class="giaTien">200.000đ</span></div>
-         </div>
-         </div>
-		
-		<div class = "itemSP">
-			<div class = "imgSP">
-            	<img src = "http://product.hstatic.net/200000343865/product/5_8d2ba0113ea3468b892cfa2e64e6542a_grande.jpg" alt = "imageSP">
-            <div>
-                <button type = "button" class = "add-btn">Thêm vào giỏ hàng</button>
-            </div>
-         </div>
-         <div class = "contentSP">
-         	<a href = "#" class = "book-title">CÓ CHÓ CÓ MÈO, NGÀY NÀO CŨNG VUI - TẬP 5</a>
-            <p class = "author">Tác giả: <span>Hidekichi Matsumoto</span></p>
-		 <div><span class="giaTien">35.000đ</span></div>
-         </div>
-         </div>
-		
-		<div class = "itemSP">
-			<div class = "imgSP">
-            	<img src = "https://product.hstatic.net/200000287623/product/changbanggiavananglanhlung_6_manga_bia_1_c74ba9e2c3bc458a907d06030e25193a_master.png" alt = "imageSP">
-            <div>
-                <button type = "button" class = "add-btn">Thêm vào giỏ hàng</button>
-            </div>
-         </div>
-         <div class = "contentSP">
-         	<a href = "#" class = "book-title">Chàng Băng Giá Và Nàng Lạnh Lùng - 6</a>
-            <p class = "author">Tác giả: <span> Tonogaya Miyuki</span></p>
-		 <div><span class="giaTien">55.000đ</span></div>
-         </div>
-         </div>
-		
-		<div class = "itemSP">
-			<div class = "imgSP">
-            	<img src = "http://product.hstatic.net/200000343865/product/3_84deaeea32904a969326ed629e1bf04b_grande.jpg" alt = "imageSP">
-            <div>
-                <button type = "button" class = "add-btn">Thêm vào giỏ hàng</button>
-            </div>
-         </div>
-         <div class = "contentSP">
-         	<a href = "#" class = "book-title">NGÔN NGỮ YÊU THƯƠNG - TẬP 3</a>
-            <p class = "author">Tác giả: <span>suu Morishita</span></p>
-		 <div><span class="giaTien">30.000đ</span></div>
-         </div>
-         </div>
-		
-		<div class = "itemSP">
-			<div class = "imgSP">
-            	<img src = "https://product.hstatic.net/200000287623/product/skip_and_loafer_4_-_bia_1_b0b3251908634c97b52772ff73f98e6d_master.jpg" alt = "imageSP">
-            <div>
-                <button type = "button" class = "add-btn">Thêm vào giỏ hàng</button>
-            </div>
-         </div>
-         <div class = "contentSP">
-         	<a href = "#" class = "book-title">Skip And Loafer - Nhịp Bước Tuổi Xanh - 4</a>
-            <p class = "author">Tác giả: <span>Misaki Takamatsu</span></p>
-		 <div><span class="giaTien">58.000đ</span></div>
-         </div>
-         </div>
-		
-		<div class = "itemSP">
-			<div class = "imgSP">
-            	<img src = "http://product.hstatic.net/200000343865/product/10---obi_d20c295b75354ed6992a197543124a2f_grande.jpg" alt = "imageSP">
-            <div>
-                <button type = "button" class = "add-btn">Thêm vào giỏ hàng</button>
-            </div>
-         </div>
-         <div class = "contentSP">
-         	<a href = "#" class = "book-title">SOLO LEVELING - TÔI THĂNG CẤP MỘT MÌNH - TẬP 10</a>
-            <p class = "author">Tác giả: <span>Dubu (Redice Studio), Chugong</span></p>
-		 <div><span class="giaTien">88.000đ</span></div>
-         </div>
-         </div>
-		
-		<div class = "itemSP">
-			<div class = "imgSP">
-            	<img src = "http://product.hstatic.net/200000343865/product/20_3ae71550ce2d434ca9c3ef57f41872b5_grande.jpg" alt = "imageSP">
-            <div>
-                <button type = "button" class = "add-btn">Thêm vào giỏ hàng</button>
-            </div>
-         </div>
-         <div class = "contentSP">
-         	<a href = "#" class = "book-title">CHÚ THUẬT HỒI CHIẾN - TẬP 20</a>
-            <p class = "author">Tác giả: <span>Gege Akutami</span></p>
-		 <div><span class="giaTien">30.000đ</span></div>
-         </div>
-         </div>
-		
-		<div class = "itemSP">
-			<div class = "imgSP">
-            	<img src = "https://product.hstatic.net/200000287623/product/khe_hat_loi_yeu_tap_2_-_bia_1_e9335c5bc01d49238b9646e19be30bba_master.png" alt = "imageSP">
-            <div>
-                <button type = "button" class = "add-btn">Thêm vào giỏ hàng</button>
-            </div>
-         </div>
-         <div class = "contentSP">
-         	<a href = "#" class = "book-title">Khẽ Hát Lời Yêu - 2</a>
-            <p class = "author">Tác giả: <span>Eku Takeshima</span></p>
-		 <div><span class="giaTien">65.000đ</span></div>
-         </div>
-         </div>
-		
-		<div class = "itemSP">
-			<div class = "imgSP">
-            	<img src = "http://product.hstatic.net/200000343865/product/5_046f66e37ce2493e9831b21b47a3371e_grande.jpg" alt = "imageSP">
-            <div>
-                <button type = "button" class = "add-btn">Thêm vào giỏ hàng</button>
-            </div>
-         </div>
-         <div class = "contentSP">
-         	<a href = "#" class = "book-title">CHU DU ẨM THỰC TẠI DỊ GIỚI VỚI KĨ NĂNG KHÔNG TƯỞNG - TẬP 5</a>
-            <p class = "author">Tác giả: <span>Aki Hamazi</span></p>
-		 <div><span class="giaTien">40.000đ</span></div>
-         </div>
-         </div>
-		
-		
-                    
-    </div>
+        </div>
+	</div>
 </div>
-	</div>
-	</div>
 	
 <!-- Footer -->
 <footer class="footer">

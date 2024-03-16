@@ -49,22 +49,29 @@ app.post("/signup",async (req,res)=>{
 app.post("/login",async (req,res)=>{
     try{
         const check = await dataUser.findOne({name:req.body.username})
+        const product = await dataProduct.find()
         if(!check){
             res.send("user name cannot found")
         }
 
         const isPasswordMatch = await bcrypt.compare(req.body.password, check.password)
         if(isPasswordMatch){
-            res.render("index")
+            res.render("index" ,{ pros: product } )
         }else{
             req.send("wrong password")
         }
-    }catch{
+    }catch(err){
         res.send("wrong detail")
+        console.log(err);
     }
 })
 
-const port = 5000
+async function getProductData() {
+    let x = await dataProduct.find();
+    return x;
+}
+
+const port = 5001
 app.listen(port,()=>{
     console.log(`server running on port : ${port}`)
 })

@@ -24,14 +24,17 @@ const LoginSchema1 = new mongoose.Schema({
 const LoginSchema2 = new mongoose.Schema({
     picURL: String,
     name: String,
-    script: String, 
+    author: String, 
     price: Number
 })
 
 // collection part
 const dataUser = new mongoose.model("users", LoginSchema1)
-const dataProduct = new mongoose.model("products", LoginSchema1)
+const dataProduct = new mongoose.model("products", LoginSchema2)
 
-module.exports = dataUser
-module.exports = dataProduct
-
+/* module.exports = dataUser
+module.exports = dataProduct */
+module.exports = {
+    dataUser: dataUser,
+    dataProduct: dataProduct
+};
