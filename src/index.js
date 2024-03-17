@@ -1,7 +1,9 @@
 const express = require('express')
 const path = require('path')
 const bcrypt = require('bcrypt')
-const collection = require('./src/config')
+
+const {dataUser, dataProduct} = require('./config')
+
 
 const app = express()
 // conver data into JSON format
@@ -10,18 +12,20 @@ app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 
 
+//use ejs as the view enginne 
+app.set('view engine', 'ejs');
 // static file
-app.use(express.static("public"))
-
-
+app.use(express.static('public'))
 
 app.get("/", (req,res)=>{
-    res.sendFile(path.join(__dirname, './views/login.html'));
+    res.render("login")
 })
 
 app.get("/signup",(req,res)=>{
-    res.sendFile(path.join(__dirname, './views/signup.html'));
+    res.render("signup")
 })
+
+
 
 app.post("/signup",async (req,res)=>{
     const data ={
@@ -30,17 +34,23 @@ app.post("/signup",async (req,res)=>{
     }
 
     //check if the user aldready exist in the database
-    const existingUser = await collection.findOne({name: data.name})
+
+    const existingUser = await dataUser.findOne({name: data.name})
     if(existingUser != null){
-        res.send('user has aldredy in database')
+        res.render('signup',{ error: "User has aldready been taken" });
+        return;
+
     }else{
         // hash the password using bcrypt
         const saltRounds = 10
         const hashedPassword = await bcrypt.hash(data.password, saltRounds)
 
         data.password = hashedPassword
-        const userdata = await collection.insertMany(data)
+
+        const userdata = await dataUser.insertMany(data)
         console.log(userdata)
+        res.render('login', {message: 'Login successfully'}); 
+
     }
 
 })
@@ -48,24 +58,34 @@ app.post("/signup",async (req,res)=>{
 //Login user
 app.post("/login",async (req,res)=>{
     try{
-        const check = await collection.findOne({name:req.body.username})
+
+        const check = await dataUser.findOne({name:req.body.username})
+        const product = await dataProduct.find()
         if(!check){
-            res.send("user name cannot found")
+             res.render('login',{ error: "User not found, please try again" });
+             return;
+
         }
 
         const isPasswordMatch = await bcrypt.compare(req.body.password, check.password)
         if(isPasswordMatch){
-            res.sendFile(path.join(__dirname, './views/index.html'));
+
+            res.render("index" ,{ pros: product } )
         }else{
             req.send("wrong password")
         }
-    }catch{
+    }catch(err){
         res.send("wrong detail")
+        console.log(err);
+
     }
 })
 
 
+
+
 const port = 5000
 app.listen(port,()=>{
-    console.log(`server running on port : ${port}`)
+    console.log(`server running on localhost:${port}`)
+
 })

@@ -9,5 +9,7 @@ function changeImage(imageName) {
   });
 
   // Add the active class to the image with the corresponding data-image attribute
-  //document.querySelector(.left-column1 img[data-image=`${imageName}`]).classList.add('active');
+
+  //document.querySelector(.left-column1 img[data-image="${imageName}"]).classList.add('active');
+
 }
