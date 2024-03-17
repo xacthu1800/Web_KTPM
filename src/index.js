@@ -22,6 +22,7 @@ app.get("/signup",(req,res)=>{
     res.render("signup")
 })
 
+
 app.post("/signup",async (req,res)=>{
     const data ={
         name :  req.body.username,
@@ -31,7 +32,8 @@ app.post("/signup",async (req,res)=>{
     //check if the user aldready exist in the database
     const existingUser = await dataUser.findOne({name: data.name})
     if(existingUser != null){
-        res.send('user has aldredy in database')
+        res.render('signup',{ error: "User has aldready been taken" });
+        return;
     }else{
         // hash the password using bcrypt
         const saltRounds = 10
@@ -51,7 +53,8 @@ app.post("/login",async (req,res)=>{
         const check = await dataUser.findOne({name:req.body.username})
         const product = await dataProduct.find()
         if(!check){
-            res.send("user name cannot found")
+             res.render('login',{ error: "User not found, please try again" });
+             return;
         }
 
         const isPasswordMatch = await bcrypt.compare(req.body.password, check.password)
@@ -66,12 +69,9 @@ app.post("/login",async (req,res)=>{
     }
 })
 
-async function getProductData() {
-    let x = await dataProduct.find();
-    return x;
-}
 
-const port = 5001
+
+const port = 5000
 app.listen(port,()=>{
-    console.log(`server running on port : ${port}`)
+    console.log(`server running on localhost:${port}`)
 })

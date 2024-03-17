@@ -20,6 +20,17 @@
                 <label for="password">Password</label>
                 <input type="password" name="password" id="password" placeholder="password" required>
             </div>
+            <label style="color: red; font-weight: bold; " id="notifcation">
+                <% if (typeof error !== 'undefined' && error !== null) { %>
+                    <%= error %>
+                <% } %>         
+            </label>
+            <label style="color: green; font-weight: bold; ">
+                <% if (typeof message !== 'undefined' && message !== null) { %>
+                    <%= message %>
+                <% } %>         
+            </label>
+           
             <button type="submit" class="sudmit-btn">Login</button>
         </form>
         <p>Don't have an account? <a href="/signup">signup</a></p>
