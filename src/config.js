@@ -32,8 +32,7 @@ const LoginSchema2 = new mongoose.Schema({
 const dataUser = new mongoose.model("users", LoginSchema1)
 const dataProduct = new mongoose.model("products", LoginSchema2)
 
-/* module.exports = dataUser
-module.exports = dataProduct */
+
 module.exports = {
     dataUser: dataUser,
     dataProduct: dataProduct

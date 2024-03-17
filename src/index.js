@@ -25,8 +25,6 @@ app.get("/signup",(req,res)=>{
     res.render("signup")
 })
 
-
-
 app.post("/signup",async (req,res)=>{
     const data ={
         name :  req.body.username,
@@ -80,10 +78,6 @@ app.post("/login",async (req,res)=>{
 
     }
 })
-
-
-
-
 const port = 5000
 app.listen(port,()=>{
     console.log(`server running on localhost:${port}`)
