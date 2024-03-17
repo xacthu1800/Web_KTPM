@@ -1,7 +1,7 @@
 const express = require('express')
 const path = require('path')
 const bcrypt = require('bcrypt')
-
+const session = require('express-session');
 const {dataUser, dataProduct} = require('./config')
 
 
@@ -16,6 +16,12 @@ app.use(express.urlencoded({extended: false}))
 app.set('view engine', 'ejs');
 // static file
 app.use(express.static('public'))
+
+app.use(session({
+    secret: 'secret', // Chuỗi bí mật để mã hóa session
+    resave: false,
+    saveUninitialized: false
+  }));
 
 app.get("/", (req,res)=>{
     res.render("login")
@@ -58,26 +64,45 @@ app.post("/login",async (req,res)=>{
     try{
 
         const check = await dataUser.findOne({name:req.body.username})
-        const product = await dataProduct.find()
         if(!check){
              res.render('login',{ error: "User not found, please try again" });
              return;
-
         }
-
         const isPasswordMatch = await bcrypt.compare(req.body.password, check.password)
         if(isPasswordMatch){
-
-            res.render("index" ,{ pros: product } )
+            req.session.username = req.body.username; 
+            const product = await dataProduct.find()
+            res.render("index" ,{ pros: product, userN: req.session.username} )
         }else{
             req.send("wrong password")
         }
     }catch(err){
         res.send("wrong detail")
         console.log(err);
-
     }
 })
+
+app.get("/productpage", (req,res)=>{
+    res.render('productpage')
+    return
+})
+
+app.get("/index",async(req,res)=>{
+    try{
+        user = req.session.username 
+        if(user!=null){
+            const product = await dataProduct.find()
+            res.render("index" ,{ pros: product, userN: req.session.username} )
+        }else{
+            res.render("login",{error: "please login before enter the website"})
+        }
+    }catch(err){
+        res.send(err)
+    }
+
+    return
+})
+
 const port = 5000
 app.listen(port,()=>{
     console.log(`server running on localhost:${port}`)
