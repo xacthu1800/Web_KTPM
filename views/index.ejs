@@ -8,6 +8,7 @@
     <title>NXB XYZ</title>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Baloo 2">
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+	<script src="indexFunction.js"></script>
 </head>
 
 <body>
@@ -40,7 +41,10 @@
             <a href="">Giỏ hàng</a>
         </li>
         <li>
-            <a href="">Người dùng</a>
+            <a href="">Đăng nhập</a>
+        </li>
+		<li>
+            <a href="">Thoát</a>
         </li>
     </ul>
 </nav>
@@ -63,7 +67,7 @@
                             <img src="<%= pros[key].picURL %>" alt="imageSP">
                         
                         <div>
-                            <button type="button" class="add-btn">Thêm vào giỏ </button>
+                            <button type="button" class="add-btn" onclick="checkSession('<%= pros[key]._id %>')">Thêm vào giỏ </button>
                         </div>
                     </div>
                     <div class="contentSP">

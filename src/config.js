@@ -22,6 +22,7 @@ const LoginSchema1 = new mongoose.Schema({
 })
 
 const LoginSchema2 = new mongoose.Schema({
+    _id: String,
     picURL: String,
     name: String,
     author: String, 

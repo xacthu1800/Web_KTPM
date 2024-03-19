@@ -3,7 +3,7 @@ const path = require('path')
 const bcrypt = require('bcrypt')
 const session = require('express-session');
 const {dataUser, dataProduct} = require('./config')
-
+const PORT = process.env.PORT || 3000;
 
 const app = express()
 // conver data into JSON format
@@ -11,6 +11,7 @@ app.use(express.json())
 
 app.use(express.urlencoded({extended: false}))
 
+//kiểm tra trạng thái người dungf (đã login chưa)
 
 //use ejs as the view enginne 
 app.set('view engine', 'ejs');
@@ -23,8 +24,18 @@ app.use(session({
     saveUninitialized: false
   }));
 
-app.get("/", (req,res)=>{
-    res.render("login")
+app.get('/checkSession', (req, res) => {
+    if (req.session.username) {
+        res.send({ loggedIn: true, user: req.session.username });
+    } else {
+        res.send({ loggedIn: false });
+    }
+});
+
+app.get("/", async (req,res)=>{
+    const product = await dataProduct.find()
+    res.render("index" ,{ pros: product, userN: req.session.username} )
+    return
 })
 
 app.get("/signup",(req,res)=>{
@@ -89,13 +100,8 @@ app.get("/productpage", (req,res)=>{
 
 app.get("/index",async(req,res)=>{
     try{
-        user = req.session.username 
-        if(user!=null){
-            const product = await dataProduct.find()
-            res.render("index" ,{ pros: product, userN: req.session.username} )
-        }else{
-            res.render("login",{error: "please login before enter the website"})
-        }
+        const product = await dataProduct.find()
+        res.render("index" ,{ pros: product, userN: req.session.username})
     }catch(err){
         res.send(err)
     }
@@ -103,8 +109,7 @@ app.get("/index",async(req,res)=>{
     return
 })
 
-const port = 5000
-app.listen(port,()=>{
-    console.log(`server running on localhost:${port}`)
 
-})
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
