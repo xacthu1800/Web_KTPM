@@ -33,7 +33,7 @@ app.get('/checkSession', (req, res) => {
 });
 
 app.get("/", async (req, res) => {
-    const product = await dataProduct.find();
+    const product = await await dataProduct.find().sort({ _id: -1 }).limit(12);
     res.render("index", { pros: product, userN: req.session.username, login: "login", logout: "logout" });
 });
 

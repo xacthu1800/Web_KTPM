@@ -67,7 +67,7 @@
                 <% Object.keys(pros).forEach(key => { %>
                     <div class="itemSP">
                         <div class="imgSP">
-                            <img src="<%= pros[key].picURL %>" alt="imageSP">
+                            <img src="<%= pros[key].sach[0].picURL %>" alt="imageSP">
                         
                         <div>
                             <button type="button" class="add-btn" onclick="checkSession('<%= pros[key]._id %>')">Thêm vào giỏ </button>
@@ -76,7 +76,7 @@
                     <div class="contentSP">
                         <a href="#" class="book-title"><%= pros[key].name %></a>
                         <p class="author">Tác giả: <span><%= pros[key].author %></span></p>
-                        <div><span class="giaTien"><%= pros[key].price %></span></div>
+						<div><span class="giaTien"><%= (pros[key].sach[0].gia).toLocaleString('vi-VN', {style: 'currency', currency: 'VND'}) %></span></div>
                     </div>
                     </div>
                 <% }); %>

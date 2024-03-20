@@ -21,17 +21,33 @@ const LoginSchema1 = new mongoose.Schema({
     }
 })
 
-const LoginSchema2 = new mongoose.Schema({
+const sachSchema = new mongoose.Schema({
+    ten: String,
+    gia: Number,
+    picURL: String
+  });
+  
+  const lienQuanSchema = new mongoose.Schema({
+    name: String
+  });
+
+  const bookSchema = new mongoose.Schema({
     _id: String,
-    picURL: String,
+    sach: [sachSchema],
     name: String,
-    author: String, 
-    price: Number
-})
+    author: String,
+    description: String,
+    TrangThai: String,
+    NamXuatBan: String,
+    KichThuoc: String,
+    DoiTuong: String,
+    Tags: String,
+    LienQuan: [lienQuanSchema]
+  });
 
 // collection part
 const dataUser = new mongoose.model("users", LoginSchema1)
-const dataProduct = new mongoose.model("products", LoginSchema2)
+const dataProduct = new mongoose.model("products-tests", bookSchema)
 
 
 module.exports = {
