@@ -41,10 +41,13 @@
             <a href="">Giỏ hàng</a>
         </li>
         <li>
-            <a href="">Đăng nhập</a>
-        </li>
-		<li>
-            <a href="">Thoát</a>
+            <a href="<%= (userN == null) ? '/login' : '/logout' %>">
+				<% if(userN == null) { %>
+						<%= 'Đăng Nhập' %>
+				<% }else{ %>
+						<%= 'Thoát' %>
+					<% }%>
+			</a>
         </li>
     </ul>
 </nav>

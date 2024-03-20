@@ -32,16 +32,25 @@ app.get('/checkSession', (req, res) => {
     }
 });
 
-app.get("/", async (req,res)=>{
-    const product = await dataProduct.find()
-    res.render("index" ,{ pros: product, userN: req.session.username} )
-    return
-})
+app.get("/", async (req, res) => {
+    const product = await dataProduct.find();
+    res.render("index", { pros: product, userN: req.session.username, login: "login", logout: "logout" });
+});
 
 app.get("/signup",(req,res)=>{
     res.render("signup")
 })
 
+app.get("/login",(req,res)=>{
+    res.render("login")
+})
+
+app.get("/logout", async (req, res) => {
+    req.session.username = null;
+    res.redirect("/index");
+});
+
+// user signup
 app.post("/signup",async (req,res)=>{
     const data ={
         name :  req.body.username,
@@ -80,6 +89,7 @@ app.post("/login",async (req,res)=>{
              return;
         }
         const isPasswordMatch = await bcrypt.compare(req.body.password, check.password)
+        //đăng nhập thành công. 
         if(isPasswordMatch){
             req.session.username = req.body.username; 
             const product = await dataProduct.find()
@@ -105,7 +115,6 @@ app.get("/index",async(req,res)=>{
     }catch(err){
         res.send(err)
     }
-
     return
 })
 

@@ -7,10 +7,9 @@ function checkSession(itemId) {
            if (!response.loggedIn) {
                // Hiển thị thông báo nếu người dùng chưa đăng nhập
                alert('Vui lòng đặt nhập trước khi thêm vào giỏ hàng');
-               addItemIntoCart(itemId)
-               console.log(items);
            } else {
-              
+            addItemIntoCart(itemId)
+            console.log(items);
            }
        } else {
            // Hiển thị thông báo nếu có lỗi trong quá trình kiểm tra session
