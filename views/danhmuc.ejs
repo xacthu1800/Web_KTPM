@@ -1,0 +1,246 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>productPage1</title>
+<link rel="stylesheet" href="danhmuc.css">
+<script src="danhmuc.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Baloo 2">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+</head>
+
+<body>
+<!-- NavBar -->
+     <header>
+        <div class="logo">NXB XYZ</div>
+        <input type="checkbox" id="nav_check" hidden>
+        <nav>
+            <ul>
+                <li>
+                    <a href="">Trang chủ</a>
+                </li>
+                <li>
+                    <a href="" class="active">Danh mục</a>
+                </li>
+                <li>
+                    <a href="">Tìm kiếm</a>
+                </li>
+                <li>
+                    <a href="">Giỏ hàng</a>
+                </li>
+                <li>
+                    <a href="">Người dùng</a>
+                </li>
+            </ul>
+        </nav>
+        <label for="nav_check" class="smallScale">
+            <div></div>
+            <div></div>
+            <div></div>
+        </label>
+    </header>	
+
+<!-- Container1 -->
+<main class="container1">
+	
+  <!-- Left Column / Books Image -->
+  <div class="left-column1">
+    <div class="cl"></div>
+    <div class="book-category" ng-cloak>
+        <div class="left-menu hide-responsive">
+            <div class="category sidemenu-template">
+                <h1 class="title">Danh mục </h1>
+                <div class="sidemenu-box">
+                </div>
+            </div>
+                    <h2 class="title">
+                        Thể Loại
+
+                    </h2>
+            </div>
+
+            <div class="product-by-price sidemenu-template" ng-show="mainCatstr=='sach'">
+              
+                <div class="filter">
+                    <ul class='sidebar-menu-new'>
+                        <li >
+                            <input type="checkbox" rel = langman onchange="change()">
+                            <a>Lãng Mạn<i class='item-total'></i></a>
+                        </li>
+                        <li >
+                            <input type="checkbox" rel = girlslove onchange="change()">
+                            <a>Girls Love<i class='item-total'></i></a>
+                        </li>
+                        <li >
+                            <input type="checkbox" rel = haihuoc onchange="change()">
+                            <a>Hài Hước<i class='item-total'></i></a>
+                        </li>
+                        <li >
+                            <input type="checkbox" rel = doithuong onchange="change()">
+                            <a>Đời Thường<i class='item-total'></i></a>
+                        </li>
+                        <li >
+                            <input type="checkbox" rel = amnhac onchange="change()">
+                            <a>Âm Nhạc<i class='item-total'></i></a>
+                        </li>
+                        <li >
+                            <input type="checkbox" rel = shounen onchange="change()">
+                            <a>Shounen<i class='item-total'></i></a>
+                        </li>
+                        <li >
+                            <input type="checkbox" rel = giatuong onchange="change()">
+                            <a>Giả Tưởng<i class='item-total'></i></a>
+                        </li>
+                        <li >
+                            <input type="checkbox" rel = drama onchange="change()">
+                            <a>Drama<i class='item-total'></i></a>
+                        </li>
+                        <li >
+                            <input type="checkbox" rel = dramatamly onchange="change()">
+                            <a>Drama Tâm Lý<i class='item-total'></i></a>
+                        </li>
+                        <li >
+                            <input type="checkbox" rel = mecha onchange="change()">
+                            <a>Mecha<i class='item-total'></i></a>
+                        </li>
+                        <li >
+                            <input type="checkbox" rel = hanhdong onchange="change()">
+                            <a>Hành Động<i class='item-total'></i></a>
+                        </li>
+                        <li >
+                            <input type="checkbox" rel = hocduong onchange="change()">
+                            <a>Học Đường<i class='item-total'></i></a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="product-by-price sidemenu-template">
+                <h2 class="title">Giá</h2>
+                <div class="filter">
+                    <ul class="sidebar-menu-new">
+                        <li>
+                            <input type="checkbox" rel = ~50k onchange="change()">
+                            <a>Giá nhỏ hơn 50.000đ</a>
+                        </li>
+                        <li>
+                            <input type="checkbox" rel = 50k~100k onchange="change()">
+                            <a>Giá từ 50.000 -  100.000đ</a>
+                        </li>
+                        <li>
+                            <input type="checkbox" rel = 100k~150k onchange="change()">
+                            <a>Giá từ 100.000 -  150.000đ</a>
+                        </li>
+                        <li>
+                            <input type="checkbox" rel = 150k~200k onchange="change()">
+                            <a>Giá từ 150.000 -  200.000đ</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+ 
+ 
+  <!-- Right Column -->
+<div class="right-column1">
+ 
+    <!-- Product Description -->
+    <!-- Grid san pham -->	
+<div class = "wrapper">
+    <div class = "container">
+		<div class = "sanPham">
+		<div class = "containerSP">
+
+            <% Object.keys(pros).forEach(key => { %>
+                <div class="itemSP">
+                    <div class="imgSP">
+                        <img src="<%= pros[key].sach[0].picURL %>" alt="imageSP">
+                    
+                    <div>
+                        <button type="button" class="add-btn" onclick="checkSession('<%= pros[key]._id %>')">Thêm vào giỏ </button>
+                    </div>
+                </div>
+                <div class="contentSP">
+                    <a href="#" class="book-title"><%= pros[key].name %></a>
+                    <p class="author">Tác giả: <span><%= pros[key].author %></span></p>
+                    <div><span class="giaTien"><%= (pros[key].sach[0].gia).toLocaleString('vi-VN', {style: 'currency', currency: 'VND'}) %></span></div>
+                </div>
+                </div>
+            <% }); %>
+    </div>
+</div>
+	</div>
+	</div>
+  </div>
+</main>
+
+	
+<!-- Footer -->
+<footer class="footer">
+  	 <div class="container">
+  	 	<div class="row">
+  	 		<div class="footer-col">
+  	 			<h4>NXB XYZ</h4>
+  	 			<ul>
+  	 				<li><a href="#">Về chúng tôi</a></li>
+  	 				<li><a href="#">Dịch vụ của chúng tôi</a></li>
+  	 				<li><a href="#">Chính sách bảo mật</a></li>
+  	 				<li><a href="#">Chương trình liên kết</a></li>
+  	 			</ul>
+  	 		</div>
+  	 		<div class="footer-col">
+  	 			<h4>Bạn cần trợ giúp?</h4>
+  	 			<ul>
+  	 				<li><a href="#">FAQ</a></li>
+  	 				<li><a href="#">Giao hàng</a></li>
+  	 				<li><a href="#">Đổi trả</a></li>
+  	 				<li><a href="#">Trạng thái đơn hàng</a></li>
+  	 			</ul>
+  	 		</div>
+  	 		<div class="footer-col">
+  	 			<h4>online shop</h4>
+  	 			<ul>
+  	 				<li><a href="#">Manga</a></li>
+  	 				<li><a href="#">Light Novel</a></li>
+  	 				<li><a href="#">Comics</a></li>
+  	 				<li><a href="#">Kỹ năng sống</a></li>
+  	 			</ul>
+  	 		</div>
+  	 		<div class="footer-col">
+  	 			<h4>Theo dõi chúng tôi</h4>
+  	 			<div class="social-links">
+  	 				<a href="#"><i class="fab fa-facebook-f"></i></a>
+  	 				<a href="#"><i class="fab fa-twitter"></i></a>
+  	 				<a href="#"><i class="fab fa-instagram"></i></a>
+  	 				<a href="#"><i class="fab fa-linkedin-in"></i></a>
+  	 			</div>
+  	 		</div>
+  	 	</div>
+  	 </div>
+  </footer>
+</body>
+</html>
+<script>
+    function change() {
+  let results = Array.from(document.querySelectorAll('.containerSP > div'));
+  // Hide all results
+  results.forEach(function(result) {
+    result.style.display = 'none';
+  });
+  // Filter results to only those that meet ALL requirements:
+  Array.from(document.querySelectorAll('.filter input[rel]:checked'), function(input) {
+    const attrib = input.getAttribute('rel');
+    results = results.filter(function(result) {
+      return result.classList.contains(attrib);
+    });
+  });
+  // Show those filtered results:
+  results.forEach(function(result) {
+    result.style.display = 'block';
+  });
+}
+change();
+</script>
