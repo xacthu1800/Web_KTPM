@@ -17,10 +17,13 @@
         <nav>
             <ul>
                 <li>
-                    <a href="">Trang chủ</a>
+                    <a href="/index" class="active">Trang chủ</a>
                 </li>
                 <li>
-                    <a href="" class="active">Danh mục</a>
+                    <a href="/productpage">Sản phẩm</a>
+                </li>
+                <li>
+                    <a href="/danhmuc">Danh mục</a>
                 </li>
                 <li>
                     <a href="">Tìm kiếm</a>
@@ -29,7 +32,13 @@
                     <a href="">Giỏ hàng</a>
                 </li>
                 <li>
-                    <a href="">Người dùng</a>
+                    <a href="<%= (userN == null) ? '/login' : '/logout' %>">
+                        <% if(userN == null) { %>
+                                <%= 'Đăng Nhập' %>
+                        <% }else{ %>
+                                <%= 'Thoát' %>
+                            <% }%>
+                    </a>
                 </li>
             </ul>
         </nav>

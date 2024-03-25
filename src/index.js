@@ -121,6 +121,10 @@ app.get("/index",async(req,res)=>{
     return
 })
 
+app.get("/danhmuc",async(req,res)=>{
+    const product = await await dataProduct.find()
+    res.render('danhmuc',{ pros: product, userN: req.session.username, login: "login", logout: "logout" } ) 
+})
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
