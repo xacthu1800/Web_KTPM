@@ -1,0 +1,174 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>productPage1</title>
+<link rel="stylesheet" href="cart.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Baloo 2">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<script src="cart.js"></script>
+</head>
+
+<body>
+<!-- NavBar -->
+     <header>
+        <div class="logo">NXB XYZ</div>
+        <input type="checkbox" id="nav_check" hidden>
+		<nav>
+			<ul>
+				<li>
+					<a href="/index" class="active">Trang chủ</a>
+				</li>
+				<li>
+					<a href="/productpage">Sản phẩm</a>
+				</li>
+				<li>
+					<a href="/danhmuc">Danh mục</a>
+				</li>
+				<li>
+					<a href="">Tìm kiếm</a>
+				</li>
+				<li>
+					<a href="/cart">Giỏ hàng</a>
+				</li>
+				<li>
+					<a href="<%= (userN == null) ? '/login' : '/logout' %>">
+						<% if(userN == null) { %>
+								<%= 'Đăng Nhập' %>
+						<% }else{ %>
+								<%= 'Thoát' %>
+							<% }%>
+					</a>
+				</li>
+			</ul>
+		</nav>
+        <label for="nav_check" class="smallScale">
+            <div></div>
+            <div></div>
+            <div></div>
+        </label>
+    </header>
+
+<div class="webTitle">
+	<h1>Giỏ hàng của bạn</h1>	
+</div>	
+	
+<!-- Container1 -->
+<main class="container">
+	
+  <!-- Left Column-->
+  <div class="left-column">
+	<table>
+		<tr>
+			<th colspan="2">SẢN PHẨM</th>
+			<th>SỐ LƯỢNG</th>
+			<th>GIÁ TIỀN</th>
+		</tr>
+		<tr>
+			<td class="column1"><img src = "http://product.hstatic.net/200000343865/product/1_f1f8407f02ea479cbc019681daea6f72_grande.jpg" width="60px" height="70px" alt = "imageSP">
+			</td>
+			<td class="column2">BOCCHI THE ROCK - TẬP 1</td>
+			<th><span class="countbox">
+      <input type="button" value="-" onclick="decrementCount(event)">
+      <input type="number" value="1" min="0" max="99" onchange="updateCount(event)">
+      <input type="button" value="+" onclick="incrementCount(event)">
+    </span></th>
+			<td class="column4">40.000đ</td>
+		</tr>
+		<tr>
+			<td class="column1"><img src = "http://product.hstatic.net/200000343865/product/3_5a6b44f2bad04752b624ed4efb14fbf5_grande.jpg" width="60px" height="70px" alt = "imageSP">
+			</td>
+			<td class="column2">FRIEREN - PHÁP SƯ TIỄN TÁNG - TẬP 3</td>
+			<th><span class="countbox">
+      <input type="button" value="-" onclick="decrementCount(event)">
+      <input type="number" value="1" min="0" max="99" onchange="updateCount(event)">
+      <input type="button" value="+" onclick="incrementCount(event)">
+    </span></th>
+			<td class="column4">45.000đ</td>
+		</tr>
+		<tr>
+			<td class="column1"><img src = "https://product.hstatic.net/200000287623/product/oshi_no_ko_7_-_bia_1_6cbe4e44396d4ae39defd93970e664a0_master.jpg" width="60px" height="70px" alt = "imageSP">
+			</td>
+			<td class="column2">OSHI NO KO - DƯỚI ÁNH HÀO QUANG - TẬP 7</td>
+			<th><span class="countbox">
+      <input type="button" value="-" onclick="decrementCount(event)">
+      <input type="number" value="1" min="0" max="99" onchange="updateCount(event)">
+      <input type="button" value="+" onclick="incrementCount(event)">
+    </span></th>
+			<td class="column4">88.000đ</td>
+		</tr>
+	</table>
+  </div>
+ 
+ 
+  <!-- Right Column -->
+	<div class="right-column">
+		<div class="box-model">
+			<div class="box-title">THÔNG TIN ĐƠN HÀNG</div>
+			<hr style="border: 0; border-bottom: 1px solid black; margin: 1.5rem 0;">
+		<div class="total-amount">
+        <span class="total-title">Tổng tiền:</span>
+        <span class="total-number">173.000đ</span>
+      </div>
+			<hr style="border: 0; border-bottom: 1px solid black; margin: 1.5rem 0;">
+      <div class="text-box">
+        <label for="note">Ghi chú đơn hàng:</label>
+        <input type="text" id="note" name="note">
+      </div>
+      <div class="text-box">
+        <label for="promo-code">Mã khuyến mãi (Nếu có):</label>
+        <input type="text" id="promo-code" name="promo-code">
+      </div>
+      <div class="button-container">
+        <button class="button-pay" type="button">Thanh toán ngay</button>
+      </div>
+    </div>
+			
+		</div>
+	</main>
+<!-- Footer -->
+<footer class="footer">
+  	 <div class="container">
+  	 	<div class="row">
+  	 		<div class="footer-col">
+  	 			<h4>NXB XYZ</h4>
+  	 			<ul>
+  	 				<li><a href="#">Về chúng tôi</a></li>
+  	 				<li><a href="#">Dịch vụ của chúng tôi</a></li>
+  	 				<li><a href="#">Chính sách bảo mật</a></li>
+  	 				<li><a href="#">Chương trình liên kết</a></li>
+  	 			</ul>
+  	 		</div>
+  	 		<div class="footer-col">
+  	 			<h4>Bạn cần trợ giúp?</h4>
+  	 			<ul>
+  	 				<li><a href="#">FAQ</a></li>
+  	 				<li><a href="#">Giao hàng</a></li>
+  	 				<li><a href="#">Đổi trả</a></li>
+  	 				<li><a href="#">Trạng thái đơn hàng</a></li>
+  	 			</ul>
+  	 		</div>
+  	 		<div class="footer-col">
+  	 			<h4>online shop</h4>
+  	 			<ul>
+  	 				<li><a href="#">Manga</a></li>
+  	 				<li><a href="#">Light Novel</a></li>
+  	 				<li><a href="#">Comics</a></li>
+  	 				<li><a href="#">Kỹ năng sống</a></li>
+  	 			</ul>
+  	 		</div>
+  	 		<div class="footer-col">
+  	 			<h4>Theo dõi chúng tôi</h4>
+  	 			<div class="social-links">
+  	 				<a href="#"><i class="fab fa-facebook-f"></i></a>
+  	 				<a href="#"><i class="fab fa-twitter"></i></a>
+  	 				<a href="#"><i class="fab fa-instagram"></i></a>
+  	 				<a href="#"><i class="fab fa-linkedin-in"></i></a>
+  	 			</div>
+  	 		</div>
+  	 	</div>
+  	 </div>
+  </footer>
+
+</body>
+</html>

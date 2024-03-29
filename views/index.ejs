@@ -40,7 +40,7 @@
             <a href="">Tìm kiếm</a>
         </li>
         <li>
-            <a href="">Giỏ hàng</a>
+            <a href="/cart">Giỏ hàng</a>
         </li>
         <li>
             <a href="<%= (userN == null) ? '/login' : '/logout' %>">
@@ -72,7 +72,7 @@
                             <img src="<%= pros[key].sach[0].picURL %>" alt="imageSP">
                         
                         <div>
-                            <button type="button" class="add-btn" onclick="checkSession('<%= pros[key]._id %>')">Thêm vào giỏ </button>
+                            <button type="button" class="add-btn" onclick="addToCart('<%= pros[key]._id %>')">Thêm vào giỏ </button>
                         </div>
                     </div>
                     <div class="contentSP">
@@ -130,5 +130,23 @@
   	 	</div>
   	 </div>
   </footer>
-</body>
+  <script>
+	function addToCart(productID) {
+        // Tạo một đối tượng dữ liệu để gửi lên server
+        const data = { productID: productID };
+
+        // Gửi yêu cầu POST đến route "/add-to-cart" trên server
+        fetch('/add-to-cart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }).then(response => {
+            // Xử lý phản hồi từ server (nếu cần)
+        }).catch(error => {
+            console.error('Error:', error);
+        });
+    }
+  </script>
 </html>

@@ -1,3 +1,4 @@
+
 function checkSession(itemId) {
    var xhr = new XMLHttpRequest();
    xhr.open('GET', '/checkSession');
@@ -20,24 +21,5 @@ function checkSession(itemId) {
    };
    xhr.send();
 }
-let items = []
 
-function addItemIntoCart (item_id){
-   let item = { key: item_id,
-               quantity: 1
-               }
-   let isInCart = false
-   if(items.length >0){
-      items.forEach(itemm => {
-         if(itemm.key === item_id){
-            itemm.quantity++
-            isInCart = true
-         }
-      })
-   }
-   if(isInCart == false){
-      items.push(item)
-   }
-  
-}
 

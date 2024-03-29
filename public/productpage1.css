@@ -107,19 +107,19 @@ html, body {
 
 /* Columns */
 .left-column1 {
-  width: 40%;
+  flex: 0 0 40%;
   position: relative;
 }
  
 .right-column1 {
-  width: 60%;
+  flex: 1;
   margin-top: 60px;
   margin-left: 85px;
 }
 
 /* Left Column */
 .left-column1 img {
-  width: 100%;
+  width: 90%;
   position: absolute;
   left: 0;
   top: 0;

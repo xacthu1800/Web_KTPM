@@ -19,39 +19,11 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'))
 
 app.use(session({
-    secret: 'secret', // Chuỗi bí mật để mã hóa session
+    secret: 'secret_key',
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: true,
+    cookie: { secure: false },
   }));
-
-app.get('/checkSession', (req, res) => {
-    if (req.session.username) {
-        res.send({ loggedIn: true, user: req.session.username });
-    } else {
-        res.send({ loggedIn: false });
-    }
-});
-
-app.get("/", async (req, res) => {
-    /* const product = await await dataProduct.find()
-    res.render('danhmuc',{ pros: product, userN: req.session.username, login: "login", logout: "logout" } ) */
-
-    const product = await await dataProduct.find().sort({ _id: -1 }).limit(12);
-    res.render("index", { pros: product, userN: req.session.username, login: "login", logout: "logout" });
-});
-
-app.get("/signup",(req,res)=>{
-    res.render("signup")
-})
-
-app.get("/login",(req,res)=>{
-    res.render("login")
-})
-
-app.get("/logout", async (req, res) => {
-    req.session.username = null;
-    res.redirect("/index");
-});
 
 // user signup
 app.post("/signup",async (req,res)=>{
@@ -81,7 +53,6 @@ app.post("/signup",async (req,res)=>{
     }
 
 })
-
 //Login user
 app.post("/login",async (req,res)=>{
     try{
@@ -106,14 +77,58 @@ app.post("/login",async (req,res)=>{
     }
 })
 
+app.post('/add-to-cart', (req, res) => {
+    const { productID, quantity } = req.body;
+    // Kiểm tra xem người dùng đã đăng nhập chưa
+    if (!req.session.username) {
+      res.status(401).send('Bạn cần đăng nhập trước khi thêm sản phẩm vào giỏ hàng.');
+      return;
+    }
+    // Thêm sản phẩm vào giỏ hàng trong session
+    if (!req.session.cart) {
+      req.session.cart = {};
+    }
+    req.session.cart[productID] = (req.session.cart[productID] || 0) + parseInt(quantity);
+    res.send('Sản phẩm đã được thêm vào giỏ hàng.');
+  });
+
+app.get('/checkSession', (req, res) => {
+    if (req.session.username) {
+        res.send({ loggedIn: true, user: req.session.username });
+    } else {
+        res.send({ loggedIn: false });
+    }
+});
+
+app.get("/", async (req, res) => {
+    /* const product = await await dataProduct.find()
+    res.render('danhmuc',{ pros: product, userN: req.session.username, login: "login", logout: "logout" } ) */
+
+    const product = await await dataProduct.find().sort({ _id: -1 }).limit(12);
+    res.render("index", { pros: product, userN: req.session.username, login: "login", logout: "logout" });
+});
+
+app.get("/signup",(req,res)=>{
+    res.render("signup")
+})
+
+app.get("/login",(req,res)=>{
+    res.render("login")
+})
+
+app.get("/logout", async (req, res) => {
+    req.session.destroy();
+    res.redirect("/index");
+});
+
 app.get("/productpage", (req,res)=>{
-    res.render('productpage')
+    res.render('productpage', {userN: req.session.username})
     return
 })
 
 app.get("/index",async(req,res)=>{
     try{
-        const product = await dataProduct.find()
+        const product = await await dataProduct.find().sort({ _id: -1 }).limit(12);
         res.render("index" ,{ pros: product, userN: req.session.username})
     }catch(err){
         res.send(err)
@@ -126,6 +141,21 @@ app.get("/danhmuc",async(req,res)=>{
     res.render('danhmuc',{ pros: product, userN: req.session.username, login: "login", logout: "logout" } ) 
 })
 
+app.get('/cart', (req, res) => {
+    // Kiểm tra xem người dùng đã đăng nhập chưa
+    if (!req.session.username) {
+      res.status(401).send('Bạn cần đăng nhập để xem giỏ hàng.');
+      return;
+    }
+    // Lấy thông tin giỏ hàng từ session
+  const cart = req.session.cart || {};
+  // In thông tin giỏ hàng ra console
+  console.log('Giỏ hàng của người dùng', req.session.username, ':', cart);
+  // Gửi thông tin giỏ hàng cho client
+  res.json({ cart });
+  });
+
+
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+    console.log(`Server is running on localhost:${PORT}`);
 });

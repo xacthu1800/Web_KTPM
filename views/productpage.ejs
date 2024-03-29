@@ -15,24 +15,33 @@
         <div class="logo">NXB XYZ</div>
         <input type="checkbox" id="nav_check" hidden>
         <nav>
-            <ul>
+          <ul>
               <li>
                   <a href="/index" class="active">Trang chủ</a>
               </li>
               <li>
                   <a href="/productpage">Sản phẩm</a>
               </li>
-                <li>
-                    <a href="">Tìm kiếm</a>
-                </li>
-                <li>
-                    <a href="">Giỏ hàng</a>
-                </li>
-                <li>
-                    
+          <li>
+                  <a href="/danhmuc">Danh mục</a>
               </li>
-            </ul>
-        </nav>
+              <li>
+                  <a href="">Tìm kiếm</a>
+              </li>
+              <li>
+                  <a href="/cart">Giỏ hàng</a>
+              </li>
+              <li>
+                  <a href="<%= (userN == null) ? '/login' : '/logout' %>">
+              <% if(userN == null) { %>
+                  <%= 'Đăng Nhập' %>
+              <% }else{ %>
+                  <%= 'Thoát' %>
+                <% }%>
+            </a>
+              </li>
+          </ul>
+      </nav>
         <label for="nav_check" class="smallScale">
             <div></div>
             <div></div>
