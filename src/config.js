@@ -26,6 +26,10 @@ const sachSchema = new mongoose.Schema({
     gia: Number,
     picURL: String
   });
+
+const tag = new mongoose.Schema({
+tag: String,
+});
   
   const lienQuanSchema = new mongoose.Schema({
     name: String
@@ -41,7 +45,7 @@ const sachSchema = new mongoose.Schema({
     NamXuatBan: String,
     KichThuoc: String,
     DoiTuong: String,
-    Tags: String,
+    Tags: [tag],
     LienQuan: [lienQuanSchema]
   });
 
