@@ -122,14 +122,14 @@ app.get("/logout", async (req, res) => {
 });
 
 app.get("/productpage", (req,res)=>{
-    res.render('productpage', {userN: req.session.username})
+    res.render('productpage',{ userN: req.session.username, login: "login", logout: "logout" })
     return
 })
 
 app.get("/index",async(req,res)=>{
     try{
         const product = await await dataProduct.find().sort({ _id: -1 }).limit(12);
-        res.render("index" ,{ pros: product, userN: req.session.username})
+        res.render("index" ,{ pros: product, userN: req.session.username, login: "login", logout: "logout" })
     }catch(err){
         res.send(err)
     }
@@ -141,7 +141,7 @@ app.get("/danhmuc",async(req,res)=>{
     res.render('danhmuc',{ pros: product, userN: req.session.username, login: "login", logout: "logout" } ) 
 })
 
-app.get('/cart', (req, res) => {
+/* app.get('/cart', (req, res) => {
     // Kiểm tra xem người dùng đã đăng nhập chưa
     if (!req.session.username) {
       res.status(401).send('Bạn cần đăng nhập để xem giỏ hàng.');
@@ -153,8 +153,11 @@ app.get('/cart', (req, res) => {
   console.log('Giỏ hàng của người dùng', req.session.username, ':', cart);
   // Gửi thông tin giỏ hàng cho client
   res.json({ cart });
-  });
+  }); */
 
+app.get("/checkout", (req, res)=>{
+    res.render('checkout',{ userN: req.session.username, login: "login", logout: "logout" })
+})
 
 app.listen(PORT, () => {
     console.log(`Server is running on localhost:${PORT}`);

@@ -1,0 +1,218 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>productPage1</title>
+<link rel="stylesheet" href="checkout.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Baloo 2">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<script src="indexFunction.js"></script>
+
+</head>
+
+<body>
+<!-- NavBar -->
+     <header>
+        <div class="logo">NXB XYZ</div>
+        <input type="checkbox" id="nav_check" hidden>
+        <nav>
+          <ul>
+            <li>
+                <a href="/index" class="active">Trang chủ</a>
+            </li>
+            <li>
+                <a href="/productpage">Sản phẩm</a>
+            </li>
+        <li>
+                <a href="/danhmuc">Danh mục</a>
+            </li>
+            <li>
+                <a href="#" id="search-link">Tìm kiếm</a>
+            </li>
+            <li>
+                <a href="/checkout">Giỏ hàng</a>
+            </li>
+            <li>
+                <a href="<%= (userN == null) ? '/login' : '/logout' %>">
+            <% if(userN == null) { %>
+                <%= 'Đăng Nhập' %>
+            <% }else{ %>
+                <%= 'Thoát' %>
+              <% }%>
+          </a>
+            </li>
+        </ul>
+        </nav>
+        <label for="nav_check" class="smallScale">
+            <div></div>
+            <div></div>
+            <div></div>
+        </label>
+    </header>
+    <div class="search-box-container" id="search-box-container">
+      <div class="search-box">
+          <input type="text" id="search-input" placeholder="Bạn đang muốn tìm gì?">
+          <button id="search-button">Tìm kiếm</button>
+      </div>
+  </div>
+<div class="webTitle">
+	<h1>Thông tin giao hàng</h1>	
+</div>	
+	
+<!-- Container1 -->
+<main class="container">
+	
+  <!-- Left Column-->
+  <div class="left-column">
+	<div class="box-model-left">
+		<div class="text-box">
+        <label for="name">Họ và tên:</label>
+        <input type="text" id="name" name="name">
+      </div>	
+      <div class="text-box">
+        <label for="address">Địa chỉ:</label>
+        <input type="text" id="address" name="address">
+      </div>
+      <div class="text-box">
+        <label for="phone-num">Số điện thoại:</label>
+        <input type="text" id="phone-num" name="phone-num">
+      </div>
+		<div class="text-box">
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email">
+      </div>
+  </div>
+	</div>
+  <!-- Right Column -->
+	<div class="right-column">
+		<div class="box-model">
+			<div class="box-title">THÔNG TIN ĐƠN HÀNG</div>
+			<div class="total-amount">
+        <span class="total-title">Mã đơn hàng:</span>
+        <span class="total-number">#XYZ123</span>
+      </div>
+			<hr style="border: 0; border-bottom: 1px solid black; margin: 1.5rem 0;">
+		<div class="total-amount">
+        <span class="total-title">Tạm tính:</span>
+        <span class="total-number">173.000đ</span>
+      </div>
+			<div class="total-amount">
+        <span class="total-title">Phí vận chuyển:</span>
+        <span class="total-number">20.000đ</span>
+      </div><hr style="border: 0; border-bottom: 1px solid black; margin: 1.5rem 0;">
+      <div class="total-amount">
+        <span class="total-title">Tổng tiền:</span>
+        <span class="total-number">193.000đ</span>
+    </div>
+			
+		</div>
+	</div>
+	</main>
+<div class="webTitle2">
+	<h1>Phương thức thanh toán</h1>	
+</div>
+	<main class="container">
+	
+  <!-- Left Column-->
+  <div class="left-column">
+	<table>
+    <tr>
+        <td>
+            <input type="radio" name="row" id="row1">
+            <label for="row1">Thanh toán khi nhận hàng (COD)</label>
+            <p>Khi chọn phương thức Thanh toán khi giao hàng (COD), bạn vui lòng kiểm tra kĩ hàng trước khi nhận hàng và thanh toán toàn bộ giá trị đơn hàng cho shipper.</p>
+        </td>
+    </tr>
+    <tr class="separator"></tr>
+    <tr>
+        <td>
+            <input type="radio" name="row" id="row2">
+            <label for="row2">Thanh toán chuyển khoản</label>
+            <p><strong>Quý khách vui lòng chuyển khoản toàn bộ giá trị đơn hàng tới số tài khoản sau:</strong></p>
+			<p><strong>Tên tài khoản:</strong> Nhà xuất bản XYZ</p>
+			<p><strong>Số tài khoản:</strong> 1234567890</p>
+			<p><strong>Ngân hàng IPC - Công Ty Hành Tinh Hòa Bình - Chi nhánh Pier Point</strong></p>
+			<p><strong>Nội dung chuyển khoản:</strong> Tên – Mã Đơn hàng – SĐT </p>
+        </td>
+    </tr>
+</table>
+	  
+
+
+  </div>
+</main>
+  <!-- Pop-up -->	
+		  <div class="container1">
+        <button type="submit" class="btn" onclick="openPopup()">TIẾN HÀNH ĐẶT HÀNG</button>
+      
+	<div class="overlay"></div>
+	<div class="popup" id="popup">
+		<img src="https://onedrive.live.com/embed?resid=22B721284FCB62DE%21195203&authkey=%21AMKBKC4oRv4lwEs&width=2000&height=2000">
+		<h2>BẠN ĐÃ ĐẶT HÀNG THÀNH CÔNG!</h2>
+		<h4>Chúng tôi đã nhận được đơn hàng của bạn. Chúng tôi sẽ gửi lại một email xác nhận trong thời gian sớm nhất. Cảm ơn bạn đã mua hàng.</h4>
+		<button type="button" onclick="closePopup()">OK</button>
+			
+	</div>
+</div>
+	
+	
+<!-- Footer -->
+<footer class="footer">
+  	 <div class="container">
+  	 	<div class="row">
+  	 		<div class="footer-col">
+  	 			<h4>NXB XYZ</h4>
+  	 			<ul>
+  	 				<li><a href="#">Về chúng tôi</a></li>
+  	 				<li><a href="#">Dịch vụ của chúng tôi</a></li>
+  	 				<li><a href="#">Chính sách bảo mật</a></li>
+  	 				<li><a href="#">Chương trình liên kết</a></li>
+  	 			</ul>
+  	 		</div>
+  	 		<div class="footer-col">
+  	 			<h4>Bạn cần trợ giúp?</h4>
+  	 			<ul>
+  	 				<li><a href="#">FAQ</a></li>
+  	 				<li><a href="#">Giao hàng</a></li>
+  	 				<li><a href="#">Đổi trả</a></li>
+  	 				<li><a href="#">Trạng thái đơn hàng</a></li>
+  	 			</ul>
+  	 		</div>
+  	 		<div class="footer-col">
+  	 			<h4>online shop</h4>
+  	 			<ul>
+  	 				<li><a href="#">Manga</a></li>
+  	 				<li><a href="#">Light Novel</a></li>
+  	 				<li><a href="#">Comics</a></li>
+  	 				<li><a href="#">Kỹ năng sống</a></li>
+  	 			</ul>
+  	 		</div>
+  	 		<div class="footer-col">
+  	 			<h4>Theo dõi chúng tôi</h4>
+  	 			<div class="social-links">
+  	 				<a href="#"><i class="fab fa-facebook-f"></i></a>
+  	 				<a href="#"><i class="fab fa-twitter"></i></a>
+  	 				<a href="#"><i class="fab fa-instagram"></i></a>
+  	 				<a href="#"><i class="fab fa-linkedin-in"></i></a>
+  	 			</div>
+  	 		</div>
+  	 	</div>
+  	 </div>
+  </footer>
+
+	<script>
+		let popup = document.getElementById("popup");
+
+function openPopup(){
+    popup.classList.add("open-popup");
+    document.body.classList.add("popup-open");
+}
+
+function closePopup(){
+    popup.classList.remove("open-popup");
+    document.body.classList.remove("popup-open");
+}
+	</script>
+	
+</body>
+</html>

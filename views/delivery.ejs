@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>productPage1</title>
+<link rel="stylesheet" href="delivery.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Baloo 2">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+</head>
+
+<body>
+<!-- NavBar -->
+     <header>
+        <div class="logo">NXB XYZ</div>
+        <input type="checkbox" id="nav_check" hidden>
+        <nav>
+            <ul>
+              <li>
+                  <a href="/index" class="active">Trang chủ</a>
+              </li>
+              <li>
+                  <a href="/productpage">Sản phẩm</a>
+              </li>
+                <li>
+                    <a href="">Tìm kiếm</a>
+                </li>
+                <li>
+                    <a href="">Giỏ hàng</a>
+                </li>
+                <li>
+                    
+              </li>
+            </ul>
+        </nav>
+        <label for="nav_check" class="smallScale">
+            <div></div>
+            <div></div>
+            <div></div>
+        </label>
+    </header>
+
+<div class="webTitle">
+	<h1>Đơn hàng của bạn</h1>	
+</div>	
+	
+<div class="deliveryTable">
+	<table>
+		<tr>
+			<th>Mã đơn hàng</th>
+			<th>Ngày đặt</th>
+			<th>Trạng thái thanh toán</th>
+			<th>Trạng thái vận chuyển</th>
+			<th>Tổng tiền</th>
+		</tr>
+		<tr>
+			<td>#XYZ001</td>
+			<td>02/04/2024</td>
+			<td>Đã thanh toán</td>
+			<td>Đã giao hàng cho vận chuyển</td>
+			<td>410.000đ</td>
+		</tr>
+		<tr>
+			<td>#XYZ002</td>
+			<td>02/04/2024</td>
+			<td>Chờ xử lý</td>
+			<td>Chưa giao hàng</td>
+			<td>70.000đ</td>
+		</tr>
+		<tr>
+			<td>#XYZ003</td>
+			<td>02/04/2024</td>
+			<td>COD</td>
+			<td>Chờ xử lý</td>
+			<td>90.000đ</td>
+		</tr>
+	</table>
+</div>
+	
+	
+<!-- Footer -->
+<footer class="footer">
+  	 <div class="container">
+  	 	<div class="row">
+  	 		<div class="footer-col">
+  	 			<h4>NXB XYZ</h4>
+  	 			<ul>
+  	 				<li><a href="#">Về chúng tôi</a></li>
+  	 				<li><a href="#">Dịch vụ của chúng tôi</a></li>
+  	 				<li><a href="#">Chính sách bảo mật</a></li>
+  	 				<li><a href="#">Chương trình liên kết</a></li>
+  	 			</ul>
+  	 		</div>
+  	 		<div class="footer-col">
+  	 			<h4>Bạn cần trợ giúp?</h4>
+  	 			<ul>
+  	 				<li><a href="#">FAQ</a></li>
+  	 				<li><a href="#">Giao hàng</a></li>
+  	 				<li><a href="#">Đổi trả</a></li>
+  	 				<li><a href="#">Trạng thái đơn hàng</a></li>
+  	 			</ul>
+  	 		</div>
+  	 		<div class="footer-col">
+  	 			<h4>online shop</h4>
+  	 			<ul>
+  	 				<li><a href="#">Manga</a></li>
+  	 				<li><a href="#">Light Novel</a></li>
+  	 				<li><a href="#">Comics</a></li>
+  	 				<li><a href="#">Kỹ năng sống</a></li>
+  	 			</ul>
+  	 		</div>
+  	 		<div class="footer-col">
+  	 			<h4>Theo dõi chúng tôi</h4>
+  	 			<div class="social-links">
+  	 				<a href="#"><i class="fab fa-facebook-f"></i></a>
+  	 				<a href="#"><i class="fab fa-twitter"></i></a>
+  	 				<a href="#"><i class="fab fa-instagram"></i></a>
+  	 				<a href="#"><i class="fab fa-linkedin-in"></i></a>
+  	 			</div>
+  	 		</div>
+  	 	</div>
+  	 </div>
+  </footer>
+
+	<script>
+		let popup = document.getElementById("popup");
+
+function openPopup(){
+    popup.classList.add("open-popup");
+    document.body.classList.add("popup-open");
+}
+
+function closePopup(){
+    popup.classList.remove("open-popup");
+    document.body.classList.remove("popup-open");
+}
+
+	</script>
+	
+</body>
+</html>

@@ -7,6 +7,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Baloo 2">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 <script src="cart.js"></script>
+<script src="indexFunction.js"></script>
+
 </head>
 
 <body>
@@ -26,10 +28,10 @@
 					<a href="/danhmuc">Danh mục</a>
 				</li>
 				<li>
-					<a href="">Tìm kiếm</a>
+					<a href="#" id="search-link">Tìm kiếm</a>
 				</li>
 				<li>
-					<a href="/cart">Giỏ hàng</a>
+					<a href="/checkout">Giỏ hàng</a>
 				</li>
 				<li>
 					<a href="<%= (userN == null) ? '/login' : '/logout' %>">
@@ -48,7 +50,12 @@
             <div></div>
         </label>
     </header>
-
+	<div class="search-box-container" id="search-box-container">
+		<div class="search-box">
+			<input type="text" id="search-input" placeholder="Bạn đang muốn tìm gì?">
+			<button id="search-button">Tìm kiếm</button>
+		</div>
+	</div>
 <div class="webTitle">
 	<h1>Giỏ hàng của bạn</h1>	
 </div>	

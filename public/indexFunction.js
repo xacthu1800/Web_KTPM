@@ -1,25 +1,25 @@
 
-function checkSession(itemId) {
-   var xhr = new XMLHttpRequest();
-   xhr.open('GET', '/checkSession');
-   xhr.onload = function() {
-       if (xhr.status === 200) {
-           var response = JSON.parse(xhr.responseText);
-           if (!response.loggedIn) {
-               // Hiển thị thông báo nếu người dùng chưa đăng nhập
-               alert('Vui lòng đặt nhập trước khi thêm vào giỏ hàng');
-           } else {
-            addItemIntoCart(itemId)
-            console.log(items);
-           }
-       } else {
-           // Hiển thị thông báo nếu có lỗi trong quá trình kiểm tra session
-           alert('Error checking session');
 
-           console.log(items);
-       }
-   };
-   xhr.send();
-}
+document.addEventListener("DOMContentLoaded", function() {
+		
+    var searchLink = document.getElementById("search-link");
+    var searchBoxContainer = document.getElementById("search-box-container");
+    var searchInput = document.getElementById("search-input");
 
+    searchLink.addEventListener("click", function(event) {
+        event.preventDefault();
+        if (searchBoxContainer.style.display === "block") {
+            searchBoxContainer.style.display = "none";
+        } else {
+            searchBoxContainer.style.display = "block";
+        }
+    });
+
+    document.getElementById("search-button").addEventListener("click", function() {
+        var searchTerm = searchInput.value.trim();
+        if (searchTerm !== "") {
+            alert("Perform search for: " + searchTerm);
+        }
+    });
+});
 

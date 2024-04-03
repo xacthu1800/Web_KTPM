@@ -7,6 +7,8 @@
 <script src="productpage1.js"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Baloo 2">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<script src="indexFunction.js"></script>
+
 </head>
 
 <body>
@@ -16,31 +18,31 @@
         <input type="checkbox" id="nav_check" hidden>
         <nav>
           <ul>
-              <li>
-                  <a href="/index" class="active">Trang chủ</a>
-              </li>
-              <li>
-                  <a href="/productpage">Sản phẩm</a>
-              </li>
-          <li>
-                  <a href="/danhmuc">Danh mục</a>
-              </li>
-              <li>
-                  <a href="">Tìm kiếm</a>
-              </li>
-              <li>
-                  <a href="/cart">Giỏ hàng</a>
-              </li>
-              <li>
-                  <a href="<%= (userN == null) ? '/login' : '/logout' %>">
-              <% if(userN == null) { %>
-                  <%= 'Đăng Nhập' %>
-              <% }else{ %>
-                  <%= 'Thoát' %>
-                <% }%>
-            </a>
-              </li>
-          </ul>
+            <li>
+                <a href="/index" class="active">Trang chủ</a>
+            </li>
+            <li>
+                <a href="/productpage">Sản phẩm</a>
+            </li>
+        <li>
+                <a href="/danhmuc">Danh mục</a>
+            </li>
+            <li>
+                <a href="#" id="search-link">Tìm kiếm</a>
+            </li>
+            <li>
+                <a href="/checkout">Giỏ hàng</a>
+            </li>
+            <li>
+                <a href="<%= (userN == null) ? '/login' : '/logout' %>">
+            <% if(userN == null) { %>
+                <%= 'Đăng Nhập' %>
+            <% }else{ %>
+                <%= 'Thoát' %>
+              <% }%>
+          </a>
+            </li>
+        </ul>
       </nav>
         <label for="nav_check" class="smallScale">
             <div></div>
@@ -48,7 +50,12 @@
             <div></div>
         </label>
     </header>	
-
+    <div class="search-box-container" id="search-box-container">
+      <div class="search-box">
+          <input type="text" id="search-input" placeholder="Bạn đang muốn tìm gì?">
+          <button id="search-button">Tìm kiếm</button>
+      </div>
+  </div>
 <!-- Container1 -->
 <main class="container1">
 	
