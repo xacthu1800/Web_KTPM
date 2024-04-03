@@ -40,9 +40,17 @@
         <li>
             <a href="#" id="search-link">Tìm kiếm</a>
         </li>
-        <li>
-            <a href="/checkout">Giỏ hàng</a>
+        <li id="cart-container">
+            <a href="/checkout">
+                <div class="cart-box">
+                    <span>GIỎ HÀNG</span>
+                </div>
+                <div class="cart-box">
+                    <span>0</span>
+                </div>
+            </a>
         </li>
+        
         <li>
             <a href="<%= (userN == null) ? '/login' : '/logout' %>">
 				<% if(userN == null) { %>

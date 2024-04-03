@@ -102,6 +102,33 @@ header nav ul li a.active {
   }
 }
 
+/* Cart box */
+#cart-container {
+  display: flex;
+  align-items: center;
+}
+
+#cart-container > a {
+  display: contents;
+}
+
+.cart-box {
+  border: 3px solid black;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.cart-box:first-child {
+  background-color: black;
+  color: white;
+}
+
+.cart-box span {
+  font-size: 1.5vw;
+}
+
 /* Search box styles */
 .search-box-container {
   display: none;
