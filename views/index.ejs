@@ -46,7 +46,7 @@
                     <span>GIỎ HÀNG</span>
                 </div>
                 <div class="cart-box">
-                    <span>0</span>
+                    <span><%= carts %></span>
                 </div>
             </a>
         </li>
@@ -88,7 +88,7 @@
                             <img src="<%= pros[key].sach[0].picURL %>" alt="imageSP">
                         
                         <div>
-                            <button type="button" class="add-btn" onclick="addToCart('<%= pros[key]._id %>')">Thêm vào giỏ </button>
+                            <button type="button" class="add-btn" onclick="addToCart('<%= pros[key]._id %>');updateCart()">Thêm vào giỏ </button>
                         </div>
                     </div>
                     <div class="contentSP">
@@ -164,6 +164,14 @@
             console.error('Error:', error);
         });
     }
+
+    function updateCart() {
+    // Thực hiện logic thêm sản phẩm vào giỏ hàng ở đây
+
+    // Sau khi đã thêm vào giỏ hàng, chuyển hướng người dùng đến route /index
+    window.location.href = '/index';
+}
+
 
     function checkSession(itemId) {
    var xhr = new XMLHttpRequest();
