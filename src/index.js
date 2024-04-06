@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt')
 const session = require('express-session');
 const {dataUser, dataProduct} = require('./config');
 const { log } = require('console');
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 9000;
 
 const app = express()
 // conver data into JSON format
@@ -152,8 +152,8 @@ app.get("/productpage", (req,res)=>{
 
 
 app.get("/danhmuc",async(req,res)=>{
-    const product = await await dataProduct.find()
-    res.render('danhmuc',{ 
+    const product = await dataProduct.find()
+    res.render('danhmuc',{ pros: product,
         userN: req.session.username, 
         login: "login",
         logout: "logout",
