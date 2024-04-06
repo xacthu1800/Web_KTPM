@@ -8,7 +8,6 @@
     <title>NXB XYZ</title>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Baloo 2">
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-	<script src="indexFunction.js"></script>
 </head>
 
 <body>
@@ -40,17 +39,7 @@
         <li>
             <a href="#" id="search-link">Tìm kiếm</a>
         </li>
-        <li id="cart-container">
-            <a href="/checkout">
-                <div class="cart-box">
-                    <span>GIỎ HÀNG</span>
-                </div>
-                <div class="cart-box">
-                    <span><%= carts %></span>
-                </div>
-            </a>
-        </li>
-        
+
         <li>
             <a href="<%= (userN == null) ? '/login' : '/logout' %>">
 				<% if(userN == null) { %>
@@ -60,6 +49,59 @@
 					<% }%>
 			</a>
         </li>
+
+        <li class="dropdown">
+            <a href="#" id="user-link">Người dùng</a>
+            <div class="dropdown-content">
+                <div class="login-box">
+
+                    <% if(userN == null) { %>
+                        <!-- TRƯỚC KHI ĐĂNG NHẬP -->
+                        <form id="login-form" class="hidden-form"> <!-- Bắt đầu form ẩn đi -->
+                            <label style="font-size: 1.3rem;"><strong>ĐĂNG NHẬP TÀI KHOẢN</strong></label>
+                            <label for="uname"><strong>Email:</strong></label>
+                            <input type="text" id="uname" name="uname">
+                            <label for="pass"><strong>Password:</strong></label>
+                            <input type="text" id="pass" name="pass">
+                            <button id="login-button">ĐĂNG NHẬP</button><br>
+                            <label>Khách hàng mới?  <strong>Tạo tài khoản</strong></label>
+                            <label>Quên mật khẩu?  <strong>Khôi phục mật khẩu</strong></label>
+                        </form>
+                    <% } else { %>
+                        <!-- SAU KHI ĐĂNG NHẬP -->
+                        <form id="login-form" style="display: none;"> <!-- Bắt đầu form ẩn đi -->
+                            <style>
+                                label:hover {
+                                    text-decoration: underline;
+                                    text-decoration-thickness: 2px;
+                                    text-underline-offset: 8px;
+                                    text-decoration-color: black;
+                                }
+                            </style>
+                            <label id="checkout" style="font-size: 1.3rem; align-self: center; margin-bottom: 1px;"><strong>ĐƠN HÀNG CỦA BẠN</strong></label>
+                            <div style="width: 100%; align-items: center; display: flex; justify-content: center;">
+                                <hr style="border: 0; border-bottom: 1px solid black; margin: 1.5rem 0; width: 100%;">
+                            </div>
+                            <label id="logout" style="font-size: 1.3rem; align-self: center; margin-bottom: 1px;"><strong>ĐĂNG XUẤT</strong></label>
+                        </form>
+                    <% } %>
+                        
+
+
+                </div>
+            </div>
+            <li id="cart-container">
+                <a>
+            <div class="cart-box">
+                <span>GIỎ HÀNG</span>
+            </div>
+            <div class="cart-box">
+                <%= carts %>
+            </div>
+        </a>
+        </li>
+        </li>
+        
     </ul>
 </nav>
 <label for="nav_check" class="smallScale">
@@ -197,4 +239,92 @@
 }
     
   </script>
+  
+  <script>
+        //Navbar	
+        document.addEventListener("DOMContentLoaded", function() {
+                
+            var searchLink = document.getElementById("search-link");
+            var searchBoxContainer = document.getElementById("search-box-container");
+            var searchInput = document.getElementById("search-input");
+        
+            searchLink.addEventListener("click", function(event) {
+                event.preventDefault();
+                if (searchBoxContainer.style.display === "block") {
+                    searchBoxContainer.style.display = "none";
+                } else {
+                    searchBoxContainer.style.display = "block";
+                }
+            });
+        
+            document.getElementById("search-button").addEventListener("click", function() {
+                var searchTerm = searchInput.value.trim();
+                if (searchTerm !== "") {
+                    alert("Perform search for: " + searchTerm);
+                }
+            });
+        });
+        
+        document.getElementById('user-link').addEventListener('click', function(event) {
+            event.preventDefault();
+            toggleDropdown();
+        });
+        
+        function toggleDropdown() {
+            const dropdownContent = document.querySelector('.dropdown-content');
+            dropdownContent.style.display = (dropdownContent.style.display === 'block') ? 'none' : 'block';
+        }
+        
+        //Navbar sau khi Log in
+        document.getElementById('checkout').addEventListener('click', function() {
+            window.location.href = 'orders.html';
+          });
+        
+          document.getElementById('logout').addEventListener('click', function() {
+            window.location.href = 'logout.html';
+          });
+                
+                
+        //Pop-up
+        let popup = document.getElementById("popup");
+        
+        function openPopup(){
+            popup.classList.add("open-popup");
+            document.body.classList.add("popup-open");
+        }
+        
+        function closePopup(){
+            popup.classList.remove("open-popup");
+            document.body.classList.remove("popup-open");
+        }
+    
+    </script>
+   
+   <script>
+        // Đảm bảo mã JavaScript được thực thi sau khi tài liệu HTML đã được tải
+        document.addEventListener('DOMContentLoaded', function() {
+            // Lấy phần tử "login-button"
+            var loginButton = document.getElementById('user-link');
+            
+            // Lấy form cần hiển thị khi click vào "login-button"
+            var loginForm = document.getElementById('login-form');
+
+            // Thêm sự kiện click cho "login-button"
+            loginButton.addEventListener('click', function() {
+                // Khi click vào "login-button", thay đổi thuộc tính "display" của form từ "none" sang "block"
+                loginForm.style.display = 'block';
+            });
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+        // Lấy thẻ form
+        var loginForm = document.getElementById('login-form');
+
+        // Kiểm tra trạng thái đăng nhập và ẩn/hiện form tương ứng
+        if (<%= userN %> == null) {
+            loginForm.classList.add('hidden-form');
+        } else {
+            loginForm.classList.remove('hidden-form');
+        }
+    });
+    </script>
 </html>

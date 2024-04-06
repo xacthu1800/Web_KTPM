@@ -7,62 +7,83 @@
 <script src="productpage1.js"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Baloo 2">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-<script src="indexFunction.js"></script>
 
 </head>
 
 <body>
 <!-- NavBar -->
-     <header>
-        <div class="logo">NXB XYZ</div>
-        <input type="checkbox" id="nav_check" hidden>
-        <nav>
-          <ul>
-            <li>
-                <a href="/index" class="active">Trang chủ</a>
-            </li>
-            <li>
-                <a href="/productpage">Sản phẩm</a>
-            </li>
-        <li>
-                <a href="/danhmuc">Danh mục</a>
-            </li>
-            <li>
-                <a href="#" id="search-link">Tìm kiếm</a>
-            </li>
-            <li id="cart-container">
-              <a href="/checkout">
-                  <div class="cart-box">
-                      <span>GIỎ HÀNG</span>
-                  </div>
-                  <div class="cart-box">
-                    <span><%= carts %></span>
-                  </div>
-              </a>
+<header>
+    
+  <div class="logo">NXB XYZ</div>
+  <input type="checkbox" id="nav_check" hidden>
+  <nav>
+      <ul>
+          <li>
+              <a href="/index" class="active">Trang chủ</a>
           </li>
-            <li>
-                <a href="<%= (userN == null) ? '/login' : '/logout' %>">
-            <% if(userN == null) { %>
-                <%= 'Đăng Nhập' %>
-            <% }else{ %>
-                <%= 'Thoát' %>
-              <% }%>
-          </a>
-            </li>
-        </ul>
-      </nav>
-        <label for="nav_check" class="smallScale">
-            <div></div>
-            <div></div>
-            <div></div>
-        </label>
-    </header>	
-    <div class="search-box-container" id="search-box-container">
+          <li>
+              <a href="/productpage">Sản phẩm</a>
+          </li>
+      <li>
+              <a href="/danhmuc">Danh mục</a>
+          </li>
+          <li>
+              <a href="#" id="search-link">Tìm kiếm</a>
+          </li>
+  
+          <li class="dropdown">
+              <a href="#" id="user-link">Người dùng</a>
+              <div class="dropdown-content">
+                  <div class="login-box">
+                      <form style="display: flex; flex-direction: column;">
+                          <style>
+                          label:hover {
+                            text-decoration: underline;
+                          text-decoration-thickness: 2px;
+                            text-underline-offset: 8px;
+                            text-decoration-color: black;
+                          }
+                            </style>
+                        <label id="checkout" style="font-size: 1.3rem; align-self: center; margin-bottom: 1px;"><strong>ĐƠN HÀNG CỦA BẠN</strong></label>
+                        <div style="width: 100%; align-items: center; display: flex; justify-content: center;">
+                      <hr style="border: 0; border-bottom: 1px solid black; margin: 1.5rem 0; width: 100%;">
+                        </div>
+                        <label id="logout" style="font-size: 1.3rem; align-self: center; margin-bottom: 1px;"><strong>ĐĂNG XUẤT</strong></label>
+                      </form>
+                  </div>
+              </div>
+              <li id="cart-container">
+              <div class="cart-box">
+                  <span>GIỎ HÀNG</span>
+              </div>
+              <div class="cart-box">
+                  <%= carts %>
+              </div>
+          </li>
+          </li>
+          <li>
+              <a href="<%= (userN == null) ? '/login' : '/logout' %>">
+          <% if(userN == null) { %>
+              <%= 'Đăng Nhập' %>
+          <% }else{ %>
+              <%= 'Thoát' %>
+            <% }%>
+        </a>
+          </li>
+      </ul>
+  </nav>
+  <label for="nav_check" class="smallScale">
+      <div></div>
+      <div></div>
+      <div></div>
+  </label>
+  <div class="search-box-container" id="search-box-container">
       <div class="search-box">
           <input type="text" id="search-input" placeholder="Bạn đang muốn tìm gì?">
           <button id="search-button">Tìm kiếm</button>
       </div>
   </div>
+  </header>
 <!-- Container1 -->
 <main class="container1">
 	
@@ -221,6 +242,63 @@
   	 	</div>
   	 </div>
   </footer>
-  <script src=""></script>
+  <script>
+    //Navbar	
+    document.addEventListener("DOMContentLoaded", function() {
+            
+        var searchLink = document.getElementById("search-link");
+        var searchBoxContainer = document.getElementById("search-box-container");
+        var searchInput = document.getElementById("search-input");
+    
+        searchLink.addEventListener("click", function(event) {
+            event.preventDefault();
+            if (searchBoxContainer.style.display === "block") {
+                searchBoxContainer.style.display = "none";
+            } else {
+                searchBoxContainer.style.display = "block";
+            }
+        });
+    
+        document.getElementById("search-button").addEventListener("click", function() {
+            var searchTerm = searchInput.value.trim();
+            if (searchTerm !== "") {
+                alert("Perform search for: " + searchTerm);
+            }
+        });
+    });
+    
+    document.getElementById('user-link').addEventListener('click', function(event) {
+        event.preventDefault();
+        toggleDropdown();
+    });
+    
+    function toggleDropdown() {
+        const dropdownContent = document.querySelector('.dropdown-content');
+        dropdownContent.style.display = (dropdownContent.style.display === 'block') ? 'none' : 'block';
+    }
+    
+    //Navbar sau khi Log in
+    document.getElementById('checkout').addEventListener('click', function() {
+        window.location.href = 'orders.html';
+      });
+    
+      document.getElementById('logout').addEventListener('click', function() {
+        window.location.href = 'logout.html';
+      });
+            
+            
+    //Pop-up
+    let popup = document.getElementById("popup");
+    
+    function openPopup(){
+        popup.classList.add("open-popup");
+        document.body.classList.add("popup-open");
+    }
+    
+    function closePopup(){
+        popup.classList.remove("open-popup");
+        document.body.classList.remove("popup-open");
+    }
+        </script>
 </body>
 </html>
