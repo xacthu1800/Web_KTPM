@@ -149,10 +149,10 @@ color: white;
 
 .cart-box {
   border: 3px solid black;
-  height: 100%;
-  display: flex;
+  display: inline-block; /* Đảm bảo các cart-box nằm liền kề nhau */
   align-items: center;
   padding: 0 10px;
+  margin-right: -7px;
 }
 
 .cart-box:first-child {
@@ -163,6 +163,7 @@ color: white;
 .cart-box span {
   font-size: 1.5vw;
 }
+
 
 .dropdown {
   position: relative;
@@ -196,7 +197,7 @@ margin-bottom: 10px;
 font-size: 1.1rem;
 }
 
-.login-box input[type="text"] {
+.login-box input {
   padding: 5px;
   margin-bottom: 10px;
   border: 2px solid black;
@@ -211,11 +212,16 @@ font-size: 1.1rem;
   border-radius: 4px;
   cursor: pointer;
 font-size: 1rem;
+  margin-top: 15px;
 }
 
 .login-box button:hover {
   background-color: black;
 color: white;
+}
+
+.hidden-form {
+  display: none; /* Hide the form */
 }
 /* Product img & des */
 /* Basic Styling */

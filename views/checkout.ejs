@@ -207,19 +207,93 @@
   	 </div>
   </footer>
 
-	<script>
-		let popup = document.getElementById("popup");
+  <script>
+    //Navbar	
+    document.addEventListener("DOMContentLoaded", function() {
+            
+        var searchLink = document.getElementById("search-link");
+        var searchBoxContainer = document.getElementById("search-box-container");
+        var searchInput = document.getElementById("search-input");
+    
+        searchLink.addEventListener("click", function(event) {
+            event.preventDefault();
+            if (searchBoxContainer.style.display === "block") {
+                searchBoxContainer.style.display = "none";
+            } else {
+                searchBoxContainer.style.display = "block";
+            }
+        });
+    
+        document.getElementById("search-button").addEventListener("click", function() {
+            var searchTerm = searchInput.value.trim();
+            if (searchTerm !== "") {
+                alert("Perform search for: " + searchTerm);
+            }
+        });
+    });
+    
+    document.getElementById('user-link').addEventListener('click', function(event) {
+        event.preventDefault();
+        toggleDropdown();
+    });
+    
+    function toggleDropdown() {
+        const dropdownContent = document.querySelector('.dropdown-content');
+        dropdownContent.style.display = (dropdownContent.style.display === 'block') ? 'none' : 'block';
+    }
+    
+    //Navbar sau khi Log in
+    document.getElementById('checkout').addEventListener('click', function() {
+        window.location.href = 'orders.html';
+      });
+    
+      document.getElementById('logout').addEventListener('click', function() {
+        window.location.href = 'logout.html';
+      });
+            
+            
+    //Pop-up
+    let popup = document.getElementById("popup");
+    
+    function openPopup(){
+        popup.classList.add("open-popup");
+        document.body.classList.add("popup-open");
+    }
+    
+    function closePopup(){
+        popup.classList.remove("open-popup");
+        document.body.classList.remove("popup-open");
+    }
 
-function openPopup(){
-    popup.classList.add("open-popup");
-    document.body.classList.add("popup-open");
-}
+</script>
 
-function closePopup(){
-    popup.classList.remove("open-popup");
-    document.body.classList.remove("popup-open");
-}
-	</script>
+<script>
+    // Đảm bảo mã JavaScript được thực thi sau khi tài liệu HTML đã được tải
+    document.addEventListener('DOMContentLoaded', function() {
+        // Lấy phần tử "login-button"
+        var loginButton = document.getElementById('user-link');
+        
+        // Lấy form cần hiển thị khi click vào "login-button"
+        var loginForm = document.getElementById('login-form');
+
+        // Thêm sự kiện click cho "login-button"
+        loginButton.addEventListener('click', function() {
+            // Khi click vào "login-button", thay đổi thuộc tính "display" của form từ "none" sang "block"
+            loginForm.style.display = 'block';
+        });
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+    // Lấy thẻ form
+    var loginForm = document.getElementById('login-form');
+
+    // Kiểm tra trạng thái đăng nhập và ẩn/hiện form tương ứng
+    if (<%= userN %> == null) {
+        loginForm.classList.add('hidden-form');
+    } else {
+        loginForm.classList.remove('hidden-form');
+    }
+});
+</script>
 	
 </body>
 </html>

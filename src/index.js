@@ -160,22 +160,36 @@ app.get("/danhmuc",async(req,res)=>{
         carts: res.locals.carts }) 
 })
 
-/* app.get('/cart', (req, res) => {
+/app.get('/cart', async (req, res) => {
+    const product = await dataProduct.find()
     // Kiểm tra xem người dùng đã đăng nhập chưa
     if (!req.session.username) {
       res.status(401).send('Bạn cần đăng nhập để xem giỏ hàng.');
       return;
     }
-    // Lấy thông tin giỏ hàng từ session
+ /*    // Lấy thông tin giỏ hàng từ session
   const cart = req.session.cart || {};
   // In thông tin giỏ hàng ra console
   console.log('Giỏ hàng của người dùng', req.session.username, ':', cart);
   // Gửi thông tin giỏ hàng cho client
-  res.json({ cart });
-  }); */
+  res.json({ cart }); */
+    res.render('cart', { pros: product,
+        userN: req.session.username, 
+        login: "login",
+        logout: "logout",
+        carts: res.locals.carts })
+  }); 
 
 app.get("/checkout",calculateTotalQuantity, (req, res)=>{
     res.render('checkout',{ 
+        userN: req.session.username, 
+        login: "login",
+        logout: "logout",
+        carts: res.locals.carts })
+})
+
+app.get("/delivery",calculateTotalQuantity, (req, res)=>{
+    res.render('delivery',{ 
         userN: req.session.username, 
         login: "login",
         logout: "logout",

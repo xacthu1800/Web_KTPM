@@ -261,7 +261,7 @@ header nav ul li a.active {
 	font-size: 1.1rem;
 }
 
-.login-box input[type="text"] {
+.login-box input {
     padding: 5px;
     margin-bottom: 10px;
     border: 2px solid black;
@@ -276,6 +276,7 @@ header nav ul li a.active {
     border-radius: 4px;
     cursor: pointer;
 	font-size: 1rem;
+    margin-top: 15px;
 }
 
 .login-box button:hover {
