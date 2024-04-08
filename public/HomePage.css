@@ -3,11 +3,13 @@
 body {
     margin: 0;
     padding: 0;
-	font-family: "Baloo 2", sans-serif;
+    font-family: 'Roboto', sans-serif;
     text-decoration: none;
     list-style: none;
     box-sizing: border-box;
 }
+
+
 
 .hidden {
     display: none;
@@ -88,7 +90,7 @@ header {
 }
 
 header .logo {
-    font-size: 30px;
+    font-size: 30px ;
     text-transform: uppercase;
 }
 
@@ -106,7 +108,7 @@ header nav ul li a {
     text-transform: uppercase;
     transition: 0.2s;
     text-decoration: none;
-    font-size: 1.5vw;
+    font-size: 1.5vw !important;
 }
 
 header nav ul li a:hover,

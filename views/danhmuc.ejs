@@ -104,14 +104,13 @@
         <div></div>
         <div></div>
     </label>
+    </header>
     <div class="search-box-container" id="search-box-container">
         <div class="search-box">
             <input type="text" id="search-input" placeholder="Bạn đang muốn tìm gì?">
             <button id="search-button">Tìm kiếm</button>
         </div>
     </div>
-    </header>
-    
 <!-- Container1 -->
 <main class="container1">
 	
@@ -296,92 +295,144 @@
 </body>
 
 <script>
-    //Navbar	
-    document.addEventListener("DOMContentLoaded", function() {
-            
-        var searchLink = document.getElementById("search-link");
-        var searchBoxContainer = document.getElementById("search-box-container");
-        var searchInput = document.getElementById("search-input");
-    
-        searchLink.addEventListener("click", function(event) {
-            event.preventDefault();
-            if (searchBoxContainer.style.display === "block") {
-                searchBoxContainer.style.display = "none";
-            } else {
-                searchBoxContainer.style.display = "block";
-            }
+	function addToCart(productID) {
+        // Tạo một đối tượng dữ liệu để gửi lên server
+        const data = { productID: productID };
+
+        // Gửi yêu cầu POST đến route "/add-to-cart" trên server
+        fetch('/add-to-cart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }).then(response => {
+            // Xử lý phản hồi từ server (nếu cần)
+        }).catch(error => {
+            console.error('Error:', error);
         });
-    
-        document.getElementById("search-button").addEventListener("click", function() {
-            var searchTerm = searchInput.value.trim();
-            if (searchTerm !== "") {
-                alert("Perform search for: " + searchTerm);
-            }
-        });
-    });
-    
-    document.getElementById('user-link').addEventListener('click', function(event) {
-        event.preventDefault();
-        toggleDropdown();
-    });
-    
-    function toggleDropdown() {
-        const dropdownContent = document.querySelector('.dropdown-content');
-        dropdownContent.style.display = (dropdownContent.style.display === 'block') ? 'none' : 'block';
-    }
-    
-    //Navbar sau khi Log in
-    document.getElementById('checkout').addEventListener('click', function() {
-        window.location.href = 'orders.html';
-      });
-    
-      document.getElementById('logout').addEventListener('click', function() {
-        window.location.href = 'logout.html';
-      });
-            
-            
-    //Pop-up
-    let popup = document.getElementById("popup");
-    
-    function openPopup(){
-        popup.classList.add("open-popup");
-        document.body.classList.add("popup-open");
-    }
-    
-    function closePopup(){
-        popup.classList.remove("open-popup");
-        document.body.classList.remove("popup-open");
     }
 
-</script>
+    function updateCart() {
+    // Thực hiện logic thêm sản phẩm vào giỏ hàng ở đây
 
-<script>
-    // Đảm bảo mã JavaScript được thực thi sau khi tài liệu HTML đã được tải
-    document.addEventListener('DOMContentLoaded', function() {
-        // Lấy phần tử "login-button"
-        var loginButton = document.getElementById('user-link');
+    // Sau khi đã thêm vào giỏ hàng, chuyển hướng người dùng đến route /index
+    window.location.href = '/index';
+}
+
+
+    function checkSession(itemId) {
+   var xhr = new XMLHttpRequest();
+   xhr.open('GET', '/checkSession');
+   xhr.onload = function() {
+       if (xhr.status === 200) {
+           var response = JSON.parse(xhr.responseText);
+           if (!response.loggedIn) {
+               // Hiển thị thông báo nếu người dùng chưa đăng nhập
+               alert('Vui lòng đặt nhập trước khi thêm vào giỏ hàng');
+           } else {
+            addItemIntoCart(itemId)
+            console.log(items);
+           }
+       } else {
+           // Hiển thị thông báo nếu có lỗi trong quá trình kiểm tra session
+           alert('Error checking session');
+
+           console.log(items);
+       }
+   };
+   xhr.send();
+}
+    
+  </script>
+  
+  <script>
+        //Navbar	
+        document.addEventListener("DOMContentLoaded", function() {
+                
+            var searchLink = document.getElementById("search-link");
+            var searchBoxContainer = document.getElementById("search-box-container");
+            var searchInput = document.getElementById("search-input");
         
-        // Lấy form cần hiển thị khi click vào "login-button"
+            searchLink.addEventListener("click", function(event) {
+                event.preventDefault();
+                if (searchBoxContainer.style.display === "block") {
+                    searchBoxContainer.style.display = "none";
+                } else {
+                    searchBoxContainer.style.display = "block";
+                }
+            });
+        
+            document.getElementById("search-button").addEventListener("click", function() {
+                var searchTerm = searchInput.value.trim();
+                if (searchTerm !== "") {
+                    alert("Perform search for: " + searchTerm);
+                }
+            });
+        });
+        
+        document.getElementById('user-link').addEventListener('click', function(event) {
+            event.preventDefault();
+            toggleDropdown();
+        });
+        
+        function toggleDropdown() {
+            const dropdownContent = document.querySelector('.dropdown-content');
+            dropdownContent.style.display = (dropdownContent.style.display === 'block') ? 'none' : 'block';
+        }
+        
+        //Navbar sau khi Log in
+        document.getElementById('checkout').addEventListener('click', function() {
+            window.location.href = 'orders.html';
+          });
+        
+          document.getElementById('logout').addEventListener('click', function() {
+            window.location.href = 'logout.html';
+          });
+                
+                
+        //Pop-up
+        let popup = document.getElementById("popup");
+        
+        function openPopup(){
+            popup.classList.add("open-popup");
+            document.body.classList.add("popup-open");
+        }
+        
+        function closePopup(){
+            popup.classList.remove("open-popup");
+            document.body.classList.remove("popup-open");
+        }
+    
+    </script>
+   
+   <script>
+        // Đảm bảo mã JavaScript được thực thi sau khi tài liệu HTML đã được tải
+        document.addEventListener('DOMContentLoaded', function() {
+            // Lấy phần tử "login-button"
+            var loginButton = document.getElementById('user-link');
+            
+            // Lấy form cần hiển thị khi click vào "login-button"
+            var loginForm = document.getElementById('login-form');
+
+            // Thêm sự kiện click cho "login-button"
+            loginButton.addEventListener('click', function() {
+                // Khi click vào "login-button", thay đổi thuộc tính "display" của form từ "none" sang "block"
+                loginForm.style.display = 'block';
+            });
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+        // Lấy thẻ form
         var loginForm = document.getElementById('login-form');
 
-        // Thêm sự kiện click cho "login-button"
-        loginButton.addEventListener('click', function() {
-            // Khi click vào "login-button", thay đổi thuộc tính "display" của form từ "none" sang "block"
-            loginForm.style.display = 'block';
-        });
+        // Kiểm tra trạng thái đăng nhập và ẩn/hiện form tương ứng
+        if (<%= userN %> == null) {
+            loginForm.classList.add('hidden-form');
+        } else {
+            loginForm.classList.remove('hidden-form');
+        }
     });
-    document.addEventListener('DOMContentLoaded', function() {
-    // Lấy thẻ form
-    var loginForm = document.getElementById('login-form');
-
-    // Kiểm tra trạng thái đăng nhập và ẩn/hiện form tương ứng
-    if (<%= userN %> == null) {
-        loginForm.classList.add('hidden-form');
-    } else {
-        loginForm.classList.remove('hidden-form');
-    }
-});
-</script>
+    </script>
 
 </html>
 <script>
