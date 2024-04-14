@@ -128,39 +128,22 @@
 			<th>SỐ LƯỢNG</th>
 			<th>GIÁ TIỀN</th>
 		</tr>
-		<tr>
-			<td class="column1"><img src = "http://product.hstatic.net/200000343865/product/1_f1f8407f02ea479cbc019681daea6f72_grande.jpg" width="60px" height="70px" alt = "imageSP">
-			</td>
-			<td class="column2">BOCCHI THE ROCK - TẬP 1</td>
-			<th><span class="countbox">
-      <input type="button" value="-" onclick="decrementCount(event)">
-      <input type="number" value="1" min="0" max="99" onchange="updateCount(event)">
-      <input type="button" value="+" onclick="incrementCount(event)">
-    </span></th>
-			<td class="column4">40.000đ</td>
-		</tr>
-		<tr>
-			<td class="column1"><img src = "http://product.hstatic.net/200000343865/product/3_5a6b44f2bad04752b624ed4efb14fbf5_grande.jpg" width="60px" height="70px" alt = "imageSP">
-			</td>
-			<td class="column2">FRIEREN - PHÁP SƯ TIỄN TÁNG - TẬP 3</td>
-			<th><span class="countbox">
-      <input type="button" value="-" onclick="decrementCount(event)">
-      <input type="number" value="1" min="0" max="99" onchange="updateCount(event)">
-      <input type="button" value="+" onclick="incrementCount(event)">
-    </span></th>
-			<td class="column4">45.000đ</td>
-		</tr>
-		<tr>
-			<td class="column1"><img src = "https://product.hstatic.net/200000287623/product/oshi_no_ko_7_-_bia_1_6cbe4e44396d4ae39defd93970e664a0_master.jpg" width="60px" height="70px" alt = "imageSP">
-			</td>
-			<td class="column2">OSHI NO KO - DƯỚI ÁNH HÀO QUANG - TẬP 7</td>
-			<th><span class="countbox">
-      <input type="button" value="-" onclick="decrementCount(event)">
-      <input type="number" value="1" min="0" max="99" onchange="updateCount(event)">
-      <input type="button" value="+" onclick="incrementCount(event)">
-    </span></th>
-			<td class="column4">88.000đ</td>
-		</tr>
+
+		<% Object.keys(listCart).forEach(key => { %>
+			<tr>
+				<td class="column1"><img src = "<%= listCart[key].sach[0].picURL %>" width="60px" height="70px" alt = "imageSP">
+				</td>
+				<td class="column2"><%= listCart[key].name %></td>
+				<th><span class="countbox">
+		  <input type="button" value="-" onclick="decrementCount(event)">
+		  <input type="number" value="1" min="0" max="99" onchange="updateCount(event)">
+		  <input type="button" value="+" onclick="incrementCount(event)">
+		</span></th>
+				<td class="column4"><%= (listCart[key].sach[0].gia).toLocaleString('vi-VN') %>đ %></td>
+			</tr>
+		<% }); %>
+
+			
 	</table>
   </div>
  
@@ -172,7 +155,7 @@
 			<hr style="border: 0; border-bottom: 1px solid black; margin: 1.5rem 0;">
 		<div class="total-amount">
         <span class="total-title">Tổng tiền:</span>
-        <span class="total-number">173.000đ</span>
+        <span class="total-number" id="total-price"><%= (totalPrice).toLocaleString('vi-VN') %>đ %></span>
       </div>
 			<hr style="border: 0; border-bottom: 1px solid black; margin: 1.5rem 0;">
       <div class="text-box">
@@ -321,6 +304,8 @@
 	}
 });
 </script>
+
+
 
 </body>
 </html>

@@ -1,10 +1,12 @@
 const express = require('express')
+const mongoose = require('mongoose')
 const path = require('path')
 const bcrypt = require('bcrypt')
 const session = require('express-session');
 const {dataUser, dataProduct} = require('./config');
 const { log } = require('console');
 const PORT = process.env.PORT || 9000;
+const { ObjectId } = require('mongodb');
 
 const app = express()
 // conver data into JSON format
@@ -69,7 +71,7 @@ app.post("/login",async (req,res)=>{
         //đăng nhập thành công. 
         if(isPasswordMatch){
             req.session.username = req.body.username; 
-            const product = await dataProduct.find()
+            const product = await dataProduct.find().sort({ _id: -1 }).limit(12);
             res.render("index" ,{ pros: product, userN: req.session.username} )
         }else{
             req.send("wrong password")
@@ -91,10 +93,10 @@ app.post('/add-to-cart',calculateTotalQuantity, (req, res) => {
     if (!req.session.cart) {
       req.session.cart = {};
     }
-    req.session.cart[productID] = (req.session.cart[productID] || 0 ) + 1 ;
-    console.log(req.session.cart);
-    console.log("bin");
-    console.log(res.locals.carts);
+    if (!req.session.cart[productID]) {
+        req.session.cart[productID] = 1;
+        console.log(req.session.cart);
+    }
     res.redirect('/index');
   });
 
@@ -107,10 +109,7 @@ app.get('/checkSession', (req, res) => {
 });
 
 app.get("/", async (req, res) => {
-    /* const product = await await dataProduct.find()
-    res.render('danhmuc',{ pros: product, userN: req.session.username, login: "login", logout: "logout" } ) */
-
-    const product = await await dataProduct.find().sort({ _id: -1 }).limit(12);
+        const product = await dataProduct.find().sort({ _id: -1 }).limit(12);
     res.render("index", { pros: product, userN: req.session.username, login: "login", logout: "logout" });
 });
 
@@ -160,24 +159,36 @@ app.get("/danhmuc",async(req,res)=>{
         carts: res.locals.carts }) 
 })
 
-/app.get('/cart', async (req, res) => {
-    const product = await dataProduct.find()
+app.get('/cart', async (req, res) => {
+    
     // Kiểm tra xem người dùng đã đăng nhập chưa
     if (!req.session.username) {
       res.status(401).send('Bạn cần đăng nhập để xem giỏ hàng.');
       return;
     }
- /*    // Lấy thông tin giỏ hàng từ session
-  const cart = req.session.cart || {};
-  // In thông tin giỏ hàng ra console
-  console.log('Giỏ hàng của người dùng', req.session.username, ':', cart);
-  // Gửi thông tin giỏ hàng cho client
-  res.json({ cart }); */
-    res.render('cart', { pros: product,
+    if(req.session.cart){
+        const cartItems = req.session.cart;
+        const bookIds = Object.keys(cartItems);
+
+    
+    // Truy vấn dữ liệu sản phẩm dựa trên tên trong session cart
+    const listCart = await dataProduct.find({ name: {$in: bookIds} });
+    var totalPrice = 0 
+    console.log(listCart);
+    listCart.forEach(cart => {
+        totalPrice = totalPrice + cart.sach[0].gia
+    });
+    res.render('cart', { 
         userN: req.session.username, 
         login: "login",
         logout: "logout",
-        carts: res.locals.carts })
+        carts: res.locals.carts,
+        listCart,
+        totalPrice})
+    }else{
+        res.redirect('/index')
+    }
+    
   }); 
 
 app.get("/checkout",calculateTotalQuantity, (req, res)=>{
@@ -185,7 +196,7 @@ app.get("/checkout",calculateTotalQuantity, (req, res)=>{
         userN: req.session.username, 
         login: "login",
         logout: "logout",
-        carts: res.locals.carts })
+        carts: res.locals.carts  })
 })
 
 app.get("/delivery",calculateTotalQuantity, (req, res)=>{
