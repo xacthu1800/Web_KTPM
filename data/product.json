@@ -1,0 +1,75 @@
+[
+    {
+        "picURL" : "http://product.hstatic.net/200000343865/product/1_f1f8407f02ea479cbc019681daea6f72_grande.jpg",
+        "name" : "BOCCHI THE ROCK - TẬP 1",
+        "author" : "Aki Hamazi",
+        "price" : "40000"
+    },
+    {
+        "picURL" : "http://product.hstatic.net/200000343865/product/3_5a6b44f2bad04752b624ed4efb14fbf5_grande.jpg",
+        "name" : "FRIEREN - PHÁP SƯ TIỄN TÁNG - TẬP 3",
+        "author" : "Kanehito Yamada, Tsukasa Abe",
+        "price" : "45000"
+    },
+    {
+        "picURL" : "https://product.hstatic.net/200000287623/product/oshi_no_ko_7_-_bia_1_6cbe4e44396d4ae39defd93970e664a0_master.jpg",
+        "name" : "Oshi no Ko - Dưới Ánh Hào Quang - 7",
+        "author" : "Aka Akasaka",
+        "price" : "88000"
+    },
+    {
+        "picURL" : "https://product.hstatic.net/200000287623/product/evangelion_5_bia_1_674f4f388f324964834a83b4848e4d2a_master.jpg",
+        "name" : "Neon Genesis Evangelion (Collector's Edition) - 5",
+        "author" : "khara",
+        "price" : "200000"
+    },
+    {
+        "picURL" : "http://product.hstatic.net/200000343865/product/5_8d2ba0113ea3468b892cfa2e64e6542a_grande.jpg",
+        "name" : "CÓ CHÓ CÓ MÈO, NGÀY NÀO CŨNG VUI - TẬP 5",
+        "author" : "Hidekichi Matsumoto",
+        "price" : "35000"
+    },
+    {
+        "picURL" : "https://product.hstatic.net/200000287623/product/changbanggiavananglanhlung_6_manga_bia_1_c74ba9e2c3bc458a907d06030e25193a_master.png",
+        "name" : "Chàng Băng Giá Và Nàng Lạnh Lùng - 6",
+        "author" : "Tonogaya Miyuki",
+        "price" : "55000"
+    },
+    {
+        "picURL" : "http://product.hstatic.net/200000343865/product/3_84deaeea32904a969326ed629e1bf04b_grande.jpg",
+        "name" : "NGÔN NGỮ YÊU THƯƠNG - TẬP 3",
+        "author" : "suu Morishita",
+        "price" : "30000"
+    },
+    {
+        "picURL" : "https://product.hstatic.net/200000287623/product/skip_and_loafer_4_-_bia_1_b0b3251908634c97b52772ff73f98e6d_master.jpg",
+        "name" : "Skip And Loafer - Nhịp Bước Tuổi Xanh - 4",
+        "author" : "Misaki Takamatsu",
+        "price" : "58000"
+    },
+    {
+        "picURL" : "http://product.hstatic.net/200000343865/product/10---obi_d20c295b75354ed6992a197543124a2f_grande.jpg",
+        "name" : "SOLO LEVELING - TÔI THĂNG CẤP MỘT MÌNH - TẬP 10",
+        "author" : "Dubu (Redice Studio), Chugong",
+        "price" : "88000"
+    },
+    {
+        "picURL" : "http://product.hstatic.net/200000343865/product/20_3ae71550ce2d434ca9c3ef57f41872b5_grande.jpg",
+        "name" : "CHÚ THUẬT HỒI CHIẾN - TẬP 20",
+        "author" : "Gege Akutami",
+        "price" : "30000"
+    },
+    {
+        "picURL" : "https://product.hstatic.net/200000287623/product/khe_hat_loi_yeu_tap_2_-_bia_1_e9335c5bc01d49238b9646e19be30bba_master.png",
+        "name" : "Khẽ Hát Lời Yêu - 2",
+        "author" : "Eku Takeshima",
+        "price" : "65000"
+    },
+    {
+        "picURL" : "http://product.hstatic.net/200000343865/product/5_046f66e37ce2493e9831b21b47a3371e_grande.jpg",
+        "name" : "CHU DU ẨM THỰC TẠI DỊ GIỚI VỚI KĨ NĂNG KHÔNG TƯỞNG - TẬP 5",
+        "author" : "Aki Hamazi",
+        "price" : "40000"
+    }
+
+]
