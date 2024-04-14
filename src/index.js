@@ -83,7 +83,7 @@ app.post("/login",async (req,res)=>{
 })
 
 app.post('/add-to-cart',calculateTotalQuantity, (req, res) => {
-    const { productID } = req.body;
+    const { productName } = req.body;
     // Kiểm tra xem người dùng đã đăng nhập chưa
     if (!req.session.username) {
       res.status(401).send('Bạn cần đăng nhập trước khi thêm sản phẩm vào giỏ hàng.');
@@ -93,12 +93,50 @@ app.post('/add-to-cart',calculateTotalQuantity, (req, res) => {
     if (!req.session.cart) {
       req.session.cart = {};
     }
-    if (!req.session.cart[productID]) {
-        req.session.cart[productID] = 1;
-        console.log(req.session.cart);
+    if (req.session.cart[productName]) {
+        // Nếu đã tồn tại, tăng số lượng lên 1
+        req.session.cart[productName]++;
+    } else {
+        // Nếu chưa tồn tại, đặt số lượng là 1
+        req.session.cart[productName] = 1;
     }
     res.redirect('/index');
   });
+
+app.post('/updateCount',calculateTotalQuantity, async(req, res) => {
+    const { value, bookPrice } =  req.body;
+     // Kiểm tra xem người dùng đã đăng nhập chưa
+    if (!req.session.username) {
+        res.status(401).send('Bạn cần đăng nhập để xem giỏ hàng.');
+        return;
+      }
+      if(req.session.cart){
+          const cartItems = req.session.cart;
+          const bookIds = Object.keys(cartItems);
+
+          const listCart = await dataProduct.find({ name: {$in: bookIds} });
+          // tổng tiền trong cart.ejs
+          var totalPrice = 0 
+          listCart.forEach(cart => {
+              totalPrice = totalPrice + cart.sach[0].gia
+          });
+      
+        totalPrice = totalPrice - bookPrice + (bookPrice*value)
+    
+        res.render('cart', { 
+            userN: req.session.username, 
+            login: "login",
+            logout: "logout",
+            carts: res.locals.carts,
+            listCart,
+            totalPrice})
+    
+      }else{
+        return res.status(400).send('error');
+      }
+      
+      // Truy vấn dữ liệu sản phẩm dựa trên tên trong session cart
+});  
 
 app.get('/checkSession', (req, res) => {
     if (req.session.username) {
@@ -173,18 +211,22 @@ app.get('/cart', async (req, res) => {
     
     // Truy vấn dữ liệu sản phẩm dựa trên tên trong session cart
     const listCart = await dataProduct.find({ name: {$in: bookIds} });
+    // tổng tiền trong cart.ejs
     var totalPrice = 0 
-    console.log(listCart);
+    var quantity =  req.session.cart
     listCart.forEach(cart => {
-        totalPrice = totalPrice + cart.sach[0].gia
+        totalPrice = totalPrice + req.session.cart[cart.name]*cart.sach[0].gia       
     });
+
+
     res.render('cart', { 
         userN: req.session.username, 
         login: "login",
         logout: "logout",
         carts: res.locals.carts,
         listCart,
-        totalPrice})
+        totalPrice,
+        quantity})
     }else{
         res.redirect('/index')
     }
