@@ -8,6 +8,8 @@ const { log } = require('console');
 const PORT = process.env.PORT || 9000;
 const { ObjectId } = require('mongodb');
 
+let globalSearchResult = [];
+
 const app = express()
 // conver data into JSON format
 app.use(express.json())
@@ -187,15 +189,39 @@ app.get("/productpage", (req,res)=>{
     return
 })
 
-
 app.get("/danhmuc",async(req,res)=>{
     const product = await dataProduct.find()
+    const searchResult = globalSearchResult;
     res.render('danhmuc',{ pros: product,
         userN: req.session.username, 
         login: "login",
         logout: "logout",
-        carts: res.locals.carts }) 
+        carts: res.locals.carts,
+        bookFound:  searchResult }) 
 })
+
+app.get('/search', async (req, res) => {
+    try {
+        const searchText = req.query.query;
+        // Sử dụng biểu thức chính quy để tìm kiếm không phân biệt chữ in hoa/thường
+        const regex = new RegExp(searchText, 'i');
+        const result = await dataProduct.find({ name: { $regex: regex } });
+
+        // Chuyển đổi kết quả thành mảng các tên sách
+        const resultNames = result.map(item => item.name);
+
+        // Lưu kết quả tìm kiếm vào biến toàn cục
+        globalSearchResult = resultNames;
+
+        // Redirect đến trang /danhmuc
+        res.redirect('/danhmuc');
+
+        /* res.redirect('/danhmuc?rand=' + Math.random())  */
+         } catch (error) {
+                console.error(error);
+                res.status(500).json({ message: 'Internal server error' });
+    }
+});
 
 app.get('/cart', async (req, res) => {
     
@@ -248,6 +274,11 @@ app.get("/delivery",calculateTotalQuantity, (req, res)=>{
         logout: "logout",
         carts: res.locals.carts })
 })
+
+
+
+
+
 
 app.listen(PORT, () => {
     console.log(`Server is running on localhost:${PORT}`);

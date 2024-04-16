@@ -108,7 +108,7 @@
     <div class="search-box-container" id="search-box-container">
         <div class="search-box">
             <input type="text" id="search-input" placeholder="Bạn đang muốn tìm gì?">
-            <button id="search-button">Tìm kiếm</button>
+            <button id="search-button" onclick="">Tìm kiếm</button>
         </div>
     </div>
 <!-- Container1 -->
@@ -224,23 +224,44 @@
     <div class = "container">
 		<div class = "sanPham">
 		<div class = "containerSP">
-
-            <% Object.keys(pros).forEach(key => { %>
-                <div class="itemSP">
-                    <div class="imgSP">
-                        <img src="<%= pros[key].sach[0].picURL %>" alt="imageSP">
-                    
-                    <div>
-                        <button type="button" class="add-btn" onclick="checkSession('<%= pros[key]._id %>')">Thêm vào giỏ </button>
+            <% if (bookFound && bookFound.length > 0) { %>
+                <% bookFound.forEach(name => { %>
+                    <% const book = pros.find(item => item.name === name); %>
+                    <% if (book) { %>
+                        <div class="itemSP">
+                            <div class="imgSP">
+                                <img src="<%= book.sach[0].picURL %>" alt="imageSP">
+                                <div>
+                                    <button type="button" class="add-btn" onclick="checkSession('<%= book._id %>')">Thêm vào giỏ </button>
+                                </div>
+                            </div>
+                            <div class="contentSP">
+                                <a href="#" class="book-title"><%= book.name %></a>
+                                <p class="author">Tác giả: <span><%= book.author %></span></p>
+                                <div><span class="giaTien"><%= (book.sach[0].gia).toLocaleString('vi-VN', {style: 'currency', currency: 'VND'}) %></span></div>
+                            </div>
+                        </div>
+                    <% } %>
+                <% }); %>
+            <% } else { %>
+                <% pros.forEach(book => { %>
+                    <div class="itemSP">
+                        <div class="imgSP">
+                            <img src="<%= book.sach[0].picURL %>" alt="imageSP">
+                            <div>
+                                <button type="button" class="add-btn" onclick="checkSession('<%= book._id %>')">Thêm vào giỏ </button>
+                            </div>
+                        </div>
+                        <div class="contentSP">
+                            <a href="#" class="book-title"><%= book.name %></a>
+                            <p class="author">Tác giả: <span><%= book.author %></span></p>
+                            <div><span class="giaTien"><%= (book.sach[0].gia).toLocaleString('vi-VN', {style: 'currency', currency: 'VND'}) %></span></div>
+                        </div>
                     </div>
-                </div>
-                <div class="contentSP">
-                    <a href="#" class="book-title"><%= pros[key].name %></a>
-                    <p class="author">Tác giả: <span><%= pros[key].author %></span></p>
-                    <div><span class="giaTien"><%= (pros[key].sach[0].gia).toLocaleString('vi-VN', {style: 'currency', currency: 'VND'}) %></span></div>
-                </div>
-                </div>
-            <% }); %>
+                <% }); %>
+            <% } %>
+            
+            
     </div>
 </div>
 	</div>
@@ -364,10 +385,23 @@
             });
         
             document.getElementById("search-button").addEventListener("click", function() {
-                var searchTerm = searchInput.value.trim();
-                if (searchTerm !== "") {
-                    alert("Perform search for: " + searchTerm);
-                }
+                var searchText = document.getElementById('search-input').value;
+                fetch('/search?query=' + searchText)
+                    .then(response => {
+                        // Kiểm tra nếu phản hồi là chuyển hướng
+                        if (response.redirected) {
+                            // Chuyển hướng trình duyệt đến URL mới
+                            window.location.href = response.url;
+                            return; // Dừng việc xử lý tiếp theo
+                        }
+                        // Nếu không phải là chuyển hướng, xử lý phản hồi JSON
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Xử lý kết quả tìm kiếm ở đây nếu cần
+                        console.log(data);
+                    })
+                    .catch(error => console.error('Error:', error));
             });
         });
         
@@ -433,6 +467,8 @@
         }
     });
     </script>
+
+
 
 </html>
 <script>
