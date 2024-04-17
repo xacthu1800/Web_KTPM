@@ -7,6 +7,7 @@ const {dataUser, dataProduct} = require('./config');
 const { log } = require('console');
 const PORT = process.env.PORT || 9000;
 const { ObjectId } = require('mongodb');
+const bodyParser = require('body-parser');
 
 let globalSearchResult = [];
 
@@ -16,6 +17,7 @@ app.use(express.json())
 
 app.use(express.urlencoded({extended: false}))
 
+app.use(bodyParser.json());
 //kiểm tra trạng thái người dungf (đã login chưa)
 
 //use ejs as the view enginne 
@@ -190,6 +192,8 @@ app.get("/productpage", (req,res)=>{
 })
 
 app.get("/danhmuc",async(req,res)=>{
+    const { filterem } = req.body;
+    console.log(filterem);
     const product = await dataProduct.find()
     const searchResult = globalSearchResult;
     res.render('danhmuc',{ pros: product,
@@ -197,7 +201,32 @@ app.get("/danhmuc",async(req,res)=>{
         login: "login",
         logout: "logout",
         carts: res.locals.carts,
-        bookFound:  searchResult }) 
+        bookFound:  searchResult,
+        }) 
+})
+
+app.post("/danhmuc",async(req,res)=>{
+    const { filterem } = req.body;
+    // console.log(filterem);
+    const product2 = await dataProduct.find({ "Tags.tag": { $all: String(filterem) } });
+
+    const searchResult = globalSearchResult;
+    console.log(product2);
+    let productToShow;
+    
+    if (product2 && product2.length > 0) {
+        productToShow = product2;
+    } else {
+        productToShow = await dataProduct.find();
+    }
+
+    res.render('danhmuc',{ pros: productToShow,
+        userN: req.session.username, 
+        login: "login",
+        logout: "logout",
+        carts: res.locals.carts,
+        bookFound:  searchResult,
+        }) 
 })
 
 app.get('/search', async (req, res) => {

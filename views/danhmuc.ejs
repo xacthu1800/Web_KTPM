@@ -135,51 +135,51 @@
                 <div class="filter">
                     <ul class='sidebar-menu-new'>
                         <li >
-                            <input type="checkbox" rel = langman onchange="change()">
+                            <input type="checkbox" name="tag" value="Lãng mạn" onchange="getSelected()">
                             <a>Lãng Mạn<i class='item-total'></i></a>
                         </li>
                         <li >
-                            <input type="checkbox" rel = girlslove onchange="change()">
+                            <input type="checkbox" name="tag" value="Girls Love" onchange="getSelected()">
                             <a>Girls Love<i class='item-total'></i></a>
                         </li>
                         <li >
-                            <input type="checkbox" rel = haihuoc onchange="change()">
+                            <input type="checkbox" name="tag" value="Hài hước" onchange="getSelected()">
                             <a>Hài Hước<i class='item-total'></i></a>
                         </li>
                         <li >
-                            <input type="checkbox" rel = doithuong onchange="change()">
+                            <input type="checkbox" name="tag" value="Đời thường" onchange="getSelected()">
                             <a>Đời Thường<i class='item-total'></i></a>
                         </li>
                         <li >
-                            <input type="checkbox" rel = amnhac onchange="change()">
+                            <input type="checkbox" name="tag" value="Âm nhạc" onchange="getSelected()">
                             <a>Âm Nhạc<i class='item-total'></i></a>
                         </li>
                         <li >
-                            <input type="checkbox" rel = shounen onchange="change()">
+                            <input type="checkbox" name="tag" value="Shounen" onchange="getSelected()">
                             <a>Shounen<i class='item-total'></i></a>
                         </li>
                         <li >
-                            <input type="checkbox" rel = giatuong onchange="change()">
+                            <input type="checkbox" name="tag" value="Giả tưởng" onchange="getSelected()">
                             <a>Giả Tưởng<i class='item-total'></i></a>
                         </li>
                         <li >
-                            <input type="checkbox" rel = drama onchange="change()">
+                            <input type="checkbox" name="tag" value="Drama" onchange="getSelected()">
                             <a>Drama<i class='item-total'></i></a>
                         </li>
                         <li >
-                            <input type="checkbox" rel = dramatamly onchange="change()">
+                            <input type="checkbox" name="tag" value="Drama tâm lý" onchange="getSelected()">
                             <a>Drama Tâm Lý<i class='item-total'></i></a>
                         </li>
                         <li >
-                            <input type="checkbox" rel = mecha onchange="change()">
+                            <input type="checkbox" name="tag" value="Mecha" onchange="getSelected()">
                             <a>Mecha<i class='item-total'></i></a>
                         </li>
                         <li >
-                            <input type="checkbox" rel = hanhdong onchange="change()">
+                            <input type="checkbox" name="tag" value="Hành động" onchange="getSelected()">
                             <a>Hành Động<i class='item-total'></i></a>
                         </li>
                         <li >
-                            <input type="checkbox" rel = hocduong onchange="change()">
+                            <input type="checkbox" name="tag" value="Học đường" onchange="getSelected()">
                             <a>Học Đường<i class='item-total'></i></a>
                         </li>
                     </ul>
@@ -472,23 +472,51 @@
 
 </html>
 <script>
-    function change() {
-  let results = Array.from(document.querySelectorAll('.containerSP > div'));
-  // Hide all results
-  results.forEach(function(result) {
-    result.style.display = 'none';
-  });
-  // Filter results to only those that meet ALL requirements:
-  Array.from(document.querySelectorAll('.filter input[rel]:checked'), function(input) {
-    const attrib = input.getAttribute('rel');
-    results = results.filter(function(result) {
-      return result.classList.contains(attrib);
-    });
-  });
-  // Show those filtered results:
-  results.forEach(function(result) {
-    result.style.display = 'block';
-  });
-}
-change();
+//     function change() {
+//   let results = Array.from(document.querySelectorAll('.containerSP > div'));
+//   // Hide all results
+//   results.forEach(function(result) {
+//     result.style.display = 'none';
+//   });
+//   // Filter results to only those that meet ALL requirements:
+//   Array.from(document.querySelectorAll('.filter input[rel]:checked'), function(input) {
+//     const attrib = input.getAttribute('rel');
+//     results = results.filter(function(result) {
+//       return result.classList.contains(attrib);
+//     });
+//   });
+//   // Show those filtered results:
+//   results.forEach(function(result) {
+//     result.style.display = 'block';
+//   });
+// }
+// change();
+
+function getSelected() {
+            var selectedItems = [];
+            var checkboxes = document.getElementsByName('tag');
+            for (var i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].checked) {
+
+                    // selectedItems.append(checkboxes[i].value);
+                    selectedItems.push(checkboxes[i].value);
+                }
+            }
+            console.log(selectedItems);
+        // Gửi yêu cầu POST đến route "/add-to-cart" trên server
+        fetch('/danhmuc', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({filterem: selectedItems })
+
+        }).then(response => {
+            // Xử lý phản hồi từ server (nếu cần)
+        }).catch(error => {
+            console.error('Error:', error);
+        });
+        
+        }
+     
 </script>
