@@ -49,12 +49,37 @@ tag: String,
     LienQuan: [lienQuanSchema]
   });
 
+  const recordedSchema = new mongoose.Schema({
+    maDonHang: String,
+    hoTen: String,
+    diaChi: String,
+    soDienThoai: String,
+    email: String,
+    phuongThucThanhToan: String,
+    tongTien: Number,
+    product: String
+});
+
+const deliverySchema = new mongoose.Schema({
+  maDonHang: String,
+  ngayDat: String,
+  phuongThucThanhToan: String,
+  trangThaiThanhToan: { type: String, default: 'Chờ xử lý' },
+  trangThaiVanChuyen: { type: String, default: 'Chưa Giao hàng' },
+  tongTien: Number,
+  userID: String
+});
+
 // collection part
 const dataUser = new mongoose.model("users", LoginSchema1)
 const dataProduct = new mongoose.model("products-tests", bookSchema)
 
+const RecordedSchema = new mongoose.model("record", recordedSchema)
+const DeliverySchema = new mongoose.model("delivery", deliverySchema)
 
 module.exports = {
     dataUser: dataUser,
-    dataProduct: dataProduct
+    dataProduct: dataProduct,
+    delivery: DeliverySchema,
+    record: RecordedSchema
 };

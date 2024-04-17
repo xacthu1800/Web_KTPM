@@ -3,65 +3,109 @@
 <head>
 <meta charset="utf-8">
 <title>productPage1</title>
-<link rel="stylesheet" href="checkout.css">
+<link rel="stylesheet" href="Checkout.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Baloo 2">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-<script src="indexFunction.js"></script>
-
 </head>
 
 <body>
 <!-- NavBar -->
-     <header>
-        <div class="logo">NXB XYZ</div>
-        <input type="checkbox" id="nav_check" hidden>
-        <nav>
-          <ul>
+<header>
+    
+    <div class="logo">NXB XYZ</div>
+    <input type="checkbox" id="nav_check" hidden>
+    <nav>
+        <ul>
             <li>
                 <a href="/index" class="active">Trang chủ</a>
             </li>
             <li>
-                <a href="/productpage">Sản phẩm</a>
-            </li>
-        <li>
                 <a href="/danhmuc">Danh mục</a>
             </li>
             <li>
                 <a href="#" id="search-link">Tìm kiếm</a>
             </li>
-            <li id="cart-container">
-              <a href="/checkout">
-                  <div class="cart-box">
-                      <span>GIỎ HÀNG</span>
-                  </div>
-                  <div class="cart-box">
-                    <span><%= carts %></span>
-                  </div>
-              </a>
-          </li>
-            <li>
-                <a href="<%= (userN == null) ? '/login' : '/logout' %>">
-            <% if(userN == null) { %>
-                <%= 'Đăng Nhập' %>
-            <% }else{ %>
-                <%= 'Thoát' %>
-              <% }%>
-          </a>
+            <li class="dropdown">
+                <a href="#" id="user-link">Người dùng</a>
+                <div class="dropdown-content">
+                    <div class="login-box">
+    
+                        <% if(userN == null) { %>
+                            <!-- TRƯỚC KHI ĐĂNG NHẬP -->
+                            <form id="login-form" class="hidden-form" action="/login" method="post"> <!-- Bắt đầu form ẩn đi -->
+                                <label style="font-size: 1.3rem;"><strong>ĐĂNG NHẬP TÀI KHOẢN</strong></label>
+    
+                                <label for="uname"><strong>Email:</strong></label>
+                                <input type="text" id="uname" name="username" placeholder="Enter your name" required autocomplete="off">
+    
+                                <label for="pass"><strong>Password:</strong></label>
+                                <input type="password" id="pass" name="password" placeholder="password" required>
+    
+                                <button type="submit" id="login-button">ĐĂNG NHẬP</button><br>
+                                
+                                <label>Khách hàng mới?  <strong><a href="/signup">Tạo tài khoản</a></strong></label>
+                                <label style="color: red; font-weight: bold; " id="notifcation">
+                                    <% if (typeof error !== 'undefined' && error !== null) { %>
+                                        <%= error %>
+                                    <% } %>         
+                                </label>
+                                <label style="color: green; font-weight: bold; ">
+                                    <% if (typeof message !== 'undefined' && message !== null) { %>
+                                        <%= message %>
+                                    <% } %>         
+                                </label>
+                             <!--    <label>Quên mật khẩu?  <strong>Khôi phục mật khẩu</strong></label> -->
+                            </form>
+                        <% } else { %>
+                            <!-- SAU KHI ĐĂNG NHẬP -->
+                            <form id="login-form" style="display: none;" > <!-- Bắt đầu form ẩn đi -->
+                                <style>
+                                    label:hover {
+                                        text-decoration: underline;
+                                        text-decoration-thickness: 2px;
+                                        text-underline-offset: 8px;
+                                        text-decoration-color: black;
+                                    }
+                                </style>
+                                <label id="checkout" style="font-size: 1.3rem; align-self: center; margin-bottom: 1px;"><strong><a href="/delivery">ĐƠN HÀNG CỦA BẠN</a></strong></label>
+                                <div style="width: 100%; align-items: center; display: flex; justify-content: center;">
+                                    <hr style="border: 0; border-bottom: 1px solid black; margin: 1.5rem 0; width: 100%;">
+                                </div>
+                                <label id="logout" style="font-size: 1.3rem; align-self: center; margin-bottom: 1px;"><strong><a href="/logout">ĐĂNG XUẤT</a></strong></label>
+                            </form>
+                        <% } %>
+                            
+    
+    
+                    </div>
+                </div>
+                <li id="cart-container">
+                    <a href="/cart">
+                <div class="cart-box">
+                    <span>GIỎ HÀNG</span>
+                </div>
+                <div class="cart-box">
+                    <%= carts %>
+                </div>
+            </a>
             </li>
+            </li>
+            
         </ul>
-        </nav>
-        <label for="nav_check" class="smallScale">
-            <div></div>
-            <div></div>
-            <div></div>
-        </label>
+    </nav>
+    <label for="nav_check" class="smallScale">
+        <div></div>
+        <div></div>
+        <div></div>
+    </label>
     </header>
     <div class="search-box-container" id="search-box-container">
-      <div class="search-box">
-          <input type="text" id="search-input" placeholder="Bạn đang muốn tìm gì?">
-          <button id="search-button">Tìm kiếm</button>
-      </div>
-  </div>
+        <div class="search-box">
+            <input type="text" id="search-input" placeholder="Bạn đang muốn tìm gì?">
+            <button id="search-button" onclick="">Tìm kiếm</button>
+        </div>
+    </div>
+
 <div class="webTitle">
 	<h1>Thông tin giao hàng</h1>	
 </div>	
@@ -96,12 +140,12 @@
 			<div class="box-title">THÔNG TIN ĐƠN HÀNG</div>
 			<div class="total-amount">
         <span class="total-title">Mã đơn hàng:</span>
-        <span class="total-number">#XYZ123</span>
+        <span class="total-number"><%= rightData.mdh %></span>
       </div>
 			<hr style="border: 0; border-bottom: 1px solid black; margin: 1.5rem 0;">
 		<div class="total-amount">
         <span class="total-title">Tạm tính:</span>
-        <span class="total-number">173.000đ</span>
+        <span class="total-number"><%= (rightData.totalPrice).toLocaleString('vi-VN') %>đ %></span>
       </div>
 			<div class="total-amount">
         <span class="total-title">Phí vận chuyển:</span>
@@ -109,7 +153,7 @@
       </div><hr style="border: 0; border-bottom: 1px solid black; margin: 1.5rem 0;">
       <div class="total-amount">
         <span class="total-title">Tổng tiền:</span>
-        <span class="total-number">193.000đ</span>
+        <span class="total-number"><%= (rightData.priceAfterShip).toLocaleString('vi-VN') %>đ %></span>
     </div>
 			
 		</div>
@@ -157,7 +201,7 @@
 		<img src="https://onedrive.live.com/embed?resid=22B721284FCB62DE%21195203&authkey=%21AMKBKC4oRv4lwEs&width=2000&height=2000">
 		<h2>BẠN ĐÃ ĐẶT HÀNG THÀNH CÔNG!</h2>
 		<h4>Chúng tôi đã nhận được đơn hàng của bạn. Chúng tôi sẽ gửi lại một email xác nhận trong thời gian sớm nhất. Cảm ơn bạn đã mua hàng.</h4>
-		<button type="button" onclick="closePopup()">OK</button>
+		<a href="/index"><button type="button" onclick="closePopup()">OK</button></a>
 			
 	</div>
 </div>
@@ -206,7 +250,6 @@
   	 	</div>
   	 </div>
   </footer>
-
   <script>
     //Navbar	
     document.addEventListener("DOMContentLoaded", function() {
@@ -263,24 +306,23 @@
       document.getElementById('logout').addEventListener('click', function() {
         window.location.href = 'logout.html';
       });
-            
-            
-    //Pop-up
-    let popup = document.getElementById("popup");
-    
-    function openPopup(){
-        popup.classList.add("open-popup");
-        document.body.classList.add("popup-open");
-    }
-    
-    function closePopup(){
-        popup.classList.remove("open-popup");
-        document.body.classList.remove("popup-open");
-    }
 
 </script>
 
-<script>
+	<script>
+		let popup = document.getElementById("popup");
+
+function openPopup(){
+    popup.classList.add("open-popup");
+    document.body.classList.add("popup-open");
+}
+
+function closePopup(){
+    popup.classList.remove("open-popup");
+    document.body.classList.remove("popup-open");
+}
+	</script>
+	<script>
     // Đảm bảo mã JavaScript được thực thi sau khi tài liệu HTML đã được tải
     document.addEventListener('DOMContentLoaded', function() {
         // Lấy phần tử "login-button"
@@ -306,7 +348,65 @@
         loginForm.classList.remove('hidden-form');
     }
 });
+
+
+
+// truyền dữ liệu cho server || route POST record
+document.addEventListener('DOMContentLoaded', function() {
+    // Lấy thẻ button "TIẾN HÀNH ĐẶT HÀNG"
+    var submitButton = document.querySelector('.btn');
+
+    // Thêm sự kiện click cho button "TIẾN HÀNH ĐẶT HÀNG"
+    submitButton.addEventListener('click', function() {
+        // Lấy giá trị từ các ô input
+        var name = document.getElementById('name').value;
+        var address = document.getElementById('address').value;
+        var phoneNum = document.getElementById('phone-num').value;
+        var email = document.getElementById('email').value;
+
+        var paymentOptions = document.getElementsByName('row');
+        for (var i = 0; i < paymentOptions.length; i++) {
+            if (paymentOptions[i].checked) {
+                paymentMethod = paymentOptions[i].value;
+                break;
+            }
+        }
+        // Tạo một object chứa dữ liệu để gửi đi
+        var data = {
+            hoTen: name,
+            diaChi: address,
+            soDienThoai: phoneNum,
+            email: email,
+            phuongThucThanhToan: paymentMethod
+        };
+        console.log(data);
+        // Gửi request POST đến route "/thanh-toan"
+        fetch('/record', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ data: data })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data); // Xử lý kết quả trả về từ server nếu cần
+            // Sau khi nhận được phản hồi từ server, bạn có thể thực hiện các hành động tiếp theo tại đây
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+});
+
+
 </script>
-	
+
+
 </body>
 </html>

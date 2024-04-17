@@ -3,10 +3,13 @@ const mongoose = require('mongoose')
 const path = require('path')
 const bcrypt = require('bcrypt')
 const session = require('express-session');
-const {dataUser, dataProduct} = require('./config');
+const {dataUser, dataProduct, delivery, record} = require('./config');
 const { log } = require('console');
 const PORT = process.env.PORT || 9000;
 const { ObjectId } = require('mongodb');
+
+
+
 
 let globalSearchResult = [];
 
@@ -104,6 +107,39 @@ app.post('/add-to-cart',calculateTotalQuantity, (req, res) => {
     }
     res.redirect('/index');
   });
+
+app.post('/record',calculateTotalQuantity, async(req, res) => {
+    const  data  = req.body.data
+    const product = convertCartToString(req.session.cart)
+
+    const mdh = generateOrderCode(req.session.totalPrice)
+    data.tongTien = req.session.totalPrice
+    data.maDonHang = mdh
+    data.product = product
+    console.log(data);
+
+    const deli = {}
+    deli.maDonHang = mdh
+    deli.ngayDat = getCurrentDate()
+    deli.phuongThucThanhToan = data.phuongThucThanhToan
+    deli.tongTien = req.session.totalPrice
+    deli.userID = req.session.username
+    console.log(deli);
+    req.session.cart = {};
+      try {
+        // Chèn nhiều đối tượng từ mảng data vào collection dataUser
+        const result1 = await record.insertMany(data);
+        const result2 = await delivery.insertMany(deli);
+
+        console.log('Data inserted successfully:');
+        res.status(200).send('Data inserted successfully');
+    } catch (error) {
+        console.error('Error occurred while inserting data:', error);
+        res.status(500).send('Internal Server Error');
+    }  
+
+
+});
 
 app.post('/updateCount',calculateTotalQuantity, async(req, res) => {
     const { value, bookPrice } =  req.body;
@@ -233,6 +269,7 @@ app.get('/cart', async (req, res) => {
     if(req.session.cart){
         const cartItems = req.session.cart;
         const bookIds = Object.keys(cartItems);
+        console.log(bookIds);
 
     
     // Truy vấn dữ liệu sản phẩm dựa trên tên trong session cart
@@ -240,11 +277,12 @@ app.get('/cart', async (req, res) => {
     // tổng tiền trong cart.ejs
     var totalPrice = 0 
     var quantity =  req.session.cart
+    console.log(req.session.cart);
     listCart.forEach(cart => {
         totalPrice = totalPrice + req.session.cart[cart.name]*cart.sach[0].gia       
     });
-
-
+    req.session.totalPrice = totalPrice
+    console.log(req.session.totalPrice);
     res.render('cart', { 
         userN: req.session.username, 
         login: "login",
@@ -256,23 +294,37 @@ app.get('/cart', async (req, res) => {
     }else{
         res.redirect('/index')
     }
-    
+    // kết thúc route này, quan trọng là có thể lưu được req.session.totalPrice và req.session.cart để phục vụ sử dụng trong checkout
+
   }); 
 
 app.get("/checkout",calculateTotalQuantity, (req, res)=>{
+    const mdh = generateOrderCode(req.session.totalPrice)
+    const priceAfterShip = parseInt(req.session.totalPrice) + 20000
+
+    const rightObject = {}
+    rightObject.mdh = mdh
+    rightObject.priceAfterShip = priceAfterShip
+    rightObject.totalPrice = req.session.totalPrice
+
     res.render('checkout',{ 
         userN: req.session.username, 
         login: "login",
         logout: "logout",
-        carts: res.locals.carts  })
+        carts: res.locals.carts,
+        rightData:rightObject
+         })
 })
 
-app.get("/delivery",calculateTotalQuantity, (req, res)=>{
+app.get("/delivery",calculateTotalQuantity, async(req, res)=>{
+
+    const deli = await delivery.find({ userID: req.session.username });
     res.render('delivery',{ 
         userN: req.session.username, 
         login: "login",
         logout: "logout",
-        carts: res.locals.carts })
+        carts: res.locals.carts,
+        history: deli })
 })
 
 
@@ -308,3 +360,43 @@ function calculateTotalQuantity(req, res, next) {
     res.locals.carts = totalQuantity;
     next();
 }
+
+// Tạo mã đơn hàng từ thời gian hiện tại và tổng tiền
+function generateOrderCode(tongTien) {
+    const now = new Date();
+    const day = now.getDate().toString().padStart(2, '0');
+    const month = (now.getMonth() + 1).toString().padStart(2, '0');
+    const year = now.getFullYear().toString();
+    const hour = now.getHours().toString().padStart(2, '0');
+    const minute = now.getMinutes().toString().padStart(2, '0');
+    const second = now.getSeconds().toString().padStart(2, '0');
+
+    // Tạo mã đơn hàng
+    const orderCode = `${day}${month}${year}${hour}${minute}${second}`;
+    return orderCode;
+}
+
+function convertCartToString(cart) {
+    let cartString = '';
+    for (const [product, quantity] of Object.entries(cart)) {
+        cartString += `${product} - ${quantity}; `;
+    }
+    // Xóa dấu cách ở cuối chuỗi
+    cartString = cartString.trim();
+    return cartString;
+}
+
+function getCurrentDate() {
+    const now = new Date();
+    const day = now.getDate().toString().padStart(2, '0'); // Lấy ngày và đảm bảo định dạng là 2 chữ số, thêm '0' nếu cần
+    const month = (now.getMonth() + 1).toString().padStart(2, '0'); // Lấy tháng và đảm bảo định dạng là 2 chữ số, thêm '0' nếu cần
+    const year = now.getFullYear(); // Lấy năm
+
+    // Kết hợp ngày, tháng và năm thành chuỗi định dạng "DD-MM-YYYY"
+    const currentDate = `${day}-${month}-${year}`;
+
+    return currentDate;
+}
+
+
+

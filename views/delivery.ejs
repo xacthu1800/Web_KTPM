@@ -20,9 +20,6 @@
 				<a href="/index" class="active">Trang chủ</a>
 			</li>
 			<li>
-				<a href="/productpage">Sản phẩm</a>
-			</li>
-			<li>
 				<a href="/danhmuc">Danh mục</a>
 			</li>
 			<li>
@@ -116,33 +113,22 @@
 <div class="deliveryTable">
 	<table>
 		<tr>
-			<th>Mã đơn hàng</th>
-			<th>Ngày đặt</th>
-			<th>Trạng thái thanh toán</th>
-			<th>Trạng thái vận chuyển</th>
-			<th>Tổng tiền</th>
-		</tr>
-		<tr>
 			<td>#XYZ001</td>
 			<td>02/04/2024</td>
 			<td>Đã thanh toán</td>
 			<td>Đã giao hàng cho vận chuyển</td>
 			<td>410.000đ</td>
 		</tr>
-		<tr>
-			<td>#XYZ002</td>
-			<td>02/04/2024</td>
-			<td>Chờ xử lý</td>
-			<td>Chưa giao hàng</td>
-			<td>70.000đ</td>
-		</tr>
-		<tr>
-			<td>#XYZ003</td>
-			<td>02/04/2024</td>
-			<td>COD</td>
-			<td>Chờ xử lý</td>
-			<td>90.000đ</td>
-		</tr>
+		<% Object.keys(history).forEach(key => { %>
+			<tr>
+				<td><%= history[key].maDonHang %></td>
+				<td><%= history[key].ngayDat %></td>
+				<td><%= history[key].trangThaiThanhToan %></td>
+				<td><%= history[key].trangThaiVanChuyen %></td>
+				<td><%= (history[key].tongTien).toLocaleString('vi-VN') %>đ %></td>
+			</tr>
+		<% }); %>
+	</div>
 	</table>
 </div>
 	
