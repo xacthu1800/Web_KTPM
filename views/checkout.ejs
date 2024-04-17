@@ -118,19 +118,19 @@
 	<div class="box-model-left">
 		<div class="text-box">
         <label for="name">Họ và tên:</label>
-        <input type="text" id="name" name="name">
+        <input type="text" id="name" name="name" required>
       </div>	
       <div class="text-box">
         <label for="address">Địa chỉ:</label>
-        <input type="text" id="address" name="address">
+        <input type="text" id="address" name="address" required>
       </div>
       <div class="text-box">
         <label for="phone-num">Số điện thoại:</label>
-        <input type="text" id="phone-num" name="phone-num">
+        <input type="text" id="phone-num" name="phone-num" required>
       </div>
 		<div class="text-box">
         <label for="email">Email:</label>
-        <input type="text" id="email" name="email">
+        <input type="text" id="email" name="email" required>
       </div>
   </div>
 	</div>
@@ -169,7 +169,7 @@
 	<table>
     <tr>
         <td>
-            <input type="radio" name="row" id="row1">
+            <input type="radio" name="row" id="row1" checked>
             <label for="row1">Thanh toán khi nhận hàng (COD)</label>
             <p>Khi chọn phương thức Thanh toán khi giao hàng (COD), bạn vui lòng kiểm tra kĩ hàng trước khi nhận hàng và thanh toán toàn bộ giá trị đơn hàng cho shipper.</p>
         </td>
@@ -194,14 +194,14 @@
 </main>
   <!-- Pop-up -->	
 		  <div class="container1">
-        <button type="submit" class="btn" onclick="openPopup()">TIẾN HÀNH ĐẶT HÀNG</button>
+        <button  type="submit" class="btn" onclick="openPopup()">TIẾN HÀNH ĐẶT HÀNG</button>
       
 	<div class="overlay"></div>
-	<div class="popup" id="popup">
+	<div class="popup" id="popup" >
 		<img src="https://onedrive.live.com/embed?resid=22B721284FCB62DE%21195203&authkey=%21AMKBKC4oRv4lwEs&width=2000&height=2000">
 		<h2>BẠN ĐÃ ĐẶT HÀNG THÀNH CÔNG!</h2>
 		<h4>Chúng tôi đã nhận được đơn hàng của bạn. Chúng tôi sẽ gửi lại một email xác nhận trong thời gian sớm nhất. Cảm ơn bạn đã mua hàng.</h4>
-		<a href="/index"><button type="button" onclick="closePopup()">OK</button></a>
+		<a href="/index"><button   type="button" onclick="closePopup()">OK</button></a>
 			
 	</div>
 </div>
@@ -403,6 +403,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+
 
 
 </script>

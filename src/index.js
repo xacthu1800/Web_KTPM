@@ -116,7 +116,6 @@ app.post('/record',calculateTotalQuantity, async(req, res) => {
     data.tongTien = req.session.totalPrice
     data.maDonHang = mdh
     data.product = product
-    console.log(data);
 
     const deli = {}
     deli.maDonHang = mdh
@@ -124,7 +123,6 @@ app.post('/record',calculateTotalQuantity, async(req, res) => {
     deli.phuongThucThanhToan = data.phuongThucThanhToan
     deli.tongTien = req.session.totalPrice
     deli.userID = req.session.username
-    console.log(deli);
     req.session.cart = {};
       try {
         // Chèn nhiều đối tượng từ mảng data vào collection dataUser
@@ -175,6 +173,46 @@ app.post('/updateCount',calculateTotalQuantity, async(req, res) => {
       
       // Truy vấn dữ liệu sản phẩm dựa trên tên trong session cart
 });  
+
+app.post('/addBut',calculateTotalQuantity, async(req, res) => {
+    let { data } =  req.body;
+    data = data.toString()
+    
+    if (!req.session.cart) {
+        req.session.cart = {};
+      }
+      if (req.session.cart[data]) {
+          // Nếu đã tồn tại, tăng số lượng lên 1
+          req.session.cart[data]++;
+      } else {
+          // Nếu chưa tồn tại, đặt số lượng là 1
+          req.session.cart[data] = 1;
+      }
+
+    res.redirect('/cart');
+   
+}); 
+
+app.post('/delBut', calculateTotalQuantity, async(req, res) => {
+    let { data } =  req.body;
+    data = data.toString();
+    
+    if (!req.session.cart) {
+        req.session.cart = {};
+    }
+
+    if (req.session.cart[data]) {
+        // Giảm số lượng chỉ khi số lượng hiện tại lớn hơn 0
+        if (req.session.cart[data] > 0) {
+            req.session.cart[data]--;
+        }
+    } else {
+        // Nếu chưa tồn tại, đặt số lượng là 0
+        req.session.cart[data] = 0;
+    }
+
+    res.redirect('/cart');
+});
 
 app.get('/checkSession', (req, res) => {
     if (req.session.username) {
@@ -269,7 +307,6 @@ app.get('/cart', async (req, res) => {
     if(req.session.cart){
         const cartItems = req.session.cart;
         const bookIds = Object.keys(cartItems);
-        console.log(bookIds);
 
     
     // Truy vấn dữ liệu sản phẩm dựa trên tên trong session cart

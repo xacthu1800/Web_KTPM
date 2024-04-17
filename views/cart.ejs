@@ -128,18 +128,22 @@
 		</tr>
 
 		<% Object.keys(listCart).forEach(key => { %>
-			<tr>
-				<td class="column1"><img src = "<%= listCart[key].sach[0].picURL %>" width="60px" height="70px" alt = "imageSP">
-				</td>
-				<td class="column2"><%= listCart[key].name %></td>
-				<th><span class="countbox">
-		  <!-- <input type="button" value="-" onclick="decrementCount(event)">
-		  <input type="number" value="1" min="0" max="99" oninput="updateCount(this.value, <%= listCart[key].sach[0].gia %>)">
-		  <input type="button" value="+" onclick="incrementCount(event)"> -->
-			<p><%= quantity[listCart[key].name]%></p>
-		</span></th>
-				<td class="column4"><%= (listCart[key].sach[0].gia).toLocaleString('vi-VN') %>đ %></td>
-			</tr>
+			<% if(quantity[listCart[key].name] > 0) { %>
+				<tr>
+					<td class="column1"><img src = "<%= listCart[key].sach[0].picURL %>" width="60px" height="70px" alt = "imageSP">
+					</td>
+					<td class="column2"><%= listCart[key].name %></td>
+					<th><span class="countbox">
+			<!-- <input type="button" value="-" onclick="decrementCount(event)">
+			<input type="number" value="1" min="0" max="99" oninput="updateCount(this.value, <%= listCart[key].sach[0].gia %>)">
+			<input type="button" value="+" onclick="incrementCount(event)"> -->
+				<input type="button" value="-" onclick="delBut('<%= listCart[key].name %>')">
+				<p><%= quantity[listCart[key].name]%></p>
+				<input type="button" value="+" onclick="addBut('<%= listCart[key].name %>')">
+			</span></th>
+					<td class="column4"><%= (listCart[key].sach[0].gia).toLocaleString('vi-VN') %>đ %></td>
+				</tr>
+			<% } %>
 		<% }); %>
 
 			
@@ -165,8 +169,8 @@
         <label for="promo-code">Mã khuyến mãi (Nếu có):</label>
         <input type="text" id="promo-code" name="promo-code">
       </div>
-      <div class="button-container">
-        <a href="/checkout"><button class="button-pay" type="button">Thanh toán ngay</button></a>
+      <div class="button-container" >
+        <a href="/checkout"><button class="button-pay" type="button" >Thanh toán ngay</button></a>
       </div>
     </div>
 			
@@ -287,6 +291,64 @@
 		document.body.classList.remove("popup-open");
 	}
 
+	function addBut(bookName) {
+    fetch('/addBut', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ data: bookName })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        if (response.redirected) {
+            // Xử lý redirect nếu có
+            window.location.href = response.url; // Redirect đến URL mới
+            return; // Kết thúc xử lý
+        }
+        return response.json(); // Trả về dữ liệu JSON nếu không có redirect
+    })
+    .then(data => {
+        console.log(data); // Xử lý kết quả trả về từ server nếu cần
+        // Sau khi nhận được phản hồi từ server, bạn có thể thực hiện các hành động tiếp theo tại đây
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+	function delBut(bookName) {
+		fetch('/delBut', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ data: bookName })
+		})
+		.then(response => {
+			if (!response.ok) {
+				throw new Error('Network response was not ok');
+			}
+			if (response.redirected) {
+				// Xử lý redirect nếu có
+				window.location.href = response.url; // Redirect đến URL mới
+				return; // Kết thúc xử lý
+			}
+			return response.json(); // Trả về dữ liệu JSON nếu không có redirect
+		})
+		.then(data => {
+			console.log(data); // Xử lý kết quả trả về từ server nếu cần
+			// Sau khi nhận được phản hồi từ server, bạn có thể thực hiện các hành động tiếp theo tại đây
+		})
+		.catch(error => {
+			console.error('Error:', error);
+		});
+	}
+
+	
+
 </script>
 
 <script>
@@ -316,31 +378,10 @@
 	}
 });
 
+
+
 </script>
 
-
-
-<!-- <script>
-function updateCount(value, bookPrice) {
-		const data = { value, bookPrice};
-
-    // Gửi yêu cầu POST đến route "/countUpdate" trên server
-    fetch('/updateCount', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-  		  }).then(response => {
-            // Xử lý phản hồi từ server (nếu cần)
-        }).catch(error => {
-            console.error('Error:', error);
-        });
-		
-}
-
-
-</script> -->
 
 </body>
 </html>

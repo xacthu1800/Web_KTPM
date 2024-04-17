@@ -484,3 +484,12 @@ td {
   transform: translate(-50%, -50%)
 }
 
+.left-column .countbox > input[type="button"],
+.left-column .countbox > p,
+.left-column .countbox > input[type="button"] {
+    /* CSS cho các phần tử input và p bên trong phần tử có class countbox trong left-column */
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px; /* Khoảng cách giữa các phần tử */
+}
+
