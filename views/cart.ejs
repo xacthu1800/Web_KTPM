@@ -236,11 +236,24 @@
 		});
 	
 		document.getElementById("search-button").addEventListener("click", function() {
-			var searchTerm = searchInput.value.trim();
-			if (searchTerm !== "") {
-				alert("Perform search for: " + searchTerm);
-			}
-		});
+                var searchText = document.getElementById('search-input').value;
+                fetch('/search?query=' + searchText)
+                    .then(response => {
+                        // Kiểm tra nếu phản hồi là chuyển hướng
+                        if (response.redirected) {
+                            // Chuyển hướng trình duyệt đến URL mới
+                            window.location.href = response.url;
+                            return; // Dừng việc xử lý tiếp theo
+                        }
+                        // Nếu không phải là chuyển hướng, xử lý phản hồi JSON
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Xử lý kết quả tìm kiếm ở đây nếu cần
+                        console.log(data);
+                    })
+                    .catch(error => console.error('Error:', error));
+            });
 	});
 	
 	document.getElementById('user-link').addEventListener('click', function(event) {
