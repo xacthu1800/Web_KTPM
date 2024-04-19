@@ -92,6 +92,7 @@ header {
 header .logo {
     font-size: 30px ;
     text-transform: uppercase;
+    font-weight: 600;
 }
 
 header nav ul {
@@ -207,6 +208,15 @@ header nav ul li a.active {
 	color: white;
 }
 
+li{
+    font-weight: 600;
+}
+
+.li {
+    margin-top:3px;
+
+}
+
 /* Cart box */
 #cart-container {
     display: flex;
@@ -215,10 +225,10 @@ header nav ul li a.active {
 
 .cart-box {
     border: 3px solid black;
-    display: inline-block; /* Đảm bảo các cart-box nằm liền kề nhau */
+    height: 100%;
+    display: flex;
     align-items: center;
     padding: 0 10px;
-    margin-right: -7px;
 }
 
 .cart-box:first-child {
@@ -228,8 +238,12 @@ header nav ul li a.active {
 
 .cart-box span {
     font-size: 1.5vw;
+    align-items: 0 1px;
 }
 
+.cart-box a{
+    color: #fff;
+}
 
 .dropdown {
     position: relative;

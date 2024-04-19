@@ -16,16 +16,16 @@
 	<input type="checkbox" id="nav_check" hidden>
 	<nav>
 		<ul>
-			<li>
-				<a href="/index" class="active">Trang chủ</a>
+			<li class="li">
+				<a href="/index" class="">Trang chủ</a>
 			</li>
-			<li>
+			<li class="li">
 				<a href="/danhmuc">Danh mục</a>
 			</li>
-			<li>
+			<li class="li">
 				<a href="#" id="search-link">Tìm kiếm</a>
 			</li>
-			<li class="dropdown">
+			<li class="dropdown li" >
 				<a href="#" id="user-link">Người dùng</a>
 				<div class="dropdown-content">
 					<div class="login-box">
@@ -80,14 +80,12 @@
 					</div>
 				</div>
 				<li id="cart-container">
-					<a href="/cart">
-				<div class="cart-box">
-					<span>GIỎ HÀNG</span>
-				</div>
-				<div class="cart-box">
-					<%= carts %>
-				</div>
-			</a>
+					<div class="cart-box">
+						<span><a href="/cart">GIỎ HÀNG</a></span>
+					</div>
+					<div class="cart-box">
+						<%= carts %>
+					</div>
 			</li>
 			</li>
 			

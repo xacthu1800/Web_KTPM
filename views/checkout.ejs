@@ -12,99 +12,97 @@
 <!-- NavBar -->
 <header>
     
-    <div class="logo">NXB XYZ</div>
-    <input type="checkbox" id="nav_check" hidden>
-    <nav>
-        <ul>
-            <li>
-                <a href="/index" class="active">Trang chủ</a>
-            </li>
-            <li>
-                <a href="/danhmuc">Danh mục</a>
-            </li>
-            <li>
-                <a href="#" id="search-link">Tìm kiếm</a>
-            </li>
-            <li class="dropdown">
-                <a href="#" id="user-link">Người dùng</a>
-                <div class="dropdown-content">
-                    <div class="login-box">
-    
-                        <% if(userN == null) { %>
-                            <!-- TRƯỚC KHI ĐĂNG NHẬP -->
-                            <form id="login-form" class="hidden-form" action="/login" method="post"> <!-- Bắt đầu form ẩn đi -->
-                                <label style="font-size: 1.3rem;"><strong>ĐĂNG NHẬP TÀI KHOẢN</strong></label>
-    
-                                <label for="uname"><strong>Email:</strong></label>
-                                <input type="text" id="uname" name="username" placeholder="Enter your name" required autocomplete="off">
-    
-                                <label for="pass"><strong>Password:</strong></label>
-                                <input type="password" id="pass" name="password" placeholder="password" required>
-    
-                                <button type="submit" id="login-button">ĐĂNG NHẬP</button><br>
-                                
-                                <label>Khách hàng mới?  <strong><a href="/signup">Tạo tài khoản</a></strong></label>
-                                <label style="color: red; font-weight: bold; " id="notifcation">
-                                    <% if (typeof error !== 'undefined' && error !== null) { %>
-                                        <%= error %>
-                                    <% } %>         
-                                </label>
-                                <label style="color: green; font-weight: bold; ">
-                                    <% if (typeof message !== 'undefined' && message !== null) { %>
-                                        <%= message %>
-                                    <% } %>         
-                                </label>
-                             <!--    <label>Quên mật khẩu?  <strong>Khôi phục mật khẩu</strong></label> -->
-                            </form>
-                        <% } else { %>
-                            <!-- SAU KHI ĐĂNG NHẬP -->
-                            <form id="login-form" style="display: none;" > <!-- Bắt đầu form ẩn đi -->
-                                <style>
-                                    label:hover {
-                                        text-decoration: underline;
-                                        text-decoration-thickness: 2px;
-                                        text-underline-offset: 8px;
-                                        text-decoration-color: black;
-                                    }
-                                </style>
-                                <label id="checkout" style="font-size: 1.3rem; align-self: center; margin-bottom: 1px;"><strong><a href="/delivery">ĐƠN HÀNG CỦA BẠN</a></strong></label>
-                                <div style="width: 100%; align-items: center; display: flex; justify-content: center;">
-                                    <hr style="border: 0; border-bottom: 1px solid black; margin: 1.5rem 0; width: 100%;">
-                                </div>
-                                <label id="logout" style="font-size: 1.3rem; align-self: center; margin-bottom: 1px;"><strong><a href="/logout">ĐĂNG XUẤT</a></strong></label>
-                            </form>
-                        <% } %>
-                            
-    
-    
-                    </div>
-                </div>
-                <li id="cart-container">
-                    <a href="/cart">
-                <div class="cart-box">
-                    <span>GIỎ HÀNG</span>
-                </div>
-                <div class="cart-box">
-                    <%= carts %>
-                </div>
-            </a>
-            </li>
-            </li>
-            
-        </ul>
-    </nav>
-    <label for="nav_check" class="smallScale">
-        <div></div>
-        <div></div>
-        <div></div>
-    </label>
-    </header>
-    <div class="search-box-container" id="search-box-container">
-        <div class="search-box">
-            <input type="text" id="search-input" placeholder="Bạn đang muốn tìm gì?">
-            <button id="search-button" onclick="">Tìm kiếm</button>
-        </div>
-    </div>
+	<div class="logo">NXB XYZ</div>
+	<input type="checkbox" id="nav_check" hidden>
+	<nav>
+		<ul>
+			<li class="li">
+				<a href="/index" class="">Trang chủ</a>
+			</li>
+			<li class="li">
+				<a href="/danhmuc">Danh mục</a>
+			</li>
+			<li class="li">
+				<a href="#" id="search-link">Tìm kiếm</a>
+			</li>
+			<li class="dropdown li" >
+				<a href="#" id="user-link">Người dùng</a>
+				<div class="dropdown-content">
+					<div class="login-box">
+	
+						<% if(userN == null) { %>
+							<!-- TRƯỚC KHI ĐĂNG NHẬP -->
+							<form id="login-form" class="hidden-form" action="/login" method="post"> <!-- Bắt đầu form ẩn đi -->
+								<label style="font-size: 1.3rem;"><strong>ĐĂNG NHẬP TÀI KHOẢN</strong></label>
+	
+								<label for="uname"><strong>Email:</strong></label>
+								<input type="text" id="uname" name="username" placeholder="Enter your name" required autocomplete="off">
+	
+								<label for="pass"><strong>Password:</strong></label>
+								<input type="password" id="pass" name="password" placeholder="password" required>
+	
+								<button type="submit" id="login-button">ĐĂNG NHẬP</button><br>
+								
+								<label>Khách hàng mới?  <strong><a href="/signup">Tạo tài khoản</a></strong></label>
+								<label style="color: red; font-weight: bold; " id="notifcation">
+									<% if (typeof error !== 'undefined' && error !== null) { %>
+										<%= error %>
+									<% } %>         
+								</label>
+								<label style="color: green; font-weight: bold; ">
+									<% if (typeof message !== 'undefined' && message !== null) { %>
+										<%= message %>
+									<% } %>         
+								</label>
+							 <!--    <label>Quên mật khẩu?  <strong>Khôi phục mật khẩu</strong></label> -->
+							</form>
+						<% } else { %>
+							<!-- SAU KHI ĐĂNG NHẬP -->
+							<form id="login-form" style="display: none;" > <!-- Bắt đầu form ẩn đi -->
+								<style>
+									label:hover {
+										text-decoration: underline;
+										text-decoration-thickness: 2px;
+										text-underline-offset: 8px;
+										text-decoration-color: black;
+									}
+								</style>
+								<label id="checkout" style="font-size: 1.3rem; align-self: center; margin-bottom: 1px;"><strong><a href="/delivery">ĐƠN HÀNG CỦA BẠN</a></strong></label>
+								<div style="width: 100%; align-items: center; display: flex; justify-content: center;">
+									<hr style="border: 0; border-bottom: 1px solid black; margin: 1.5rem 0; width: 100%;">
+								</div>
+								<label id="logout" style="font-size: 1.3rem; align-self: center; margin-bottom: 1px;"><strong><a href="/logout">ĐĂNG XUẤT</a></strong></label>
+							</form>
+						<% } %>
+							
+	
+	
+					</div>
+				</div>
+				<li id="cart-container">
+					<div class="cart-box">
+						<span><a href="/cart">GIỎ HÀNG</a></span>
+					</div>
+					<div class="cart-box">
+						<%= carts %>
+					</div>
+			</li>
+			</li>
+			
+		</ul>
+	</nav>
+	<label for="nav_check" class="smallScale">
+		<div></div>
+		<div></div>
+		<div></div>
+	</label>
+	<div class="search-box-container" id="search-box-container">
+		<div class="search-box">
+			<input type="text" id="search-input" placeholder="Bạn đang muốn tìm gì?">
+			<button id="search-button">Tìm kiếm</button>
+		</div>
+	</div>
+	</header>
 
 <div class="webTitle">
 	<h1>Thông tin giao hàng</h1>	
