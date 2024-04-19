@@ -190,13 +190,21 @@ app.get("/productpage", (req,res)=>{
         carts: res.locals.carts })
     return
 })
-
+let y = [];
 app.get("/danhmuc",async(req,res)=>{
     const { filterem } = req.body;
-    console.log(filterem);
-    const product = await dataProduct.find()
+    // console.log(filterem);
+    // const product = await dataProduct.find()
+    let p = y;
     const searchResult = globalSearchResult;
-    res.render('danhmuc',{ pros: product,
+    let productToShow;
+    
+    if (p && p.length > 0) {
+        productToShow = p;
+    } else {
+        productToShow = await dataProduct.find();
+    }
+    res.render('danhmuc',{ pros: productToShow,
         userN: req.session.username, 
         login: "login",
         logout: "logout",
@@ -209,27 +217,77 @@ app.post("/danhmuc",async(req,res)=>{
     const { filterem } = req.body;
     // console.log(filterem);
     const product2 = await dataProduct.find({ "Tags.tag": { $all: String(filterem) } });
-
+    y = product2;
     const searchResult = globalSearchResult;
-    console.log(product2);
-    let productToShow;
-    
-    if (product2 && product2.length > 0) {
-        productToShow = product2;
-    } else {
-        productToShow = await dataProduct.find();
-    }
+    //console.log(product2);
+    res.redirect('/danhmuc');
+    // res.render('danhmuc',{ pros: productToShow,
+    //     userN: req.session.username, 
+    //     login: "login",
+    //     logout: "logout",
+    //     carts: res.locals.carts,
+    //     bookFound:  searchResult,
+    //     }) 
+});
 
-    res.render('danhmuc',{ pros: productToShow,
+
+
+// app.post("/danhmuc",async(req,res)=>{
+//     const { filterem } = req.body;
+//     // console.log(filterem);
+//     const product2 = await dataProduct.find({ "sach.gia": { $gt: , $lt: } });
+
+//     const searchResult = globalSearchResult;
+//     // console.log(product2);
+//     let productToShow;
+    
+//     if (product2 && product2.length > 0) {
+//         productToShow = product2;
+//     } else {
+//         productToShow = await dataProduct.find();
+//     }
+
+//     res.render('danhmuc',{ pros: productToShow,
+//         userN: req.session.username, 
+//         login: "login",
+//         logout: "logout",
+//         carts: res.locals.carts,
+//         bookFound:  searchResult,
+//         }) 
+// })
+let books = [];
+app.post("/ori", async(req, res)=>{
+    const { bookName } = req.body;
+    const bookDetails = await dataProduct.find({ "name": { $all: String(bookName) } });
+    books = bookDetails;
+    //console.log(books);
+    //console.log(bookDetails);
+    res.redirect('/ori');
+
+   
+    // const searchResult = globalSearchResult;
+    // res.render('productpage', { book: bookDetails,
+    //     userN: req.session.username, 
+    //     login: "login",
+    //     logout: "logout",
+    //     carts: res.locals.carts,
+    //     bookFound:  searchResult,
+    // })
+})
+app.get("/ori", async(req, res)=>{
+    //console.log('book:\n',books);
+    let x =  books;
+    const searchResult = globalSearchResult;
+    res.render('ori', { book: x,
         userN: req.session.username, 
         login: "login",
         logout: "logout",
         carts: res.locals.carts,
         bookFound:  searchResult,
-        }) 
+    })
 })
 
-app.get('/search', async (req, res) => {
+app.get('/search', async (req, res) => {    
     try {
         const searchText = req.query.query;
         // Sử dụng biểu thức chính quy để tìm kiếm không phân biệt chữ in hoa/thường

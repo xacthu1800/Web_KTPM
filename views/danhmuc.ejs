@@ -135,6 +135,10 @@
                 <div class="filter">
                     <ul class='sidebar-menu-new'>
                         <li >
+                            <input type="checkbox" name="tag" value="" onchange="getSelected()">
+                            <a>All<i class='item-total'></i></a>
+                        </li>
+                        <li >
                             <input type="checkbox" name="tag" value="Lãng mạn" onchange="getSelected()">
                             <a>Lãng Mạn<i class='item-total'></i></a>
                         </li>
@@ -192,19 +196,19 @@
                 <div class="filter">
                     <ul class="sidebar-menu-new">
                         <li>
-                            <input type="checkbox" rel = ~50k onchange="change()">
+                            <input type="checkbox" name="num" value = "50000" onchange="change()">
                             <a>Giá nhỏ hơn 50.000đ</a>
                         </li>
                         <li>
-                            <input type="checkbox" rel = 50k~100k onchange="change()">
+                            <input type="checkbox" name="num" onchange="change()">
                             <a>Giá từ 50.000 -  100.000đ</a>
                         </li>
                         <li>
-                            <input type="checkbox" rel = 100k~150k onchange="change()">
+                            <input type="checkbox" name="num" onchange="change()">
                             <a>Giá từ 100.000 -  150.000đ</a>
                         </li>
                         <li>
-                            <input type="checkbox" rel = 150k~200k onchange="change()">
+                            <input type="checkbox" name="num" onchange="change()">
                             <a>Giá từ 150.000 -  200.000đ</a>
                         </li>
                     </ul>
@@ -230,13 +234,13 @@
                     <% if (book) { %>
                         <div class="itemSP">
                             <div class="imgSP">
-                                <img src="<%= book.sach[0].picURL %>" alt="imageSP">
+                                <img src="<%= book.sach[0].picURL %>" alt="imageSP" onclick="Click('<%= book.name %>')">
                                 <div>
-                                    <button type="button" class="add-btn" onclick="checkSession('<%= book._id %>')">Thêm vào giỏ </button>
+                                    <button type="button" class="add-btn" onclick="checkSession()">Thêm vào giỏ </button>
                                 </div>
                             </div>
                             <div class="contentSP">
-                                <a href="#" class="book-title"><%= book.name %></a>
+                                <a href="" class="book-title" onclick="Click('<%= book.name %>')"><%= book.name %></a>
                                 <p class="author">Tác giả: <span><%= book.author %></span></p>
                                 <div><span class="giaTien"><%= (book.sach[0].gia).toLocaleString('vi-VN', {style: 'currency', currency: 'VND'}) %></span></div>
                             </div>
@@ -247,13 +251,13 @@
                 <% pros.forEach(book => { %>
                     <div class="itemSP">
                         <div class="imgSP">
-                            <img src="<%= book.sach[0].picURL %>" alt="imageSP">
+                            <img src="<%= book.sach[0].picURL %>" alt="imageSP"  onclick="Click('<%= book.name %>')">
                             <div>
-                                <button type="button" class="add-btn" onclick="checkSession('<%= book._id %>')">Thêm vào giỏ </button>
+                                <button type="button" class="add-btn" onclick="checkSession()">Thêm vào giỏ </button>
                             </div>
                         </div>
                         <div class="contentSP">
-                            <a href="#" class="book-title"><%= book.name %></a>
+                            <a href="" class="book-title" onclick="Click('<%= book.name %>')"><%= book.name %></a>
                             <p class="author">Tác giả: <span><%= book.author %></span></p>
                             <div><span class="giaTien"><%= (book.sach[0].gia).toLocaleString('vi-VN', {style: 'currency', currency: 'VND'}) %></span></div>
                         </div>
@@ -492,7 +496,34 @@
 // }
 // change();
 
-function getSelected() {
+// function numSelected() {
+//             var selectedNums = [];
+//             var checkboxes = document.getElementsByName('tag');
+//             for (var i = 0; i < checkboxes.length; i++) {
+//                 if (checkboxes[i].checked) {
+
+//                     // selectedItems.append(checkboxes[i].value);
+//                     selectedItems.push(checkboxes[i].value);
+//                 }
+//             }
+//             // console.log(selectedItems);
+//         // Gửi yêu cầu POST đến route "/add-to-cart" trên server
+//         fetch('/danhmuc', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             },
+//             body: JSON.stringify({filterem: selectedItems })
+
+//         }).then(response => {
+//             // Xử lý phản hồi từ server (nếu cần)
+//         }).catch(error => {
+//             console.error('Error:', error);
+//         });
+        
+//         }
+
+        function getSelected() {
             var selectedItems = [];
             var checkboxes = document.getElementsByName('tag');
             for (var i = 0; i < checkboxes.length; i++) {
@@ -502,7 +533,7 @@ function getSelected() {
                     selectedItems.push(checkboxes[i].value);
                 }
             }
-            console.log(selectedItems);
+            // console.log(selectedItems);
         // Gửi yêu cầu POST đến route "/add-to-cart" trên server
         fetch('/danhmuc', {
             method: 'POST',
@@ -512,11 +543,55 @@ function getSelected() {
             body: JSON.stringify({filterem: selectedItems })
 
         }).then(response => {
-            // Xử lý phản hồi từ server (nếu cần)
+            if (response.redirected) {
+                            // Chuyển hướng trình duyệt đến URL mới
+                            window.location.href = response.url;
+                            return; // Dừng việc xử lý tiếp theo
+                        }
+                        // Nếu không phải là chuyển hướng, xử lý phản hồi JSON
+                        return response.json();
         }).catch(error => {
             console.error('Error:', error);
         });
         
         }
      
+    // const URlpage = '/productpage';
+    function Click(bookName) {
+        console.log(bookName);
+        fetch('/ori', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ bookName: bookName }),
+        }).then(response => {
+            // Kiểm tra nếu phản hồi là chuyển hướng
+            if (response.redirected) {
+                            // Chuyển hướng trình duyệt đến URL mới
+                            window.location.href = response.url;
+                            return; // Dừng việc xử lý tiếp theo
+                        }
+                        // Nếu không phải là chuyển hướng, xử lý phản hồi JSON
+                        return response.json();
+        }).catch(error => {
+            console.error('Error:', error);
+        });
+        //getProductPage()
+    }
+
+    // async function getProductPage() {
+    // try {
+    //     const response = await fetch('/productpage');
+    //     if (!response.ok) {
+    //         throw new Error(`HTTP error! Status: ${response.status}`);
+    //     }
+    //     const data = await response.json();
+    //     // Xử lý dữ liệu trả về
+    //     console.log(data);
+    //     // Sau đó, bạn có thể thực hiện các hành động khác như hiển thị dữ liệu lên trang web
+    // } catch (error) {
+    //     console.error('Fetch error:', error);
+    // }
+
 </script>
