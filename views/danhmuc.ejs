@@ -234,13 +234,13 @@
                     <% if (book) { %>
                         <div class="itemSP">
                             <div class="imgSP">
-                                <img src="<%= book.sach[0].picURL %>" alt="imageSP" onclick="Click('<%= book.name %>')">
+                                <img src="<%= book.sach[0].picURL %>" alt="imageSP" onclick="Click('<%= book.name %>', '<%= book.author %>')">
                                 <div>
                                     <button type="button" class="add-btn" onclick="checkSession()">Thêm vào giỏ </button>
                                 </div>
                             </div>
                             <div class="contentSP">
-                                <a href="" class="book-title" onclick="Click('<%= book.name %>')"><%= book.name %></a>
+                                <a href="" class="book-title" onclick="Click('<%= book.name %>', '<%= book.author %>')"><%= book.name %></a>
                                 <p class="author">Tác giả: <span><%= book.author %></span></p>
                                 <div><span class="giaTien"><%= (book.sach[0].gia).toLocaleString('vi-VN', {style: 'currency', currency: 'VND'}) %></span></div>
                             </div>
@@ -251,13 +251,13 @@
                 <% pros.forEach(book => { %>
                     <div class="itemSP">
                         <div class="imgSP">
-                            <img src="<%= book.sach[0].picURL %>" alt="imageSP"  onclick="Click('<%= book.name %>')">
+                            <img src="<%= book.sach[0].picURL %>" alt="imageSP"  onclick="Click('<%= book.name %>', '<%= book.author %>')">
                             <div>
                                 <button type="button" class="add-btn" onclick="checkSession()">Thêm vào giỏ </button>
                             </div>
                         </div>
                         <div class="contentSP">
-                            <a href="" class="book-title" onclick="Click('<%= book.name %>')"><%= book.name %></a>
+                            <a href="" class="book-title" onclick="Click('<%= book.name %>', '<%= book.author %>')"><%= book.name %></a>
                             <p class="author">Tác giả: <span><%= book.author %></span></p>
                             <div><span class="giaTien"><%= (book.sach[0].gia).toLocaleString('vi-VN', {style: 'currency', currency: 'VND'}) %></span></div>
                         </div>
@@ -557,14 +557,15 @@
         }
      
     // const URlpage = '/productpage';
-    function Click(bookName) {
-        console.log(bookName);
+    function Click(bookName, auth) {
+            console.log(bookName);
+            console.log(auth);
         fetch('/ori', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ bookName: bookName }),
+        body: JSON.stringify({ bookName: bookName, auth: auth }),
         }).then(response => {
             // Kiểm tra nếu phản hồi là chuyển hướng
             if (response.redirected) {

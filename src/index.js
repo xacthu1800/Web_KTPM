@@ -255,28 +255,47 @@ app.post("/danhmuc",async(req,res)=>{
 //         bookFound:  searchResult,
 //         }) 
 // })
+
+// app.get("/danhmuc",async(req,res)=>{
+//     const { filterem } = req.body;
+//     // console.log(filterem);
+//     // const product = await dataProduct.find()
+//     let p = y;
+//     const searchResult = globalSearchResult;
+//     let productToShow;
+    
+//     if (p && p.length > 0) {
+//         productToShow = p;
+//     } else {
+//         productToShow = await dataProduct.find();
+//     }
+//     res.render('danhmuc',{ pros: productToShow,
+//         userN: req.session.username, 
+//         login: "login",
+//         logout: "logout",
+//         carts: res.locals.carts,
+//         bookFound:  searchResult,
+//         }) 
+// })
+
 let books = [];
+let bookfind = [];
 app.post("/ori", async(req, res)=>{
-    const { bookName } = req.body;
+    const { bookName, auth } = req.body;
     const bookDetails = await dataProduct.find({ "name": { $all: String(bookName) } });
+    const bookF = await dataProduct.find({"author": { $all: String(auth) }})
     books = bookDetails;
-    //console.log(books);
+    bookfind = bookF;
+    //console.log(bookF);
     //console.log(bookDetails);
     res.redirect('/ori');
-
-   
-    // const searchResult = globalSearchResult;
-    // res.render('productpage', { book: bookDetails,
-    //     userN: req.session.username, 
-    //     login: "login",
-    //     logout: "logout",
-    //     carts: res.locals.carts,
-    //     bookFound:  searchResult,
-    // })
 })
+
 app.get("/ori", async(req, res)=>{
     //console.log('book:\n',books);
     let x =  books;
+    let y = bookfind;
+    console.log(y);
     const searchResult = globalSearchResult;
     res.render('ori', { book: x,
         userN: req.session.username, 
@@ -284,6 +303,7 @@ app.get("/ori", async(req, res)=>{
         logout: "logout",
         carts: res.locals.carts,
         bookFound:  searchResult,
+        bookfinds: y,
     })
 })
 
@@ -301,7 +321,7 @@ app.get('/search', async (req, res) => {
         globalSearchResult = resultNames;
 
         // Redirect đến trang /danhmuc
-        res.redirect('/danhmuc');
+        res.redirect('/danhmuc');   
 
         /* res.redirect('/danhmuc?rand=' + Math.random())  */
          } catch (error) {
