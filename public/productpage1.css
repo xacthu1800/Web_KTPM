@@ -151,6 +151,15 @@ li{
 
 }
 
+li{
+  font-weight: 600;
+}
+
+.li {
+  margin-top:3px;
+
+}
+
 /* Cart box */
 #cart-container {
   display: flex;
