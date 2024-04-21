@@ -127,14 +127,14 @@
                 <% Object.keys(pros).forEach(key => { %>
                     <div class="itemSP">
                         <div class="imgSP">
-                            <img src="<%= pros[key].sach[0].picURL %>" alt="imageSP">
+                            <img src="<%= pros[key].sach[0].picURL %>" alt="imageSP" onclick="Click('<%= pros[key].name %>', '<%= pros[key].author %>')">
                         
                         <div>
                             <button type="button" class="add-btn" onclick="addToCart('<%= pros[key].name %>');updateCart()">Thêm vào giỏ </button>
                         </div>
                     </div>
                     <div class="contentSP">
-                        <a href="#" class="book-title"><%= pros[key].name %></a>
+                        <a href="#" class="book-title" onclick="Click('<%= pros[key].name %>', '<%= pros[key].author %>')"><%= pros[key].name %></a>
                         <p class="author">Tác giả: <span><%= pros[key].author %></span></p>
 						<div><span class="giaTien"><%= (pros[key].sach[0].gia).toLocaleString('vi-VN', {style: 'currency', currency: 'VND'}) %></span></div>
                     </div>
@@ -310,6 +310,49 @@
             popup.classList.remove("open-popup");
             document.body.classList.remove("popup-open");
         }
+
+        function Click(bookName, auth) {
+            console.log(bookName);
+            console.log(auth);
+        fetch('/ori', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ bookName: bookName, auth: auth }),
+        }).then(response => {
+            // Kiểm tra nếu phản hồi là chuyển hướng
+            if (response.redirected) {
+                            // Chuyển hướng trình duyệt đến URL mới
+                            window.location.href = response.url;
+                            return; // Dừng việc xử lý tiếp theo
+                        }
+                        // Nếu không phải là chuyển hướng, xử lý phản hồi JSON
+                        return response.json();
+        }).catch(error => {
+            console.error('Error:', error);
+        });
+        //getProductPage()
+    }
+    function init() {
+        var hasSpecialEdition = false;
+        var hasLimitedEdition = false;
+        book[0].sach.forEach(function(item) {
+            if (item.ten === 'DacBiet') {
+            hasSpecialEdition = true;
+            }
+            if (item.ten === 'GioiHan') {
+            hasLimitedEdition = true;
+            }
+        });
+        if (hasSpecialEdition) {
+        document.getElementById('specialBtn').style.display = 'none';
+        }
+
+        if (hasLimitedEdition) {
+        document.getElementById('limitedBtn').style.display = 'none';
+        }
+  };
     
     </script>
    

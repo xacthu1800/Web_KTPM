@@ -115,9 +115,9 @@
 	
   <!-- Left Column / Books Image -->
   <div class="left-column1">
-	 <img data-image="thuong" class="active" src="https://product.hstatic.net/200000287623/product/khe_hat_loi_yeu_-_bia_1_99d254ed75184a80b9cfd1ccc262e855_master.png" alt="thuong">
-    <img data-image="dacbiet" src="https://product.hstatic.net/200000287623/product/skipandloafer_4_dacbiet_16de609fe5194cbd9dceb9be1f3a3462_master.jpg" alt="dacbiet">
-    <img data-image="gioihan" src="https://scontent.fsgn2-7.fna.fbcdn.net/v/t39.30808-6/429585368_819622810210965_3314963073881244178_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=5f2048&_nc_ohc=wh6z7RjETtUAX88UaXE&_nc_ht=scontent.fsgn2-7.fna&oh=00_AfAVvV2PCahofA6sx1-XH1kPqbM4Z2LpEMFU_waKwqucRA&oe=65F98597" alt="gioihan">
+	 <img data-image="thuong" class="active" src="<%= book.sach[0].picURL %>" alt="thuong">
+    <img data-image="dacbiet" src="<%= book.sach[1].picURL %>" alt="dacbiet">
+    <img data-image="gioihan" src="<%= book.sach[2].picURL %>" alt="gioihan">
   </div>
  
  
@@ -126,10 +126,10 @@
  
     <!-- Product Description -->
     <div class="product-description">
-      <span>Danh mục / Manga / Khẽ hát lời yêu</span>
-      <h1>Khẽ hát lời yêu 3</h1>
-	  <h3 class="author">Eku Takeshima</h3>
-      <p>Dù đã tạm hoãn lại câu trả lời cho lời tỏ tình của Yori, mối quan hệ giữa Himari và Yori không thể quay lại như trước kia. Aki tỏ ra không bằng lòng trước tình hình này và buộc phải thúc đẩy Himari. Liệu sự can thiệp của Aki có thể tạo ra bước ngoặt không? Mời các bạn đón đọc câu chuyện về tình yêu nảy sinh từ hiểu lầm của hai cô gái trong Khẽ hát lời yêu – Whispering you a love song tập 3!</p>
+      <span>Danh mục / Manga / <%= book.name %></span>
+      <h1><%= book.name %></h1>
+	  <h3 class="author"><%= book.author %></h3>
+      <p><%= book.Description %></p>
     </div>
  
     <!-- Product Configuration -->
@@ -140,16 +140,16 @@
         <span>Chọn phiên bản</span>
  
         <div class="edition-choose">
-          <button onclick="changeImage('thuong')">Thường</button>
-  		  <button onclick="changeImage('dacbiet')">Đặc biệt</button>
-  		  <button onclick="changeImage('gioihan')">Giới hạn</button>
+            <button onclick="changeImage('thuong')">Thường</button>
+  		  <button id="specialBtn" style="display:inline-block" onclick="changeImage('dacbiet')">Đặc biệt</button>
+  		  <button id="limitedBtn" style="display:inline-block" onclick="changeImage('gioihan')">Giới hạn</button>
         </div>
       </div>
     </div>
  
     <!-- Product Pricing -->
     <div class="product-price">
-      <span>65.000đ</span>
+      <span><%= book[0].sach[0].gia %>đ</span>
       <a href="#" class="cart-btn">Thêm vào giỏ hàng</a>
     </div>
   </div>
@@ -161,15 +161,19 @@
 
 <div class="grid-container">
         <div class="grid-item header">Trạng thái</div>
-        <div class="grid-item content">Đang phát hành</div>
+        <div class="grid-item content"><%= book[0].TrangThai %></div>
 	    <div class="grid-item header">Năm xuất bản</div>
-        <div class="grid-item content">2024</div>
+        <div class="grid-item content"><%= book[0].NamXuatBan %></div>
 	    <div class="grid-item header">Kích thước</div>
-        <div class="grid-item content">13 x 18 cm</div>
+        <div class="grid-item content"><%= book[0].KichThuoc %></div>
 		<div class="grid-item header">Đối tượng</div>
-        <div class="grid-item content">13+</div>
+        <div class="grid-item content"><%= book[0].DoiTuong %></div>
 		<div class="grid-item header">Tags</div>
-        <div class="grid-item content">Lãng mạn, Girls Love</div>
+        <div class="grid-item content">
+            <% book[0].Tags.forEach((tag, index) => { %>
+                <%= tag.tag %><%= index !== book[0].Tags.length - 1 ? ' - ' : '' %>
+            <% }); %>
+        </div>
     </div>
 <!-- Grid san pham -->	
 	<div class="webTitle">
@@ -179,47 +183,26 @@
     <div class = "container">
 		<div class = "sanPham">
 		<div class = "containerSP">
-		<div class = "itemSP">
-			<div class = "imgSP">
-            	<img src = "https://product.hstatic.net/200000287623/product/khe_hat_loi_yeu_-_bia_1_6bbd3bcb1cb942c191ae0b31446b3ffa_master.png" alt = "imageSP">
-            <div>
-                <button type = "button" class = "add-btn">Thêm vào giỏ hàng</button>
-            </div>
-         </div>
-         <div class = "contentSP">
-         	<a href = "#" class = "book-title">KHẼ HÁT LỜI YÊU - TẬP 1</a>
-            <p class = "author">Tác giả: <span>Eku Takeshima</span></p>
-		 <div><span class="giaTien">65.000đ</span></div>
-         </div>
-         </div>
-		
-		<div class = "itemSP">
-			<div class = "imgSP">
-            	<img src = "https://product.hstatic.net/200000287623/product/khe_hat_loi_yeu_tap_2_-_bia_1_e9335c5bc01d49238b9646e19be30bba_master.png" alt = "imageSP">
-            <div>
-                <button type = "button" class = "add-btn">Thêm vào giỏ hàng</button>
-            </div>
-         </div>
-         <div class = "contentSP">
-         	<a href = "#" class = "book-title">KHẼ HÁT LỜI YÊU - TẬP 2</a>
-            <p class = "author">Tác giả: <span>Eku Takeshima</span></p>
-		 <div><span class="giaTien">65.000đ</span></div>
-         </div>
-         </div>
-		
-		<div class = "itemSP">
-			<div class = "imgSP">
-            	<img src = "https://product.hstatic.net/200000287623/product/khe_hat_loi_yeu_-_bia_1_99d254ed75184a80b9cfd1ccc262e855_master.png" alt = "imageSP">
-            <div>
-                <button type = "button" class = "add-btn">Thêm vào giỏ hàng</button>
-            </div>
-         </div>
-         <div class = "contentSP">
-         	<a href = "#" class = "book-title">KHẼ HÁT LỜI YÊU - TẬP 3</a>
-            <p class = "author">Tác giả: <span>Eku Takeshima</span></p>
-		 <div><span class="giaTien">65.000đ</span></div>
-         </div>
-         </div>
+            <% bookfinds.forEach(relatedBook => { %>
+                <div class="itemSP">
+                    <div class="imgSP">
+                        <!-- Ảnh sách -->
+                        <img src="<%= relatedBook.sach[0].picURL %>" alt="imageSP" onclick="Click('<%= relatedBook.name %>', '<%= relatedBook.author %>')">
+                        <div>
+                            <!-- Button thêm vào giỏ hàng -->
+                            <button type="button" class="add-btn">Thêm vào giỏ hàng</button>
+                        </div>
+                    </div>
+                    <div class="contentSP">
+                        <!-- Tiêu đề sách -->
+                        <a href="" class="book-title" onclick="Click('<%= relatedBook.name %>', '<%= relatedBook.author %>')"><%= relatedBook.name %></a>
+                        <!-- Tác giả -->
+                        <p class="author">Tác giả: <span><%= book[0].author %></span></p>
+                        <!-- Giá tiền -->
+                        <div><span class="giaTien"><%= book[0].sach[0].gia %>đ</span></div>
+                    </div>
+                </div>
+    <% }); %>
     </div>
 </div>
 	</div>
@@ -338,6 +321,49 @@
         popup.classList.remove("open-popup");
         document.body.classList.remove("popup-open");
     }
+
+    function Click(bookName, auth) {
+            console.log(bookName);
+            console.log(auth);
+        fetch('/ori', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ bookName: bookName, auth: auth }),
+        }).then(response => {
+            // Kiểm tra nếu phản hồi là chuyển hướng
+            if (response.redirected) {
+                            // Chuyển hướng trình duyệt đến URL mới
+                            window.location.href = response.url;
+                            return; // Dừng việc xử lý tiếp theo
+                        }
+                        // Nếu không phải là chuyển hướng, xử lý phản hồi JSON
+                        return response.json();
+        }).catch(error => {
+            console.error('Error:', error);
+        });
+        //getProductPage()
+    }
+    function init() {
+        var hasSpecialEdition = false;
+        var hasLimitedEdition = false;
+        book[0].sach.forEach(function(item) {
+            if (item.ten === 'DacBiet') {
+            hasSpecialEdition = true;
+            }
+            if (item.ten === 'GioiHan') {
+            hasLimitedEdition = true;
+            }
+        });
+        if (hasSpecialEdition) {
+        document.getElementById('specialBtn').style.display = 'none';
+        }
+
+        if (hasLimitedEdition) {
+        document.getElementById('limitedBtn').style.display = 'none';
+        }
+  };
 
 </script>
 
