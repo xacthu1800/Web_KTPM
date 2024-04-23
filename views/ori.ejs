@@ -164,8 +164,8 @@
     <span id="limitedBtn-price" style="display:none">
         <%= book[0].sach[2].gia.toLocaleString('vi-VN', {style: 'currency', currency: 'VND'}) %>
     </span>
-      <a href="#" class="cart-btn">Thêm vào giỏ hàng</a>
-    </div>
+    <button class="cart-btn" onclick="addToCart('<%= book[0].name %>'); updateCart()">Thêm vào giỏ hàng</button>
+</div>
   </div>
 </main>
 
@@ -271,6 +271,31 @@
   	 </div>
   </footer>
   <script>
+    function addToCart(productName) {
+    // Tạo một đối tượng dữ liệu để gửi lên server
+    const data = { productName: productName };
+
+    // Gửi yêu cầu POST đến route "/add-to-cart" trên server
+    fetch('/add-to-cart', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    }).then(response => {
+        // Xử lý phản hồi từ server (nếu cần)
+    }).catch(error => {
+        console.error('Error:', error);
+    });
+}
+    function updateCart() {
+        // Thực hiện logic thêm sản phẩm vào giỏ hàng ở đây
+
+        // Sau khi đã thêm vào giỏ hàng, chuyển hướng người dùng đến route /index
+        window.location.href = '/ori';
+    }
+
+
     //Navbar	
     document.addEventListener("DOMContentLoaded", function() {
             
