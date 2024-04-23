@@ -130,55 +130,55 @@
                 <div class="filter">
                     <ul class='sidebar-menu-new'>
                         <li >
-                            <input type="checkbox" name="tag" value="" onchange="getSelected()">
+                            <input type="checkbox" name="tag" value="">
                             <a>All<i class='item-total'></i></a>
                         </li>
                         <li >
-                            <input type="checkbox" name="tag" value="Lãng mạn" onchange="getSelected()">
+                            <input type="checkbox" name="tag" value="Lãng mạn">
                             <a>Lãng Mạn<i class='item-total'></i></a>
                         </li>
                         <li >
-                            <input type="checkbox" name="tag" value="Girls Love" onchange="getSelected()">
+                            <input type="checkbox" name="tag" value="Girls Love">
                             <a>Girls Love<i class='item-total'></i></a>
                         </li>
                         <li >
-                            <input type="checkbox" name="tag" value="Hài hước" onchange="getSelected()">
+                            <input type="checkbox" name="tag" value="Hài hước">
                             <a>Hài Hước<i class='item-total'></i></a>
                         </li>
                         <li >
-                            <input type="checkbox" name="tag" value="Đời thường" onchange="getSelected()">
+                            <input type="checkbox" name="tag" value="Đời thường">
                             <a>Đời Thường<i class='item-total'></i></a>
                         </li>
                         <li >
-                            <input type="checkbox" name="tag" value="Âm nhạc" onchange="getSelected()">
+                            <input type="checkbox" name="tag" value="Âm nhạc">
                             <a>Âm Nhạc<i class='item-total'></i></a>
                         </li>
                         <li >
-                            <input type="checkbox" name="tag" value="Shounen" onchange="getSelected()">
+                            <input type="checkbox" name="tag" value="Shounen">
                             <a>Shounen<i class='item-total'></i></a>
                         </li>
                         <li >
-                            <input type="checkbox" name="tag" value="Giả tưởng" onchange="getSelected()">
+                            <input type="checkbox" name="tag" value="Giả tưởng">
                             <a>Giả Tưởng<i class='item-total'></i></a>
                         </li>
                         <li >
-                            <input type="checkbox" name="tag" value="Drama" onchange="getSelected()">
+                            <input type="checkbox" name="tag" value="Drama">
                             <a>Drama<i class='item-total'></i></a>
                         </li>
                         <li >
-                            <input type="checkbox" name="tag" value="Drama tâm lý" onchange="getSelected()">
+                            <input type="checkbox" name="tag" value="Drama tâm lý">
                             <a>Drama Tâm Lý<i class='item-total'></i></a>
                         </li>
                         <li >
-                            <input type="checkbox" name="tag" value="Mecha" onchange="getSelected()">
+                            <input type="checkbox" name="tag" value="Mecha">
                             <a>Mecha<i class='item-total'></i></a>
                         </li>
                         <li >
-                            <input type="checkbox" name="tag" value="Hành động" onchange="getSelected()">
+                            <input type="checkbox" name="tag" value="Hành động">
                             <a>Hành Động<i class='item-total'></i></a>
                         </li>
                         <li >
-                            <input type="checkbox" name="tag" value="Học đường" onchange="getSelected()">
+                            <input type="checkbox" name="tag" value="Học đường">
                             <a>Học Đường<i class='item-total'></i></a>
                         </li>
                     </ul>
@@ -191,21 +191,25 @@
                 <div class="filter">
                     <ul class="sidebar-menu-new">
                         <li>
-                            <input type="checkbox" name="price" value="1" onchange="getNumb()">
+                            <input type="checkbox" name="price" value="1">
                             <a>Giá nhỏ hơn 50.000đ</a>
                         </li>
                         <li>
-                            <input type="checkbox" name="price" value="50001" onchange="getNumb()">
+                            <input type="checkbox" name="price" value="50001">
                             <a>Giá từ 50.000 -  100.000đ</a>
                         </li>
                         <li>
-                            <input type="checkbox" name="price" value="100001" onchange="getNumb()">
+                            <input type="checkbox" name="price" value="100001">
                             <a>Giá từ 100.000 -  150.000đ</a>
                         </li>
                         <li>
-                            <input type="checkbox" name="price" value="150001" onchange="getNumb()">
+                            <input type="checkbox" name="price" value="150001">
                             <a>Giá từ 150.000 -  200.000đ</a>
-                        </li>
+                        </li><br>
+                        <form action="/reset" method="POST">
+                            <button onclick="getSelected()">Filter</button>
+                            <button type="submit">Reset Filters</button>
+                        </form>
                     </ul>
                 </div>
             </div>
@@ -438,6 +442,11 @@
         }
 
         function getSelected() {
+            const checkboxe = document.querySelectorAll('input[name="price"]:checked');
+            let pricefil = 0;
+            checkboxe.forEach((checkbox) => {
+                pricefil = parseInt(checkbox.value);
+            });
             var selectedItems = [];
             var checkboxes = document.getElementsByName('tag');
             for (var i = 0; i < checkboxes.length; i++) {
@@ -447,6 +456,10 @@
                     selectedItems.push(checkboxes[i].value);
                 }
             }
+            if(selectedItems.length === 0)
+            {
+                selectedItems.push();
+            }
             // console.log(selectedItems);
         // Gửi yêu cầu POST đến route "/add-to-cart" trên server
         fetch('/danhmuc', {
@@ -454,7 +467,7 @@
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({filterem: selectedItems })
+            body: JSON.stringify({filterem: selectedItems, pricefil: pricefil })
 
         }).then(response => {
             if (response.redirected) {

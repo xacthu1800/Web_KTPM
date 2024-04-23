@@ -263,38 +263,52 @@ app.get("/productpage", (req,res)=>{
     return
 })
 
+app.post("/reset", async (req, res) => {
+    y = []; 
+    num = []; 
+    res.redirect('/danhmuc');
+});
+
+
 let y = [];
 let num = [];
 app.post("/danhmuc", async (req, res) => {
-    const { filterem} = req.body;
-    const { pricefil} = req.body;
+    const { filterem, pricefil} = req.body;
+    // console.log(pricefil);
+    // console.log(typeof(0));
+    //const { pricefil} = req.body;
     // Xử lý tìm kiếm dựa trên filterem
-    if (filterem) {
-        const product2 = await dataProduct.find({ "Tags.tag": { $all: String(filterem) } });
-        y = product2;
-    }
 
-    // Xử lý tìm kiếm dựa trên pricefil
-    if (pricefil) {
+    if (filterem.length > 0){
+        if (parseInt(pricefil) > 0) {
         let prices = parseInt(pricefil) + 50000;
-        console.log(pricefil);
-        console.log(prices);
-        const numb = await dataProduct.find({ "sach.0.gia": { $gt: pricefil, $lt: prices } });
-        num = numb;
+        const product2 = await dataProduct.find({ "Tags.tag": { $all: String(filterem) }, "sach.0.gia": { $gt: pricefil, $lt: prices } });
+        y = product2;
+        }
+        else if (parseInt(pricefil) === 0) {
+            const product2 = await dataProduct.find({ "Tags.tag": { $all: String(filterem) } });
+            y = product2;
+        } 
     }
-
+    else if (filterem.length === 0) {
+        if (parseInt(pricefil) > 0) {
+        let prices = parseInt(pricefil) + 50000;
+        const numb = await dataProduct.find({ "sach.0.gia": { $gt: pricefil, $lt: prices } });
+        y = numb;
+        }
+    }
+    
     res.redirect('/danhmuc');
+
 });
 
 app.get("/danhmuc", async (req, res) => {
     const filterResult = y;
-    const priceResult = num;
+    //const priceResult = num;
 
     let productToShow;      
     if (filterResult.length > 0) {
         productToShow = filterResult;
-    } else if (priceResult.length > 0) {
-        productToShow = priceResult;
     } else {
         productToShow = await dataProduct.find();
     }
