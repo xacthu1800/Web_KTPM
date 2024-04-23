@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt')
 const session = require('express-session');
 const {dataUser, dataProduct, delivery, record} = require('./config');
 const { log } = require('console');
-const PORT = process.env.PORT || 9000;
+const PORT = process.env.PORT || 3000;
 const { ObjectId } = require('mongodb');
 
 
