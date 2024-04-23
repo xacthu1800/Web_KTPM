@@ -115,9 +115,9 @@
 	
   <!-- Left Column / Books Image -->
   <div class="left-column1">
-	 <img data-image="thuong" class="active" src="<%= book[0].sach[0].picURL %>" alt="thuong">
-    <img data-image="dacbiet" src="<%= book[0].sach[1].picURL %>" alt="dacbiet">
-    <img data-image="gioihan" src="<%= book[0].sach[2].picURL %>" alt="gioihan">
+	 <img data-image="thuong" class="active" data-index="0" src="<%= book[0].sach[0].picURL %>" alt="thuong">
+    <img data-image="dacbiet" data-index="1" src="<%= book[0].sach[1].picURL %>" alt="dacbiet">
+    <img data-image="gioihan" data-index="2" src="<%= book[0].sach[2].picURL %>" alt="gioihan">
   </div>
  
  
@@ -140,16 +140,35 @@
         <span>Chọn phiên bản</span>
  
         <div class="edition-choose">
-          <button onclick="changeImage('thuong')">Thường</button>
-  		  <button id="specialBtn" style="display:inline-block" onclick="changeImage('dacbiet')">Đặc biệt</button>
-  		  <button id="limitedBtn" style="display:inline-block" onclick="changeImage('gioihan')">Giới hạn</button>
+          <button id="normalBtn" onclick="changeImage('thuong'), changePrice('normalBtn')" data-index="0">Thường</button>
+  		  <!-- <button id="specialBtn" style="display:inline-block" onclick="changeImage('dacbiet')">Đặc biệt</button>
+  		  <button id="limitedBtn" style="display:inline-block" onclick="changeImage('gioihan')">Giới hạn</button> -->
+            <% if (book[0].sach[1].ten !== "") { %>
+                <button id="specialBtn" style="display:inline-block" onclick="changeImage('dacbiet'), changePrice('specialBtn')" data-index="1">Đặc biệt</button>
+            <% } else { %>
+                <button id="specialBtn" style="display:none" onclick="changeImage('dacbiet'), changePrice('specialBtn')" data-index="1">Đặc biệt</button>
+            <% } %>
+            
+            <% if (book[0].sach[2].ten !== "") { %>
+                <button id="limitedBtn" style="display:inline-block" onclick="changeImage('gioihan'), changePrice('limitedBtn')" data-index="2">Giới hạn</button>
+            <% } else { %>
+                <button id="limitedBtn" style="display:none" onclick="changeImage('gioihan'), changePrice('limitedBtn')" data-index="2">Giới hạn</button>
+            <% } %>
         </div>
       </div>
     </div>
  
     <!-- Product Pricing -->
     <div class="product-price">
-      <span><%= book[0].sach[0].gia %>đ</span>
+    <span id="normalBtn-price">
+        <%= book[0].sach[0].gia.toLocaleString('vi-VN', {style: 'currency', currency: 'VND'}) %>
+    </span>
+    <span id="specialBtn-price" style="display:none">
+        <%= book[0].sach[1].gia.toLocaleString('vi-VN', {style: 'currency', currency: 'VND'}) %>
+    </span>
+    <span id="limitedBtn-price" style="display:none">
+        <%= book[0].sach[2].gia.toLocaleString('vi-VN', {style: 'currency', currency: 'VND'}) %>
+    </span>
       <a href="#" class="cart-btn">Thêm vào giỏ hàng</a>
     </div>
   </div>
@@ -200,7 +219,7 @@
                                 <!-- Tác giả -->
                                 <p class="author">Tác giả: <span><%= book[0].author %></span></p>
                                 <!-- Giá tiền -->
-                                <div><span class="giaTien"><%= book[0].sach[0].gia %>đ</span></div>
+                                <div><span class="giaTien"><%= book[0].sach[0].gia.toLocaleString('vi-VN', {style: 'currency', currency: 'VND'}) %></span></div>
                             </div>
                         </div>
             <% }); %>
@@ -337,25 +356,8 @@
         });
         //getProductPage()
     }
-    function init() {
-        var hasSpecialEdition = false;
-        var hasLimitedEdition = false;
-        book[0].sach.forEach(function(item) {
-            if (item.ten === 'DacBiet') {
-            hasSpecialEdition = true;
-            }
-            if (item.ten === 'GioiHan') {
-            hasLimitedEdition = true;
-            }
-        });
-        if (hasSpecialEdition) {
-        document.getElementById('specialBtn').style.display = 'none';
-        }
 
-        if (hasLimitedEdition) {
-        document.getElementById('limitedBtn').style.display = 'none';
-        }
-  };
+
 
 </script>
 

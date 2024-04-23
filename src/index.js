@@ -264,92 +264,50 @@ app.get("/productpage", (req,res)=>{
 })
 
 let y = [];
-app.get("/danhmuc",async(req,res)=>{
-    const { filterem } = req.body;
-    // console.log(filterem);
-    // const product = await dataProduct.find()
-    let p = y;
-    const searchResult = globalSearchResult;
-    let productToShow;
-    
-    if (p && p.length > 0) {
-        productToShow = p;
+let num = [];
+app.post("/danhmuc", async (req, res) => {
+    const { filterem} = req.body;
+    const { pricefil} = req.body;
+    // Xử lý tìm kiếm dựa trên filterem
+    if (filterem) {
+        const product2 = await dataProduct.find({ "Tags.tag": { $all: String(filterem) } });
+        y = product2;
+    }
+
+    // Xử lý tìm kiếm dựa trên pricefil
+    if (pricefil) {
+        let prices = parseInt(pricefil) + 50000;
+        console.log(pricefil);
+        console.log(prices);
+        const numb = await dataProduct.find({ "sach.0.gia": { $gt: pricefil, $lt: prices } });
+        num = numb;
+    }
+
+    res.redirect('/danhmuc');
+});
+
+app.get("/danhmuc", async (req, res) => {
+    const filterResult = y;
+    const priceResult = num;
+
+    let productToShow;      
+    if (filterResult.length > 0) {
+        productToShow = filterResult;
+    } else if (priceResult.length > 0) {
+        productToShow = priceResult;
     } else {
         productToShow = await dataProduct.find();
     }
-    res.render('danhmuc',{ pros: productToShow,
-        userN: req.session.username, 
+
+    res.render('danhmuc', {
+        pros: productToShow,
+        userN: req.session.username,
         login: "login",
         logout: "logout",
         carts: res.locals.carts,
-        bookFound:  searchResult,
-        }) 
-})
-
-app.post("/danhmuc",async(req,res)=>{
-    const { filterem } = req.body;
-    // console.log(filterem);
-    const product2 = await dataProduct.find({ "Tags.tag": { $all: String(filterem) } });
-    y = product2;
-    const searchResult = globalSearchResult;
-    //console.log(product2);
-    res.redirect('/danhmuc');
-    // res.render('danhmuc',{ pros: productToShow,
-    //     userN: req.session.username, 
-    //     login: "login",
-    //     logout: "logout",
-    //     carts: res.locals.carts,
-    //     bookFound:  searchResult,
-    //     }) 
+        bookFound: globalSearchResult,
+    });
 });
-
-
-
-// app.post("/danhmuc",async(req,res)=>{
-//     const { filterem } = req.body;
-//     // console.log(filterem);
-//     const product2 = await dataProduct.find({ "sach.gia": { $gt: , $lt: } });
-
-//     const searchResult = globalSearchResult;
-//     // console.log(product2);
-//     let productToShow;
-    
-//     if (product2 && product2.length > 0) {
-//         productToShow = product2;
-//     } else {
-//         productToShow = await dataProduct.find();
-//     }
-
-//     res.render('danhmuc',{ pros: productToShow,
-//         userN: req.session.username, 
-//         login: "login",
-//         logout: "logout",
-//         carts: res.locals.carts,
-//         bookFound:  searchResult,
-//         }) 
-// })
-
-// app.get("/danhmuc",async(req,res)=>{
-//     const { filterem } = req.body;
-//     // console.log(filterem);
-//     // const product = await dataProduct.find()
-//     let p = y;
-//     const searchResult = globalSearchResult;
-//     let productToShow;
-    
-//     if (p && p.length > 0) {
-//         productToShow = p;
-//     } else {
-//         productToShow = await dataProduct.find();
-//     }
-//     res.render('danhmuc',{ pros: productToShow,
-//         userN: req.session.username, 
-//         login: "login",
-//         logout: "logout",
-//         carts: res.locals.carts,
-//         bookFound:  searchResult,
-//         }) 
-// })
 
 let books = [];
 let bookfind = [];

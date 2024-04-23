@@ -191,19 +191,19 @@
                 <div class="filter">
                     <ul class="sidebar-menu-new">
                         <li>
-                            <input type="checkbox" rel = ~50k onchange="change()">
+                            <input type="checkbox" name="price" value="1" onchange="getNumb()">
                             <a>Giá nhỏ hơn 50.000đ</a>
                         </li>
                         <li>
-                            <input type="checkbox" rel = 50k~100k onchange="change()">
+                            <input type="checkbox" name="price" value="50001" onchange="getNumb()">
                             <a>Giá từ 50.000 -  100.000đ</a>
                         </li>
                         <li>
-                            <input type="checkbox" rel = 100k~150k onchange="change()">
+                            <input type="checkbox" name="price" value="100001" onchange="getNumb()">
                             <a>Giá từ 100.000 -  150.000đ</a>
                         </li>
                         <li>
-                            <input type="checkbox" rel = 150k~200k onchange="change()">
+                            <input type="checkbox" name="price" value="150001" onchange="getNumb()">
                             <a>Giá từ 150.000 -  200.000đ</a>
                         </li>
                     </ul>
@@ -469,6 +469,35 @@
         });
         
         }
+
+        function getNumb() {
+            const checkboxes = document.querySelectorAll('input[name="price"]:checked');
+            let pricefil = 0;
+            checkboxes.forEach((checkbox) => {
+                pricefil = parseInt(checkbox.value);
+            });
+            //console.log(selectedNumbs);
+        // Gửi yêu cầu POST đến route "/add-to-cart" trên server
+        fetch('/danhmuc', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({pricefil: pricefil })
+
+        }).then(response => {
+            if (response.redirected) {
+                            // Chuyển hướng trình duyệt đến URL mới
+                            window.location.href = response.url;
+                            return; // Dừng việc xử lý tiếp theo
+                        }
+                        // Nếu không phải là chuyển hướng, xử lý phản hồi JSON
+                        return response.json();
+        }).catch(error => {
+            console.error('Error:', error);
+        });
+        
+        }
      
     // const URlpage = '/productpage';
     function Click(bookName, auth) {
@@ -530,23 +559,5 @@
 
 </html>
 <script>
-    function change() {
-  let results = Array.from(document.querySelectorAll('.containerSP > div'));
-  // Hide all results
-  results.forEach(function(result) {
-    result.style.display = 'none';
-  });
-  // Filter results to only those that meet ALL requirements:
-  Array.from(document.querySelectorAll('.filter input[rel]:checked'), function(input) {
-    const attrib = input.getAttribute('rel');
-    results = results.filter(function(result) {
-      return result.classList.contains(attrib);
-    });
-  });
-  // Show those filtered results:
-  results.forEach(function(result) {
-    result.style.display = 'block';
-  });
-}
-change();
+
 </script>
