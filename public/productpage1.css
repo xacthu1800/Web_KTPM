@@ -393,10 +393,14 @@ html, body {
   text-decoration: none;
   padding: 12px 30px;
   transition: all .5s;
+  border: none; /* Thêm dòng này để loại bỏ viền của button */
+  cursor: pointer; /* Thêm dòng này để biến con trỏ thành kiểu "pointer" khi di chuột qua button */
 }
+
 .cart-btn:hover {
   background-color: #64af3d;
 }
+
 
 
 /* Responsive */
