@@ -12,3 +12,21 @@ function changeImage(imageType) {
     }
   });
 }
+
+function changePrice(btnId) {
+  // Lấy tất cả các giá trị giá tiền
+  var prices = document.querySelectorAll('.product-price span');
+  
+  // Lặp qua từng giá trị giá tiền để ẩn hoặc hiện tùy theo nút được click
+  prices.forEach(function(price) {
+    // Ẩn tất cả các giá trị giá tiền
+    price.style.display = 'none';
+  });
+  
+  // Hiển thị giá tiền tương ứng với nút được click
+  var priceId = btnId + "-price";
+  var selectedPrice = document.getElementById(priceId);
+  if (selectedPrice) {
+    selectedPrice.style.display = 'inline-block';
+  }
+}
