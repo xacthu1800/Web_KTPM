@@ -5,8 +5,9 @@ const bcrypt = require('bcrypt')
 const session = require('express-session');
 const {dataUser, dataProduct, delivery, record} = require('./config');
 const { log } = require('console');
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 9000;
 const { ObjectId } = require('mongodb');
+const portfinder = require('portfinder');
 
 
 
@@ -263,65 +264,93 @@ app.get("/productpage", (req,res)=>{
     return
 })
 
-app.post("/reset", async (req, res) => {
-    y = []; 
-    num = []; 
-    res.redirect('/danhmuc');
-});
-
-
 let y = [];
-let num = [];
-app.post("/danhmuc", async (req, res) => {
-    const { filterem, pricefil} = req.body;
-    // console.log(pricefil);
-    // console.log(typeof(0));
-    //const { pricefil} = req.body;
-    // Xử lý tìm kiếm dựa trên filterem
-
-    if (filterem.length > 0){
-        if (parseInt(pricefil) > 0) {
-        let prices = parseInt(pricefil) + 50000;
-        const product2 = await dataProduct.find({ "Tags.tag": { $all: String(filterem) }, "sach.0.gia": { $gt: pricefil, $lt: prices } });
-        y = product2;
-        }
-        else if (parseInt(pricefil) === 0) {
-            const product2 = await dataProduct.find({ "Tags.tag": { $all: String(filterem) } });
-            y = product2;
-        } 
-    }
-    else if (filterem.length === 0) {
-        if (parseInt(pricefil) > 0) {
-        let prices = parseInt(pricefil) + 50000;
-        const numb = await dataProduct.find({ "sach.0.gia": { $gt: pricefil, $lt: prices } });
-        y = numb;
-        }
-    }
+app.get("/danhmuc",async(req,res)=>{
+    const { filterem } = req.body;
+    // console.log(filterem);
+    // const product = await dataProduct.find()
+    let p = y;
+    const searchResult = globalSearchResult;
+    let productToShow;
     
-    res.redirect('/danhmuc');
-
-});
-
-app.get("/danhmuc", async (req, res) => {
-    const filterResult = y;
-    //const priceResult = num;
-
-    let productToShow;      
-    if (filterResult.length > 0) {
-        productToShow = filterResult;
+    if (p && p.length > 0) {
+        productToShow = p;
     } else {
         productToShow = await dataProduct.find();
     }
-
-    res.render('danhmuc', {
-        pros: productToShow,
-        userN: req.session.username,
+    res.render('danhmuc',{ pros: productToShow,
+        userN: req.session.username, 
         login: "login",
         logout: "logout",
         carts: res.locals.carts,
-        bookFound: globalSearchResult,
-    });
+        bookFound:  searchResult,
+        }) 
+})
+
+app.post("/danhmuc",async(req,res)=>{
+    const { filterem } = req.body;
+    // console.log(filterem);
+    const product2 = await dataProduct.find({ "Tags.tag": { $all: String(filterem) } });
+    y = product2;
+    const searchResult = globalSearchResult;
+    //console.log(product2);
+    res.redirect('/danhmuc');
+    // res.render('danhmuc',{ pros: productToShow,
+    //     userN: req.session.username, 
+    //     login: "login",
+    //     logout: "logout",
+    //     carts: res.locals.carts,
+    //     bookFound:  searchResult,
+    //     }) 
 });
+
+
+
+// app.post("/danhmuc",async(req,res)=>{
+//     const { filterem } = req.body;
+//     // console.log(filterem);
+//     const product2 = await dataProduct.find({ "sach.gia": { $gt: , $lt: } });
+
+//     const searchResult = globalSearchResult;
+//     // console.log(product2);
+//     let productToShow;
+    
+//     if (product2 && product2.length > 0) {
+//         productToShow = product2;
+//     } else {
+//         productToShow = await dataProduct.find();
+//     }
+
+//     res.render('danhmuc',{ pros: productToShow,
+//         userN: req.session.username, 
+//         login: "login",
+//         logout: "logout",
+//         carts: res.locals.carts,
+//         bookFound:  searchResult,
+//         }) 
+// })
+
+// app.get("/danhmuc",async(req,res)=>{
+//     const { filterem } = req.body;
+//     // console.log(filterem);
+//     // const product = await dataProduct.find()
+//     let p = y;
+//     const searchResult = globalSearchResult;
+//     let productToShow;
+    
+//     if (p && p.length > 0) {
+//         productToShow = p;
+//     } else {
+//         productToShow = await dataProduct.find();
+//     }
+//     res.render('danhmuc',{ pros: productToShow,
+//         userN: req.session.username, 
+//         login: "login",
+//         logout: "logout",
+//         carts: res.locals.carts,
+//         bookFound:  searchResult,
+//         }) 
+// })
 
 let books = [];
 let bookfind = [];
@@ -447,8 +476,16 @@ app.get("/delivery",calculateTotalQuantity, async(req, res)=>{
 
 
 
-app.listen(PORT, () => {
-    console.log(`Server is running on localhost:${PORT}`);
+portfinder.getPort((err, port) => {
+    if (err) {
+        console.error('Không thể tìm PORT trống:', err);
+        return;
+    }
+    
+    // Lắng nghe trên PORT đã tìm được
+    app.listen(port, () => {
+        console.log(`Server running on :  localhost:${port}`);
+    });
 });
 
 

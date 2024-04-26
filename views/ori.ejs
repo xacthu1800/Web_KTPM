@@ -19,44 +19,33 @@
     <nav>
         <ul>
             <li class="li">
-                <a href="/index" class="">Trang chủ</a>
+                <strong><a href="/index" class="navbarcss">Trang chủ</a></strong>
             </li>
             <li class="li">
-                <a href="/danhmuc">Danh mục</a>
+                <strong><a href="/danhmuc" class="navbarcss">Danh mục</a></strong>
             </li>
             <li class="li">
-                <a href="#" id="search-link">Tìm kiếm</a>
+                <strong><a href="#" id="search-link" class="navbarcss">Tìm kiếm</a></strong>
             </li>
             <li class="dropdown li" >
-                <a href="#" id="user-link">Người dùng</a>
+                <strong><a href="#" id="user-link" class="navbarcss">Người dùng</a></strong>
                 <div class="dropdown-content">
                     <div class="login-box">
-    
                         <% if(userN == null) { %>
                             <!-- TRƯỚC KHI ĐĂNG NHẬP -->
                             <form id="login-form" class="hidden-form" action="/login" method="post"> <!-- Bắt đầu form ẩn đi -->
-                                <label style="font-size: 1.3rem;"><strong>ĐĂNG NHẬP TÀI KHOẢN</strong></label>
+                                <label style="font-size: 1.8rem;"><strong>ĐĂNG NHẬP TÀI KHOẢN</strong></label>
     
                                 <label for="uname"><strong>Email:</strong></label>
-                                <input type="text" id="uname" name="username" placeholder="Enter your name" required autocomplete="off">
+                                <input type="text" id="uname" name="username" placeholder="Tên đăng nhập" required autocomplete="off">
     
                                 <label for="pass"><strong>Password:</strong></label>
-                                <input type="password" id="pass" name="password" placeholder="password" required>
+                                <input type="password" id="pass" name="password" placeholder="Mật khẩu" required>
     
-                                <button type="submit" id="login-button">ĐĂNG NHẬP</button><br>
+                                <button type="submit" id="login-button"><strong>ĐĂNG NHẬP</strong></button><br>
                                 
-                                <label>Khách hàng mới?  <strong><a href="/signup">Tạo tài khoản</a></strong></label>
-                                <label style="color: red; font-weight: bold; " id="notifcation">
-                                    <% if (typeof error !== 'undefined' && error !== null) { %>
-                                        <%= error %>
-                                    <% } %>         
-                                </label>
-                                <label style="color: green; font-weight: bold; ">
-                                    <% if (typeof message !== 'undefined' && message !== null) { %>
-                                        <%= message %>
-                                    <% } %>         
-                                </label>
-                             <!--    <label>Quên mật khẩu?  <strong>Khôi phục mật khẩu</strong></label> -->
+                                <label>Khách hàng mới?<strong><a href="/signup">Tạo tài khoản</a></strong></label>
+                                <label>Quên mật khẩu?<strong><a href="#">Khôi phục mật khẩu</a></strong></label>
                             </form>
                         <% } else { %>
                             <!-- SAU KHI ĐĂNG NHẬP -->
@@ -69,21 +58,18 @@
                                         text-decoration-color: black;
                                     }
                                 </style>
-                                <label id="checkout" style="font-size: 1.3rem; align-self: center; margin-bottom: 1px;"><strong><a href="/delivery">ĐƠN HÀNG CỦA BẠN</a></strong></label>
-                                <div style="width: 100%; align-items: center; display: flex; justify-content: center;">
-                                    <hr style="border: 0; border-bottom: 1px solid black; margin: 1.5rem 0; width: 100%;">
+                                <label id="checkout"><strong><a href="/delivery">ĐƠN HÀNG CỦA BẠN</a></strong></label>
+                                <div>
+                                  <hr style="border: 0; border-bottom: 2px solid black; margin: 1.5rem 0; width: 100%;">
                                 </div>
-                                <label id="logout" style="font-size: 1.3rem; align-self: center; margin-bottom: 1px;"><strong><a href="/logout">ĐĂNG XUẤT</a></strong></label>
+                                <label id="logout"><strong><a href="/logout">ĐĂNG XUẤT</a></strong></label>
                             </form>
                         <% } %>
-                            
-    
-    
                     </div>
                 </div>
                 <li id="cart-container">
                     <div class="cart-box">
-                        <span><a href="/cart">GIỎ HÀNG</a></span>
+                        <strong><span><a href="/cart" class="navbarcss">GIỎ HÀNG</a></span></strong>
                     </div>
                     <div class="cart-box">
                         <%= carts %>
@@ -101,10 +87,11 @@
     <div class="search-box-container" id="search-box-container">
         <div class="search-box">
             <input type="text" id="search-input" placeholder="Bạn đang muốn tìm gì?">
-            <button id="search-button">Tìm kiếm</button>
+            <button id="search-button">TÌM KIẾM</button>
         </div>
     </div>
     </header>
+
 <!-- Container1 -->
 <main class="container1">
 	
