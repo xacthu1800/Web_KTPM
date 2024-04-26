@@ -5,8 +5,9 @@ const bcrypt = require('bcrypt')
 const session = require('express-session');
 const {dataUser, dataProduct, delivery, record} = require('./config');
 const { log } = require('console');
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 9000;
 const { ObjectId } = require('mongodb');
+const portfinder = require('portfinder');
 
 
 
@@ -317,10 +318,8 @@ app.get("/danhmuc", async (req, res) => {
     } else {
         productToShow = await dataProduct.find();
     }
-
-    res.render('danhmuc', {
-        pros: productToShow,
-        userN: req.session.username,
+    res.render('danhmuc',{ pros: productToShow,
+        userN: req.session.username, 
         login: "login",
         logout: "logout",
         carts: res.locals.carts,
@@ -452,8 +451,16 @@ app.get("/delivery",calculateTotalQuantity, async(req, res)=>{
 
 
 
-app.listen(PORT, () => {
-    console.log(`Server is running on localhost:${PORT}`);
+portfinder.getPort((err, port) => {
+    if (err) {
+        console.error('Không thể tìm PORT trống:', err);
+        return;
+    }
+    
+    // Lắng nghe trên PORT đã tìm được
+    app.listen(port, () => {
+        console.log(`Server running on :  localhost:${port}`);
+    });
 });
 
 
