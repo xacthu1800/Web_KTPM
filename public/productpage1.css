@@ -7,6 +7,10 @@
 	margin-bottom: 10px;
 }
 /* NavBar */
+.navbarcss{
+  font-family: 'Baloo 2', sans-serif;
+}
+
 header {
   position: fixed;
   top: 0;
@@ -24,9 +28,10 @@ header {
 }
 
 header .logo {
-  font-size: 30px;
+  font-size: 30px ;
   text-transform: uppercase;
   font-weight: 600;
+  font-family: 'Baloo 2', sans-serif;
 }
 
 header nav ul {
@@ -109,12 +114,14 @@ header nav ul li a.active {
   padding: 20px;
   border: 3px solid black;
   box-sizing: border-box;
+  
 }
 
 .search-box {
   display: flex;
   align-items: center;
 justify-content: center;
+  font-size: 1.2rem;
 }
 
 .search-box input[type="text"] {
@@ -124,6 +131,7 @@ justify-content: center;
   width: 70%;
   margin-right: 10px;
 font-size: 0.9rem;
+  font-family: 'Baloo 2', sans-serif;
 }
 
 .search-box button {
@@ -135,24 +143,12 @@ font-size: 0.9rem;
   cursor: pointer;
 font-weight: bold;
 font-size: 0.9rem;
+  font-family: 'Baloo 2', sans-serif;
 }
 
 .search-box button:hover {
   background-color: black;
 color: white;
-}
-
-li{
-  font-weight: 600;
-}
-
-.li {
-  margin-top:3px;
-
-}
-
-li{
-  font-weight: 600;
 }
 
 .li {
@@ -188,7 +184,6 @@ color: white;
   color: #fff;
 }
 
-
 .dropdown {
   position: relative;
 
@@ -196,13 +191,13 @@ color: white;
 
 .dropdown-content {
   display: none;
-margin-top: 14px;
+margin-top: 8px;
 border: 3px solid black;
 border-collapse: collapse;
   position: absolute;
   top: 100%;
   left: 0;
-  width: 411px;
+  width: 440px;
   background-color: #fff;
   z-index: 1000;
 }
@@ -214,22 +209,23 @@ border-collapse: collapse;
 .login-box form {
   display: flex;
   flex-direction: column;
+  font-family: 'Baloo 2', sans-serif;
 }
 
 .login-box label {
-margin-bottom: 10px;
-font-size: 1.1rem;
+margin-bottom: 5px;
+font-size: 1.2rem;
 }
 
 .login-box input {
-  padding: 5px;
+  padding: 10px;
   margin-bottom: 10px;
-  border: 2px solid black;
+  border: 3px solid black;
   border-radius: 4px;
 }
 
 .login-box button {
-  padding: 5px 10px;
+  padding: 10px 10px;
   background-color: white;
   color: black;
   border: 3px solid black;
@@ -244,9 +240,32 @@ font-size: 1rem;
 color: white;
 }
 
+.login-box a {
+  text-decoration: none;
+  font-size: 1.2rem;
+  margin-left: 5px;
+}
+
+#checkout {
+  font-size: 3rem;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  padding: 0px;
+  margin-top: -10px;
+}
+
+#logout {
+  font-size: 2rem;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+}
+
 .hidden-form {
   display: none; /* Hide the form */
 }
+
 /* Product img & des */
 /* Basic Styling */
 html, body {
