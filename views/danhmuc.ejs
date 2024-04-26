@@ -20,7 +20,7 @@
     <nav>
         <ul>
             <li class="li">
-                <a href="/index" class="">Trang chủ</a>
+                <a href="/index" class="" onclick="resetState()">Trang chủ</a>
             </li>
             <li class="li">
                 <a href="/danhmuc">Danh mục</a>
@@ -233,13 +233,13 @@
                     <% if (book) { %>
                         <div class="itemSP">
                             <div class="imgSP">
-                                <img src="<%= book.sach[0].picURL %>" alt="imageSP" onclick="Click('<%= book.name %>', '<%= book.author %>')">
+                                <img src="<%= book.sach[0].picURL %>" alt="imageSP" onclick="Click('<%= book.name %>', '<%= book.author %>'), resetState()">
                                 <div>
                                     <button type="button" class="add-btn" onclick="checkSession('<%= book._id %>')">Thêm vào giỏ </button>
                                 </div>
                             </div>
                             <div class="contentSP">
-                                <a href="#" class="book-title" onclick="Click('<%= book.name %>', '<%= book.author %>')"><%= book.name %></a>
+                                <a href="#" class="book-title" onclick="Click('<%= book.name %>', '<%= book.author %>'), resetState()"><%= book.name %></a>
                                 <p class="author">Tác giả: <span><%= book.author %></span></p>
                                 <div><span class="giaTien"><%= (book.sach[0].gia).toLocaleString('vi-VN', {style: 'currency', currency: 'VND'}) %></span></div>
                             </div>
@@ -250,13 +250,13 @@
                 <% pros.forEach(book => { %>
                     <div class="itemSP">
                         <div class="imgSP">
-                            <img src="<%= book.sach[0].picURL %>" alt="imageSP" onclick="Click('<%= book.name %>', '<%= book.author %>')">
+                            <img src="<%= book.sach[0].picURL %>" alt="imageSP" onclick="Click('<%= book.name %>', '<%= book.author %>'), resetState()">
                             <div>
                                 <button type="button" class="add-btn" onclick="checkSession('<%= book._id %>')">Thêm vào giỏ </button>
                             </div>
                         </div>
                         <div class="contentSP">
-                            <a href="#" class="book-title" onclick="Click('<%= book.name %>', '<%= book.author %>')"><%= book.name %></a>
+                            <a href="#" class="book-title" onclick="Click('<%= book.name %>', '<%= book.author %>'), resetState()"><%= book.name %></a>
                             <p class="author">Tác giả: <span><%= book.author %></span></p>
                             <div><span class="giaTien"><%= (book.sach[0].gia).toLocaleString('vi-VN', {style: 'currency', currency: 'VND'}) %></span></div>
                         </div>
@@ -537,10 +537,56 @@
         //getProductPage()
     }
 
-    
+    // Trước khi redirect, lưu trạng thái của các ô checkbox
+function saveCheckboxState() {
+    const checkboxes = document.querySelectorAll('input[name="tag"]');
+    const checkedValues = [];
+    checkboxes.forEach((checkbox) => {
+        if (checkbox.checked) {
+            checkedValues.push(checkbox.value);
+        }
+    });
+    sessionStorage.setItem('checkboxState', JSON.stringify(checkedValues));
+}
+
+// Sau khi load lại trang, áp dụng lại trạng thái của các ô checkbox
+window.onload = function() {
+    const savedState = sessionStorage.getItem('checkboxState');
+    if (savedState) {
+        const checkedValues = JSON.parse(savedState);
+        const checkboxes = document.querySelectorAll('input[name="tag"]');
+        checkboxes.forEach((checkbox) => {
+            if (checkedValues.includes(checkbox.value)) {
+                checkbox.checked = true;
+            }
+        });
+    }
+};
+
+// JavaScript code
+function resetState() {
+    // Gửi yêu cầu POST đến /reset để reset trạng thái
+    fetch('/resetpage', { method: 'POST' })
+        .then(response => {
+            
+        })
+        .catch(error => console.error('Error resetting state:', error));
+}
+
     </script>
    
    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+    const selectedItems = /* lấy danh sách các ô đã chọn từ server */;
+    selectedItems.forEach(item => {
+        const checkbox = document.querySelector(`input[name="tag"][value="${item}"]`);
+        if (checkbox) {
+            checkbox.checked = true;
+        }
+    });
+});
+
         // Đảm bảo mã JavaScript được thực thi sau khi tài liệu HTML đã được tải
         document.addEventListener('DOMContentLoaded', function() {
             // Lấy phần tử "login-button"

@@ -263,6 +263,14 @@ app.get("/productpage", (req,res)=>{
     return
 })
 
+app.post("/resetpage", async (req, res) => {
+    y = []; 
+    num = []; 
+    res.sendStatus(200); 
+});
+
+
+
 app.post("/reset", async (req, res) => {
     y = []; 
     num = []; 
@@ -274,11 +282,8 @@ let y = [];
 let num = [];
 app.post("/danhmuc", async (req, res) => {
     const { filterem, pricefil} = req.body;
-    // console.log(pricefil);
-    // console.log(typeof(0));
-    //const { pricefil} = req.body;
-    // Xử lý tìm kiếm dựa trên filterem
 
+    
     if (filterem.length > 0){
         if (parseInt(pricefil) > 0) {
         let prices = parseInt(pricefil) + 50000;
@@ -320,7 +325,7 @@ app.get("/danhmuc", async (req, res) => {
         logout: "logout",
         carts: res.locals.carts,
         bookFound: globalSearchResult,
-    });
+        });
 });
 
 let books = [];
