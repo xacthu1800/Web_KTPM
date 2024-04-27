@@ -10,4 +10,3 @@ for instance, this is the path to the source code on my pc: " C:\Users\nguye\One
 use this command to run the project : "npm start"
 on my pc it should be looked like this: " C:\Users\nguye\OneDrive\Máy tính\Web_KTPM> npm start "
 
-the project will probably run on the port 9000 of your computer. if it doesn't work, please open the "config.js" in the folder "src" of the source code. in the line "const PORT = process.env.PORT || 9000;"  change the 9000 to other number (recommend the 3000, 6000, 7000 PORT). save that file and run the npm start again, it should be work
