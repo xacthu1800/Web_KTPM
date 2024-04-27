@@ -10,6 +10,12 @@
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="stylesheet" href="HomePage.css">
     <script src="/indexFunction.js"></script>
+    <script>
+        const currentPath = window.location.pathname;
+        if (!currentPath.startsWith('/danhmuc')) {
+        localStorage.clear();
+    }
+    </script>
 </head>
 
 <body>

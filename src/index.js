@@ -311,6 +311,8 @@ app.post("/danhmuc", async (req, res) => {
 app.get("/danhmuc", async (req, res) => {
     const filterResult = y;
     //const priceResult = num;
+    
+
 
     let productToShow;      
     if (filterResult.length > 0) {
@@ -324,6 +326,7 @@ app.get("/danhmuc", async (req, res) => {
         logout: "logout",
         carts: res.locals.carts,
         bookFound: globalSearchResult,
+        redirected: req.query.redirected 
         });
 });
 

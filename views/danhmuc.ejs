@@ -9,6 +9,32 @@
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 <script src="indexFunction.js"></script>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    const checkboxes = document.querySelectorAll('.tag-checkbox');
+
+    // Load checkbox states from localStorage when the page loads
+    checkboxes.forEach(function(checkbox) {
+        const savedState = localStorage.getItem(checkbox.value);
+        if (savedState === 'checked') {
+            checkbox.checked = true;
+        }
+    });
+
+    // Save checkbox state to localStorage when a checkbox is clicked
+    checkboxes.forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+            localStorage.setItem(checkbox.value, checkbox.checked ? 'checked' : '');
+        });
+    });
+
+
+});
+
+
+
+    </script>
+
 </head>
 
 <body>
@@ -105,14 +131,14 @@
                     <ul class='filter'>
                         <li >
                             <label class="checkbox-container">
-                                <input type="checkbox" name="tag" value="Lãng mạn">
+                                <input type="checkbox" name="tag" value="Lãng mạn" class="tag-checkbox">
                                 <a>Lãng mạn<i class='item-total'></i></a>
                                 <span class="checkmark"></span>
                             </label>
                         </li>
                         <li >
                             <label class="checkbox-container">
-                                <input type="checkbox" name="tag" value="Girls Love">
+                                <input type="checkbox" name="tag" value="Girls Love" class="tag-checkbox">
                                 <a>Girls Love<i class='item-total'></i></a>
                                 <span class="checkmark"></span>
                             </label>
@@ -120,70 +146,70 @@
                         </li>
                         <li >
                             <label class="checkbox-container">
-                                <input type="checkbox" name="tag" value="Hài hước">
+                                <input type="checkbox" name="tag" value="Hài hước" class="tag-checkbox">
                                 <a>Hài Hước<i class='item-total'></i></a>
                                 <span class="checkmark"></span>
                             </label>
                         </li>
                         <li >
                             <label class="checkbox-container">
-                                <input type="checkbox" name="tag" value="Đời thường">
+                                <input type="checkbox" name="tag" value="Đời thường" class="tag-checkbox">
                                 <a>Đời Thường<i class='item-total'></i></a>
                                 <span class="checkmark"></span>
                             </label>
                         </li>
                         <li >
                             <label class="checkbox-container">
-                                <input type="checkbox" name="tag" value="Âm nhạc">
+                                <input type="checkbox" name="tag" value="Âm nhạc" class="tag-checkbox">
                                 <a>Âm Nhạc<i class='item-total'></i></a>
                                 <span class="checkmark"></span>
                             </label>
                         </li>
                         <li >
                             <label class="checkbox-container">
-                                <input type="checkbox" name="tag" value="Shounen">
+                                <input type="checkbox" name="tag" value="Shounen" class="tag-checkbox"> 
                                 <a>Shounen<i class='item-total'></i></a>
                                 <span class="checkmark"></span>
                             </label> 
                         </li>
                         <li >
                             <label class="checkbox-container">
-                                <input type="checkbox" name="tag" value="Giả tưởng">
+                                <input type="checkbox" name="tag" value="Giả tưởng" class="tag-checkbox">
                                 <a>Giả Tưởng<i class='item-total'></i></a>
                                 <span class="checkmark"></span>
                             </label> 
                         </li>
                         <li >
                             <label class="checkbox-container">
-                                <input type="checkbox" name="tag" value="Drama">
+                                <input type="checkbox" name="tag" value="Drama" class="tag-checkbox">
                                 <a>Drama<i class='item-total'></i></a>
                                 <span class="checkmark"></span>
                             </label>    
                         </li>
                         <li >
                             <label class="checkbox-container">
-                                <input type="checkbox" name="tag" value="Drama tâm lý">
+                                <input type="checkbox" name="tag" value="Drama tâm lý" class="tag-checkbox">
                                 <a>Drama Tâm Lý<i class='item-total'></i></a>
                                 <span class="checkmark"></span>
                             </label> 
                         </li>
                         <li >
                             <label class="checkbox-container">
-                                <input type="checkbox" name="tag" value="Mecha">
+                                <input type="checkbox" name="tag" value="Mecha" class="tag-checkbox">
                                 <a>Mecha<i class='item-total'></i></a>
                                 <span class="checkmark"></span>
                             </label> 
                         </li>
                         <li >
                             <label class="checkbox-container">
-                                <input type="checkbox" name="tag" value="Hành động">
+                                <input type="checkbox" name="tag" value="Hành động" class="tag-checkbox">
                                 <a>Hành Động<i class='item-total'></i></a>
                                 <span class="checkmark"></span>
                             </label>
                         </li>
                         <li >
                             <label class="checkbox-container">
-                                <input type="checkbox" name="tag" value="Học đường">
+                                <input type="checkbox" name="tag" value="Học đường" class="tag-checkbox">
                                 <a>Học Đường<i class='item-total'></i></a>
                                 <span class="checkmark"></span>
                             </label>
@@ -195,28 +221,28 @@
                     <ul class="filter">
                         <li>
                             <label class="checkbox-container">
-                                <input type="checkbox" name="price" value="1">
+                                <input type="checkbox" name="price" value="1" class="tag-checkbox">
                                 <a>Nhỏ hơn 50.000đ</a>
                                 <span class="checkmark"></span>
                             </label>    
                         </li>
                         <li>
                             <label class="checkbox-container">
-                                <input type="checkbox" name="price" value="50001">
+                                <input type="checkbox" name="price" value="50001" class="tag-checkbox">
                                 <a>Từ 50.000đ - 100.000đ</a>
                                 <span class="checkmark"></span>
                             </label> 
                         </li>
                         <li>
                             <label class="checkbox-container">
-                                <input type="checkbox" name="price" value="100001">
+                                <input type="checkbox" name="price" value="100001" class="tag-checkbox">
                                 <a>Từ 100.000đ - 150.000đ</a>
                                 <span class="checkmark"></span>
                             </label>
                         </li>
                         <li>
                             <label class="checkbox-container">
-                                <input type="checkbox" name="price" value="150001">
+                                <input type="checkbox" name="price" value="150001" class="tag-checkbox">
                                 <a>Từ 150.000đ - 200.000đ</a>
                                 <span class="checkmark"></span>
                             </label>
