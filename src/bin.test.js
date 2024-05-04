@@ -7,7 +7,7 @@ const  checkAccount = require('./function/checkAccount');
 
     beforeEach(async () => {
         // Gọi hàm checkAccount và lưu kết quả vào biến result
-        result = await checkAccount('111', '111');
+        result = await checkAccount('11', '11');
     });
 
     test('Check existing account with correct password', () => {

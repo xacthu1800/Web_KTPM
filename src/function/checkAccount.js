@@ -9,6 +9,7 @@ mongoose.connect("mongodb+srv://nguyenvanbin9a10:I5m3xytYKQjOH4D1@cluster1.xxrs0
     .catch((err) => {
         console.error('Database connection error:', err);
     });
+    
 const {dataUser} = require('../config');
 
 
