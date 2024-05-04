@@ -1,15 +1,17 @@
-const { dataUser, dataProduct } = require('./config');
+const  checkAccount = require('./function/checkAccount');
 
-async function fun() {
-    let x = await dataProduct.find();
-    return x;
-}
 
-async function processData() {
-    let a = await fun();
-    Object.keys(a).forEach(key => {
-        console.log(`${key}: ${a[key].picURL}`);
+
+ describe('test checkAccount function', () => {
+    let result;
+
+    beforeEach(async () => {
+        // Gọi hàm checkAccount và lưu kết quả vào biến result
+        result = await checkAccount('111', '111');
     });
-}
 
-processData();
+    test('Check existing account with correct password', () => {
+        // Kiểm tra kết quả
+        expect(result).toBe(200);
+    });
+}); 

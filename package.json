@@ -5,13 +5,14 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon ./src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "tail": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch",
     "pretty": "npx prettier --write ./views"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "jest": "^29.7.0",
     "prettier": "3.2.5",
     "tailwindcss": "^3.4.1"
   },

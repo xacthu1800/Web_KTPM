@@ -67,7 +67,6 @@ app.post("/signup",async (req,res)=>{
 //Login user
 app.post("/login",async (req,res)=>{
     try{
-
         const check = await dataUser.findOne({name:req.body.username})
         if(!check){
              res.render('login',{ error: "User not found, please try again" });
