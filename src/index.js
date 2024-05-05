@@ -3,12 +3,13 @@ const mongoose = require('mongoose')
 const path = require('path')
 const bcrypt = require('bcrypt')
 const session = require('express-session');
-const {dataUser, dataProduct, delivery, record} = require('./config');
 const { log } = require('console');
-const PORT = process.env.PORT || 9000;
 const { ObjectId } = require('mongodb');
 const portfinder = require('portfinder');
 
+
+
+const {dataUser, dataProduct, delivery, record} = require('./config');
 
 
 
@@ -464,8 +465,6 @@ portfinder.getPort((err, port) => {
         console.log(`Server running on :  localhost:${port}`);
     });
 });
-
-
 
 
 
