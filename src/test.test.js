@@ -1,12 +1,15 @@
 const  checkAccount = require('./function/checkAccount');
 const  checkEncryptedPass = require('./function/checkEncryptedPass');
 const  takeFullBookInfor = require('./function/takeFullBookInfor');
+
 const {additem} = require('./function/checkItemsInCart');
 const itemsInCart = require('./function/itemsInCart');
+const checkHistoryOrder = require('./function/checkHistoryOrder');
 
 
 
-describe('test checkAccount function', () => {
+
+describe('test checkAccount functio --- task 4.2-3', () => {
     let result;
 
     beforeEach(async () => {
@@ -20,7 +23,7 @@ describe('test checkAccount function', () => {
     });
 }); 
 
-describe('test checkEncryptedPass function', () => {
+describe('test checkEncryptedPass function --- task 4.2-5', () => {
     let result;
 
     beforeEach(async () => {
@@ -37,7 +40,7 @@ describe('test checkEncryptedPass function', () => {
     });
 }); 
 
-describe('test Book full information', () => {
+describe('test Book full information --- task 4.2-6', () => {
     test('Test takeFullBookInfor function', async () => {
         // Gọi hàm takeFullBookInfor và lưu kết quả vào biến takeFullBookInforResult
         const takeFullBookInforResult = await takeFullBookInfor('BOCCHI THE ROCK - TẬP 1');
@@ -56,32 +59,30 @@ describe('test Book full information', () => {
     });
 });
 
-describe('test items in cart', () => {
+
+
+describe('test items in cart --- task 4.2-2', () => {
     test('Test checkItemsInCart function', async () => {
         let cart = [];
-       // checkItemsIncart function is sync with additem.
-        const result1 = additem('bin', cart)
-        const result2 = additem('bin', cart)
-        const result3 = additem('bin', cart)
+       // kiểm tra tổng item đang có trong giỏ hàng ( cái số bên phải giỏ hàng ở cái giao diện )
+        const result1 = additem('bocchi', cart)
+        const result2 = additem('bocchi', cart)
+        const result3 = additem('bocchi', cart)
 
-        const result4 = additem('phuc', cart)
-        const result5 = additem('phuc', cart)
+        const result4 = additem('bokuno hero', cart)
+        const result5 = additem('high school dxd', cart)
 
 
 
         
-       expect(result1).toBe(1)
-       expect(result2).toBe(2)
        expect(result3).toBe(3)
-
-       expect(result4).toBe(1)
-       expect(result5).toBe(2)
+       expect(result5).toBe(5)
 
 
     });
 });
 
-describe('test items information is in cart --- task 4.2-4', () => {
+describe('test items information  in cart --- task 4.2-4', () => {
     test('Test itemsInCart function', async () => {
         let cart = [];
        // checkItemsIncart function is sync with additem.
@@ -99,3 +100,23 @@ describe('test items information is in cart --- task 4.2-4', () => {
     });
 });
 
+describe('test history order per account --- task 4.2-8', () => {
+    test('Test checkHistoryOrder function', async () => {
+       const history_11 = await checkHistoryOrder('11')
+       const history_bin = await checkHistoryOrder('bin')
+
+       expect(history_11).toBeDefined()
+       expect(history_bin).toBeDefined()
+    });
+
+    test('Test checkHistoryOrder function', async () => {
+        await expect(checkHistoryOrder('fasdfhasdjfklasklfdkl')).resolves.toEqual(0);
+     });
+
+
+
+
+     //test case này nhận vào 1 user 
+     // nếu tồn tại user trong database thì sẽ trả về giá trị
+     // nếu user không tồn tại thì nó trả về giá trị 0
+});
