@@ -82,7 +82,7 @@ describe('test items in cart --- task 4.2-2', () => {
     });
 });
 
-describe('test items information  in cart --- task 4.2-4', () => {
+describe('test items quantity  in cart --- task 4.2-4', () => {
     test('Test itemsInCart function', async () => {
         let cart = [];
        // checkItemsIncart function is sync with additem.
