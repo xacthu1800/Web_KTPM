@@ -1,7 +1,7 @@
 const  checkAccount = require('./function/checkAccount');
 const  checkEncryptedPass = require('./function/checkEncryptedPass');
 const  takeFullBookInfor = require('./function/takeFullBookInfor');
-
+const {additem} = require('./function/checkItemsInCart');
 
 describe('test checkAccount function', () => {
     let result;
@@ -52,3 +52,31 @@ describe('test Book full information', () => {
         expect(takeFullBookInforResult.DoiTuong).toBe('15+');
     });
 });
+
+describe('test items in cart', () => {
+    test('Test checkItemsInCart function', async () => {
+        let cart = [];
+       // checkItemsIncart function is sync with additem.
+        const result1 = additem('bin', cart)
+        const result2 = additem('bin', cart)
+        const result3 = additem('bin', cart)
+
+        const result4 = additem('phuc', cart)
+        const result5 = additem('phuc', cart)
+
+
+
+        
+       expect(result1).toBe(1)
+       expect(result2).toBe(2)
+       expect(result3).toBe(3)
+
+       expect(result4).toBe(1)
+       expect(result5).toBe(2)
+
+
+    });
+});
+
+
+
