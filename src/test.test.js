@@ -2,6 +2,9 @@ const  checkAccount = require('./function/checkAccount');
 const  checkEncryptedPass = require('./function/checkEncryptedPass');
 const  takeFullBookInfor = require('./function/takeFullBookInfor');
 const {additem} = require('./function/checkItemsInCart');
+const itemsInCart = require('./function/itemsInCart');
+
+
 
 describe('test checkAccount function', () => {
     let result;
@@ -78,5 +81,21 @@ describe('test items in cart', () => {
     });
 });
 
+describe('test items information is in cart --- task 4.2-4', () => {
+    test('Test itemsInCart function', async () => {
+        let cart = [];
+       // checkItemsIncart function is sync with additem.
+        const result1 = itemsInCart('bocchi', cart)
+        const result2 = itemsInCart('bocchi', cart)
 
+
+
+
+        // lúc này đã thêm 2 product tên bocchi vào giỏ hàng. và cũng đã trả ra số lượng là 2 
+        expect((result2.find(cart => cart.name === 'bocchi')).name).toBe('bocchi')
+        expect((result2.find(cart => cart.name === 'bocchi')).quantity).toBe(2)
+
+
+    });
+});
 
