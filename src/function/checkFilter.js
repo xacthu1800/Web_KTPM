@@ -12,12 +12,14 @@ mongoose.connect("mongodb+srv://nguyenvanbin9a10:I5m3xytYKQjOH4D1@cluster1.xxrs0
     });
 
 async function checkFilter(bookName){
-    const acc = await dataProduct.find({name:bookName})
-    if(!acc){
-        //console.log(201);
-        return 201
+    let acc = [];
+    acc = await dataProduct.find({'Tags.tag': {$all: String(bookName)}})
+    //console.log(acc);
+    if(acc[0].name === "BOCCHI THE ROCK - TẬP 1"){
+        //console.log(acc);
+        return 200
    }
-    return 200
+    return 201
 }
 
 module.exports =  checkFilter

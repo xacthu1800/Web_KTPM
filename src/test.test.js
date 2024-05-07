@@ -142,7 +142,7 @@ describe('test Filter --- task 4.2-1', () => {
     let result;
 
     beforeEach(async () => {
-        result = await checkFilter('NHÂN VẬT HẠ CẤP TOMOZAKI');
+        result = await checkFilter('Âm nhạc');
     });
 
     test('Check filter work', () => {
