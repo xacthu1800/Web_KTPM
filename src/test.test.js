@@ -5,6 +5,9 @@ const  takeFullBookInfor = require('./function/takeFullBookInfor');
 const {additem} = require('./function/checkItemsInCart');
 const itemsInCart = require('./function/itemsInCart');
 const checkHistoryOrder = require('./function/checkHistoryOrder');
+const checkRelated = require('./function/checkRelated');
+const testSearchbar = require('./function/testSearchbar');
+const checkFilter = require('./function/checkFilter');
 
 
 
@@ -119,4 +122,44 @@ describe('test history order per account --- task 4.2-8', () => {
      //test case này nhận vào 1 user 
      // nếu tồn tại user trong database thì sẽ trả về giá trị
      // nếu user không tồn tại thì nó trả về giá trị 0
+});
+
+
+describe('test Searchbar --- task 4.2-7', () => {
+    let result;
+
+    beforeEach(async () => {
+        result = await testSearchbar('Bocchi');
+    });
+
+    test('Check existing', () => {
+        // Kiểm tra kết quả
+        expect(result).toBe(200);
+    });
+}); 
+
+describe('test Filter --- task 4.2-1', () => {
+    let result;
+
+    beforeEach(async () => {
+        result = await checkFilter('NHÂN VẬT HẠ CẤP TOMOZAKI');
+    });
+
+    test('Check filter work', () => {
+        // Kiểm tra kết quả
+        expect(result).toBe(200);
+    });
+}); 
+
+describe('test related Book --- task 4.2-9', () => {
+    test('Test checkRelated function', async () => {
+        
+        const checkRelatedbook = await checkRelated('KHẼ HÁT LỜI YÊU - TẬP 1');
+        
+        expect(checkRelatedbook).toBeTruthy();
+
+        expect(checkRelatedbook.LienQuan[0].name).toBe('KHẼ HÁT LỜI YÊU - TẬP 1');
+        expect(checkRelatedbook.LienQuan[1].name).toBe('KHẼ HÁT LỜI YÊU - TẬP 2');
+        expect(checkRelatedbook.LienQuan[2].name).toBe('KHẼ HÁT LỜI YÊU - TẬP 3');
+    });
 });
