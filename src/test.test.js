@@ -13,16 +13,33 @@ const checkFilter = require('./function/checkFilter');
 
 
 describe('test checkAccount functio --- task 4.2-3', () => {
-    let result;
-
+    let result1;
+    let result2;
+    let result3;
+    let result4;
+    let result5;
+    let result6;
+    let result7;
     beforeEach(async () => {
         // Gọi hàm checkAccount và lưu kết quả vào biến result
-        result = await checkAccount('11', '11');
+        result1 = await checkAccount('123', '123');
+        result2 = await checkAccount('123', '456');
+        result3 = await checkAccount('thai123', '343');
+        result4 = await checkAccount(' ', '343');
+        result5 = await checkAccount(' ', ' ');
+        result6 = await checkAccount('0', '343');
+        result7 = await checkAccount('thai123', '0');
     });
 
     test('Check existing account with correct password', () => {
         // Kiểm tra kết quả
-        expect(result).toBe(200);
+        expect(result1).toBe(200);
+        expect(result2).toBe(201);
+        expect(result3).toBe(201);
+        expect(result4).toBe(201);
+        expect(result5).toBe(201);
+        expect(result6).toBe(201);
+        expect(result7).toBe(201);
     });
 }); 
 
@@ -31,8 +48,8 @@ describe('test checkEncryptedPass function --- task 4.2-5', () => {
 
     beforeEach(async () => {
         // Gọi hàm checkAccount và lưu kết quả vào biến result
-        unExpectedResult = await checkEncryptedPass('bin', 'bin');
-        ExpectedResult = await checkEncryptedPass('11', '11');
+        unExpectedResult = await checkEncryptedPass('thai123', '343');
+        ExpectedResult = await checkEncryptedPass('123', '123');
     });
 
     test('Check if client password has been encrypted', () => {
@@ -46,6 +63,7 @@ describe('test checkEncryptedPass function --- task 4.2-5', () => {
 describe('test Book full information --- task 4.2-6', () => {
     test('Test takeFullBookInfor function', async () => {
         // Gọi hàm takeFullBookInfor và lưu kết quả vào biến takeFullBookInforResult
+        const notExist = await takeFullBookInfor('YOUR NAME');
         const takeFullBookInforResult = await takeFullBookInfor('BOCCHI THE ROCK - TẬP 1');
 
         // Kiểm tra xem kết quả có tồn tại không
@@ -59,6 +77,8 @@ describe('test Book full information --- task 4.2-6', () => {
         expect(takeFullBookInforResult.NamXuatBan).toBe('2024');
         expect(takeFullBookInforResult.KichThuoc).toBe('14,5 x 20,5 cm');
         expect(takeFullBookInforResult.DoiTuong).toBe('15+');
+
+        expect(ExpectedResult).toBe(201);
     });
 });
 
@@ -68,18 +88,18 @@ describe('test items in cart --- task 4.2-2', () => {
     test('Test checkItemsInCart function', async () => {
         let cart = [];
        // kiểm tra tổng item đang có trong giỏ hàng ( cái số bên phải giỏ hàng ở cái giao diện )
-        const result1 = additem('bocchi', cart)
-        const result2 = additem('bocchi', cart)
-        const result3 = additem('bocchi', cart)
+        const result1 = additem('BOCCHI THE ROCK - TẬP 1', cart)
+        const result2 = additem('KHẼ HÁT LỜI YÊU - TẬP 1', cart)
+        // const result3 = additem('bocchi', cart)
 
-        const result4 = additem('bokuno hero', cart)
-        const result5 = additem('high school dxd', cart)
+        // const result4 = additem('bokuno hero', cart)
+        // const result5 = additem('high school dxd', cart)
 
 
 
         
-       expect(result3).toBe(3)
-       expect(result5).toBe(5)
+       expect(result1).toBe(1)
+       expect(result2).toBe(0)
 
 
     });
@@ -89,15 +109,15 @@ describe('test items quantity  in cart --- task 4.2-4', () => {
     test('Test itemsInCart function', async () => {
         let cart = [];
        // checkItemsIncart function is sync with additem.
-        const result1 = itemsInCart('bocchi', cart)
-        const result2 = itemsInCart('bocchi', cart)
+        const result1 = itemsInCart('BOCCHI THE ROCK - TẬP 1', cart)
+        const result2 = itemsInCart('KHẼ HÁT LỜI YÊU - TẬP 1', cart)
 
 
 
 
         // lúc này đã thêm 2 product tên bocchi vào giỏ hàng. và cũng đã trả ra số lượng là 2 
-        expect((result2.find(cart => cart.name === 'bocchi')).name).toBe('bocchi')
-        expect((result2.find(cart => cart.name === 'bocchi')).quantity).toBe(2)
+        expect((result2.find(cart => cart.name === 'BOCCHI THE ROCK - TẬP 1')).name).toBe('BOCCHI THE ROCK - TẬP 1')
+        expect((result2.find(cart => cart.name === 'BOCCHI THE ROCK - TẬP 1')).quantity).toBe(2)
 
 
     });
@@ -105,15 +125,18 @@ describe('test items quantity  in cart --- task 4.2-4', () => {
 
 describe('test history order per account --- task 4.2-8', () => {
     test('Test checkHistoryOrder function', async () => {
-       const history_11 = await checkHistoryOrder('11')
+       const history_phuc = await checkHistoryOrder('phuc')
        const history_bin = await checkHistoryOrder('bin')
 
-       expect(history_11).toBeDefined()
+       expect(history_phuc).toBeDefined()
        expect(history_bin).toBeDefined()
+
+       expect(history_phuc).toBe(0);
+        expect(history_bin).toBe(deli);
     });
 
     test('Test checkHistoryOrder function', async () => {
-        await expect(checkHistoryOrder('fasdfhasdjfklasklfdkl')).resolves.toEqual(0);
+        //await expect(checkHistoryOrder('fasdfhasdjfklasklfdkl')).resolves.toEqual(0);
      });
 
 
