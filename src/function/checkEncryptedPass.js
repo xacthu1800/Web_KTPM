@@ -8,13 +8,6 @@ async function checkEncryptedPass(account, password) {
     if (password == hashedPassword) {
         return 201;
     }
-    if (password == hashedPassword) {
-        return 201;
-    }
-
     return 200;
 }
-
-console.log( checkEncryptedPass('123','123'));
-
  module.exports = checkEncryptedPass 
