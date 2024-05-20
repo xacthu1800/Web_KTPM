@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
 const {dataUser} = require('../config');
 
 async function checkEncryptedPass(account, password) {
@@ -7,20 +6,12 @@ async function checkEncryptedPass(account, password) {
     if (!acc) {
         return 201;
     }
-    const isPasswordMatch = await bcrypt.compare(password, acc.password);
-    if (isPasswordMatch) {
-        return 200;
+    if (password == acc.password) {
+        return 201;
     }
 
-    return 201;
+    return 200;
 }
 
-/* // Hàm gọi checkEncryptedPass và log kết quả
-async function run() {
-    const result = await checkEncryptedPass('123', '123');
-    console.log(result);
-}
-
-run(); */
 
 module.exports = checkEncryptedPass
