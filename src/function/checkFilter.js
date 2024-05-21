@@ -2,24 +2,23 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt'); // Add this line to import bcrypt
 const { dataProduct } = require('../config');
 
-// Connect to MongoDB database
-mongoose.connect("mongodb+srv://nguyenvanbin9a10:I5m3xytYKQjOH4D1@cluster1.xxrs0yh.mongodb.net/Login")
-    .then(() => {
-        console.log('Connected to database');
-    })
-    .catch((err) => {
-        console.error('Database connection error:', err);
-    });
-
-async function checkFilter(bookName){
+async function checkFilter(tag, bookName){
     let acc = [];
-    acc = await dataProduct.find({'Tags.tag': {$all: String(bookName)}})
+    acc = await dataProduct.find({'Tags.tag': {$all: String(tag)}})
     //console.log(acc);
-    if(acc[0].name === "BOCCHI THE ROCK - TẬP 1"){
+    if(acc[0].name === bookName){
         //console.log(acc);
         return 200
    }
     return 201
 }
 
-module.exports =  checkFilter
+/* async function run(){
+    result1 = await checkFilter('Âm nhạc', 'BOCCHI THE ROCK - TẬP 1');
+    result2 = await checkFilter('Âm nhạc', 'KHẼ HÁT LỜI YÊU - TẬP 1');
+    console.log(result1);
+    console.log(result2);
+}
+run() */
+
+module.exports =  checkFilter 
