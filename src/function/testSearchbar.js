@@ -12,8 +12,9 @@ mongoose.connect("mongodb+srv://nguyenvanbin9a10:I5m3xytYKQjOH4D1@cluster1.xxrs0
     });
 
 async function testSearchbar(bookName){
-    const acc = await dataProduct.find({name:bookName})
-    if(!acc){
+    const acc = await dataProduct.find({'name': {$all: String(bookName)}})
+    //console.log('acc: ', acc)
+    if(acc.length === 0){
         //console.log(201);
         return 201
    }

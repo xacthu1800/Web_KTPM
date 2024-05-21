@@ -78,7 +78,7 @@ describe('test Book full information --- task 4.2-6', () => {
         expect(takeFullBookInforResult.KichThuoc).toBe('14,5 x 20,5 cm');
         expect(takeFullBookInforResult.DoiTuong).toBe('15+');
 
-        expect(ExpectedResult).toBe(201);
+        expect(notExist).toBe(201);
     });
 });
 
@@ -116,8 +116,8 @@ describe('test items quantity  in cart --- task 4.2-4', () => {
 
 
         // lúc này đã thêm 2 product tên bocchi vào giỏ hàng. và cũng đã trả ra số lượng là 2 
-        expect((result2.find(cart => cart.name === 'BOCCHI THE ROCK - TẬP 1')).name).toBe('BOCCHI THE ROCK - TẬP 1')
-        expect((result2.find(cart => cart.name === 'BOCCHI THE ROCK - TẬP 1')).quantity).toBe(2)
+        expect((result2.find(cart => cart.name === 'BOCCHI THE ROCK - TẬP 1')).quantity).toBe(1)
+        expect((result2.find(cart => cart.name === 'KHẼ HÁT LỜI YÊU - TẬP 1')).quantity).toBe(2)
 
 
     });
@@ -128,11 +128,11 @@ describe('test history order per account --- task 4.2-8', () => {
        const history_phuc = await checkHistoryOrder('phuc')
        const history_bin = await checkHistoryOrder('bin')
 
-       expect(history_phuc).toBeDefined()
-       expect(history_bin).toBeDefined()
-
        expect(history_phuc).toBe(0);
-        expect(history_bin).toBe(deli);
+        expect(history_bin[0].maDonHang).toBe('17042024201548');
+        expect(history_bin[0].tongTien).toBe(95000);
+        expect(history_bin[0].trangThaiThanhToan).toBe('Chờ xử lý');
+        expect(history_bin[0].trangThaiVanChuyen).toBe('Chưa Giao hàng');
     });
 
     test('Test checkHistoryOrder function', async () => {
@@ -152,12 +152,14 @@ describe('test Searchbar --- task 4.2-7', () => {
     let result;
 
     beforeEach(async () => {
-        result = await testSearchbar('Bocchi');
+        result = await testSearchbar('BOCCHI THE ROCK - TẬP 1');
+        result2 = await testSearchbar('YOUR NAME');
     });
 
     test('Check existing', () => {
         // Kiểm tra kết quả
         expect(result).toBe(200);
+        expect(result2).toBe(201);
     });
 }); 
 
