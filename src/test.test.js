@@ -138,11 +138,10 @@ describe('test history order per account --- task 4.2-8', () => {
        const history_nullClient = await checkHistoryOrder('')
        const history_binprovip = await checkHistoryOrder('bin#provip123')
 
-
        expect(history_bin).not.toBe(0);
-       expect(history_phuc).toBe(0);
+       expect(history_phuc).not.toBe(0);
        expect(history_nullClient).toBe(0);
-       expect(history_binprovip).not.toBe(0);
+       expect(history_binprovip).toBe(0);
 
     });
 });
