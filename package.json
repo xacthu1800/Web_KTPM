@@ -8,7 +8,7 @@
     "test": "jest",
     "tail": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch",
     "pretty": "npx prettier --write ./views",
-    "runindex":"node ./src/index.js"
+    "runindex": "node ./src/index.js"
   },
   "author": "",
   "license": "ISC",
@@ -28,6 +28,8 @@
     "node-notifier": "^10.0.1",
     "nodemon": "^3.1.0",
     "popups": "^1.1.3",
-    "portfinder": "^1.0.32"
-  }
+    "portfinder": "^1.0.32",
+    "selenium-webdriver": "^4.21.0"
+  },
+  "mocha": "^10.2.0"
 }
