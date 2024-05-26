@@ -1,6 +1,6 @@
 const testSearchbar = require('../function/testSearchbar');
 
-describe('test Searchbar --- task 4.2-7', () => {
+describe('kiểm tra hàm tìm kiếm trong search bar', () => {
     let result;
 
     beforeEach(async () => {
@@ -8,7 +8,7 @@ describe('test Searchbar --- task 4.2-7', () => {
         result2 = await testSearchbar('YOUR NAME');
     });
 
-    test('Check existing', () => {
+    test('', () => {
         // Kiểm tra kết quả
         expect(result).toBe(200);
         expect(result2).toBe(201);
