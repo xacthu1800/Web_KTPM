@@ -3,7 +3,7 @@ const connect = mongoose.connect("mongodb+srv://nguyenvanbin9a10:I5m3xytYKQjOH4D
 
 //check database   connected or not
 connect.then(()=>{
-    console.log('connect database success')
+    //console.log('connect database success')
 })
 .catch(()=>{
     console.log('fail')

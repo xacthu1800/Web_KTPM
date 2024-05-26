@@ -12,6 +12,17 @@ async function checkFilter(tag, bookName){
    }
     return 201
 }
+module.exports =  checkFilter 
+
+
+
+
+
+
+
+
+
+
 
 /* async function run(){
     result1 = await checkFilter('Âm nhạc', 'BOCCHI THE ROCK - TẬP 1');
@@ -21,4 +32,3 @@ async function checkFilter(tag, bookName){
 }
 run() */
 
-module.exports =  checkFilter 
