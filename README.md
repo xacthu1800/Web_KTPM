@@ -7,6 +7,7 @@ to run the source code. make sure you had dowloaded and installed "nodejs" for t
 after that, open the terminal or power shell in this source code path.
 for instance, this is the path to the source code on my pc: " C:\Users\nguye\OneDrive\Máy tính\Web_KTPM> "
 
-use this command to run the project : "npm start"
-on my pc it should be looked like this: " C:\Users\nguye\OneDrive\Máy tính\Web_KTPM> npm start "
+- npm install (install necessary package)
+- npm start (run project)
+
 
