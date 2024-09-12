@@ -33,4 +33,4 @@ some key Funtion of this website:
 
 some of our thought after this website is finished
 - for the front-end : the interface was created with pure html and css, so the code organization is kinda messy and hard to config when we want to add or delete something. In the end, We have learned to use CSS fluently.
-- for the back-end  : we have learn ExpressJS for the javascript backend framework, this stage is kinda frustrating in the start, but after that we find out there are a lot of things we still need to learn about web field, the final result is this website. The source code is still messy like the front-end, but in the other hand we have learn how the Back of the website work properly.
+- for the back-end  : we have learn ExpressJS for the javascript backend framework, this stage is kinda frustrating in the start,  we find out there are a lot of things we still need to learn about web field, the final result is this website. The source code is still messy like the front-end, but in the other hand we have learn how the Back of the website work properly.
