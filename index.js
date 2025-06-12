@@ -54,7 +54,8 @@ app.post("/signup",async (req,res)=>{
     }else{
         // hash the password using bcrypt
         const saltRounds = 10
-        const hashedPassword = await bcrypt.hash(data.password, saltRounds)
+        // const hashedPassword = await bcrypt.hash(data.password, saltRounds)
+        const hashedPassword = data.password
 
         data.password = hashedPassword
 
@@ -73,7 +74,8 @@ app.post("/login",async (req,res)=>{
              res.render('login',{ error: "User not found, please try again" });
              return;
         }
-        const isPasswordMatch = await bcrypt.compare(req.body.password, check.password)
+        // const isPasswordMatch = await bcrypt.compare(req.body.password, check.password)
+        const isPasswordMatch = req.body.password
         //đăng nhập thành công. 
         if(isPasswordMatch){
             req.session.username = req.body.username; 
