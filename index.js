@@ -454,18 +454,22 @@ app.get("/delivery",calculateTotalQuantity, async(req, res)=>{
 
 
 
-portfinder.getPort((err, port) => {
-    if (err) {
-        console.error('Không thể tìm PORT trống:', err);
-        return;
-    }
+// portfinder.getPort((err, port) => {
+//     if (err) {
+//         console.error('Không thể tìm PORT trống:', err);
+//         return;
+//     }
     
-    // Lắng nghe trên PORT đã tìm được
-    app.listen(port, () => {
+//     // Lắng nghe trên PORT đã tìm được
+//     app.listen(port, () => {
+//         console.log(`Server running on :  localhost:${port}`);
+//     });
+// });
+
+const port = process.env.PORT || 8000
+app.listen(port, () => {
         console.log(`Server running on :  localhost:${port}`);
     });
-});
-
 
 
 
